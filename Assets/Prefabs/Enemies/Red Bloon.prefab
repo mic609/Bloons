@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8229490488641719922}
   - component: {fileID: 8229490488641719921}
   - component: {fileID: 8229490488641719923}
+  - component: {fileID: 1820851232306335572}
+  - component: {fileID: 2913598632785887363}
   m_Layer: 8
   m_Name: Red Bloon
   m_TagString: Enemy
@@ -25,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8229490488641719920}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.81, y: 3.3, z: 0}
-  m_LocalScale: {x: 0.7125, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.96, y: 3.223, z: 0}
+  m_LocalScale: {x: 0.625, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,10 +100,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _points:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5881182387736227846, guid: 314f6214dcbce8f42896f6c7e267f71b, type: 3}
+  - {fileID: 7667275203731667417, guid: 16d236ac6408e3b4396a861f6c5845d6, type: 3}
+  - {fileID: 6566688957604342799, guid: 51a436ca4441ce04c8d2b9c7bdf59747, type: 3}
+  - {fileID: 8238086350112004984, guid: d71205d809b08ff42821730b019149f1, type: 3}
+  - {fileID: 6921118280206369325, guid: e8e5988986cb94c4ba2acf3067b98e15, type: 3}
+  - {fileID: 8379628942105539054, guid: 49af980802b9bc54b88acc3e3c2e7ed0, type: 3}
   _movementSpeed: 1
+--- !u!70 &1820851232306335572
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
+--- !u!50 &2913598632785887363
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

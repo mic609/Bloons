@@ -1,15 +1,19 @@
+// The script describes enemy detection in range of the tower
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeCollider : MonoBehaviour
 {
+    [Header("Range")]
     [SerializeField] private float _radius;
-    [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Transform _rangeObject;
 
-    private List<Transform> _enemies;
-    private TowerAttack _towerAttack;
+    [Header("Enemy in range")]
+    [SerializeField] private LayerMask _layerMask;
 
+    [SerializeField] private List<Transform> _enemies;
+    private TowerAttack _towerAttack;
     private float _previuosRadius;
 
     private void Start()
@@ -59,6 +63,6 @@ public class RangeCollider : MonoBehaviour
 
     private void ChangeRadiusSize()
     {
-        _rangeObject.localScale = new Vector3(_radius * 2, _radius * 2, _rangeObject.localScale.z);
+        _rangeObject.localScale = new Vector3(_radius * 2.0f, _radius * 2.0f, _rangeObject.localScale.z);
     }
 }
