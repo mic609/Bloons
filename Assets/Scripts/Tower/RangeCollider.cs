@@ -6,14 +6,16 @@ public class RangeCollider : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Transform _rangeObject;
-    [SerializeField] private Transform _bullet;
-    private List<Transform> _enemies = new List<Transform>();
-    bool _enemyFound = false;
+
+    private List<Transform> _enemies;
+    private TowerAttack _towerAttack;
 
     private float _previuosRadius;
 
     private void Start()
     {
+        _enemies = new List<Transform>();
+        _towerAttack = GetComponent<TowerAttack>();
         ChangeRadiusSize(); // Set radius at the beginning from the inspector
     }
 
@@ -25,14 +27,8 @@ public class RangeCollider : MonoBehaviour
         // There are enemies nearby
         if(_enemies.Count > 0)
         {
-            var towerShot = GetComponentInChildren<TowerShot>(); // get the bullet
-            towerShot.enabled = true;
-
-            if (!towerShot.gameObject.activeSelf) // the bullet is visible now
-            {
-                towerShot.gameObject.SetActive(true);
-            }
-            towerShot.Attack(_enemies[_enemies.Count - 1]);
+            // Attack
+            _towerAttack.StartAttack(_enemies[_enemies.Count - 1]);
         }
 
         // Changing Range Size
@@ -51,9 +47,8 @@ public class RangeCollider : MonoBehaviour
 
     private void FindEnemy()
     {
+        _enemies.Clear(); // we are creating new list of enemies every new frame
         var hitColliders = Physics2D.OverlapCircleAll(transform.position, _radius, _layerMask);
-
-        Debug.Log(hitColliders.Length);
 
         foreach (Collider2D hitCollider in hitColliders)
         {

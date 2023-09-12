@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 41861587}
   - component: {fileID: 41861586}
   - component: {fileID: 41861588}
+  - component: {fileID: 41861589}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -228,6 +229,21 @@ MonoBehaviour:
     m_Bits: 256
   _rangeObject: {fileID: 1971569521}
   _bullet: {fileID: 570089506}
+--- !u!114 &41861589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41861585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8e015c01f9cd848ba0b71cb7816bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delay: 2
+  _bullet: {fileID: 570089506}
+  _delayTimer: 0
 --- !u!1 &44729722
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +623,7 @@ GameObject:
   - component: {fileID: 570089508}
   - component: {fileID: 570089507}
   - component: {fileID: 570089509}
+  - component: {fileID: 570089510}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -639,10 +656,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.10117388, y: -0.11655672}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -653,7 +670,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 0.276927, y: 0.26327458}
   m_EdgeRadius: 0
 --- !u!212 &570089508
 SpriteRenderer:
@@ -695,7 +712,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2014766017
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Color: {r: 0.035672188, g: 0, b: 1, a: 1}
   m_FlipX: 0
@@ -719,10 +736,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a6de7f765b4be40a6d4265a69d4e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSpeed: 0
-  _delay: 1
   _duration: 0
-  _bulletSpeed: 4
+  _bulletSpeed: 8
+--- !u!50 &570089510
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570089505}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &597164937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1058,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
   m_PrefabInstance: {fileID: 8229490487499795452}
   m_PrefabAsset: {fileID: 0}
---- !u!70 &1276355984
+--- !u!50 &1276355988
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276355980}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &1276355989
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
