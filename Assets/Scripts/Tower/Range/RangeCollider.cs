@@ -1,6 +1,7 @@
 // The script describes enemy detection in range of the tower
 
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RangeCollider : MonoBehaviour
@@ -14,12 +15,14 @@ public class RangeCollider : MonoBehaviour
 
     [SerializeField] private List<Transform> _enemies;
     private TowerAttack _towerAttack;
+    private TowerRotation _towerRotation;
     private float _previuosRadius;
 
     private void Start()
     {
         _enemies = new List<Transform>();
         _towerAttack = GetComponent<TowerAttack>();
+        _towerRotation = GetComponent<TowerRotation>();
         ChangeRadiusSize(); // Set radius at the beginning from the inspector
     }
 
@@ -31,8 +34,8 @@ public class RangeCollider : MonoBehaviour
         // There are enemies nearby
         if(_enemies.Count > 0)
         {
-            // Attack
-            _towerAttack.StartAttack(_enemies[_enemies.Count - 1]);
+            // first target shoot
+            _towerAttack.StartAttack(ChooseFirstTarget());
         }
 
         // Changing Range Size
@@ -54,11 +57,27 @@ public class RangeCollider : MonoBehaviour
         _enemies.Clear(); // we are creating new list of enemies every new frame
         var hitColliders = Physics2D.OverlapCircleAll(transform.position, _radius, _layerMask);
 
-        foreach (Collider2D hitCollider in hitColliders)
+        foreach (var hitCollider in hitColliders)
         {
             var enemyTransform = hitCollider.transform;
             _enemies.Add(enemyTransform);
         }
+    }
+
+    private Transform ChooseFirstTarget()
+    {
+        var biggestProgress = 0f;
+        Transform targetToReturn = null;
+
+        foreach (var enemy in _enemies)
+        {
+            if(enemy.GetComponent<EnemyMovement>().GetProgress() > biggestProgress)
+            {
+                biggestProgress = enemy.GetComponent<EnemyMovement>().GetProgress();
+                targetToReturn = enemy;
+            }
+        }
+        return targetToReturn;
     }
 
     private void ChangeRadiusSize()

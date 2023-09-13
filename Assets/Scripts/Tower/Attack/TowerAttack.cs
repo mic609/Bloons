@@ -16,12 +16,16 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] private List<GameObject> _bullets;
     [SerializeField] private int _amountToPool;
 
+    private Animator _animator;
     private Projectile _projectile;
+    private TowerRotation _towerRotation;
     private float _delayTimer;
 
     private void Start()
     {
+        _towerRotation = GetComponent<TowerRotation>();
         _delayTimer = _delay;
+        _animator = GetComponentInChildren<Animator>();
 
         // Object Pooling
         InitializeBullets();
@@ -35,9 +39,16 @@ public class TowerAttack : MonoBehaviour
             _delayTimer += Time.deltaTime;
             if (_delayTimer >= _delay)
             {
+                // Rotate Tower towards target
+                _towerRotation.Rotate(enemy);
+
+                // Attack
                 _projectile = GetPooledObject().GetComponent<Projectile>();
                 _projectile.Attack(enemy);
                 _delayTimer = 0.0f;
+
+                // Animation
+                _animator.SetTrigger("Attack");
             }
         }
     }

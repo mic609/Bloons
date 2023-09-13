@@ -7,6 +7,7 @@ public class Level : MonoBehaviour
     [SerializeField] Transform _whereToSpawn;
 
     [SerializeField] private float _timeBetweenSpawn;
+    [SerializeField] private int _spawnCount;
 
     private void Awake()
     {
@@ -17,7 +18,7 @@ public class Level : MonoBehaviour
 
     private IEnumerator spawnEnemy()
     {
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < _spawnCount; i++)
         {
             Instantiate(_objectToSpawn);
             yield return new WaitForSeconds(_timeBetweenSpawn);
