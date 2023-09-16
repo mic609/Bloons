@@ -26,13 +26,14 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        var move = Time.deltaTime * _bulletSpeed;
+        _currentDistance += move;
+
         if (_target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, _target.position, Time.deltaTime * _bulletSpeed);
 
-            var move = Time.deltaTime * _bulletSpeed;
-            _currentDistance += move;
-
+            // rotation of the dart
             var dir = _target.transform.position - transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -45,21 +46,26 @@ public class Projectile : MonoBehaviour
 
         if (_currentDistance >= _maxDistance)
         {
-            _currentDistance = 0f;
-            transform.position = _startingPosition;
-            gameObject.SetActive(false);
+            ProjectileReset();
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            transform.position = _startingPosition;
-            gameObject.SetActive(false);
+            ProjectileReset();
 
             var enemy = collision.gameObject;
             Destroy(enemy);
         }
+    }
+
+    // Object has reached max distance or hit the target
+    private void ProjectileReset()
+    {
+        _currentDistance = 0f;
+        transform.position = _startingPosition;
+        gameObject.SetActive(false);
     }
 }

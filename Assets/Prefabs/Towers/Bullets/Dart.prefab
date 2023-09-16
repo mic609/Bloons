@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8885035158114718251}
   - component: {fileID: 8885035158114718252}
   - component: {fileID: 8885035158114718250}
-  - component: {fileID: 8885035158114718249}
+  - component: {fileID: 4557516264514669387}
   m_Layer: 0
   m_Name: Dart
   m_TagString: Untagged
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
   _maxDistance: 7
---- !u!50 &8885035158114718249
+--- !u!50 &4557516264514669387
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
