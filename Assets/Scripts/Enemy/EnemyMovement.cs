@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("Enemy Details")]
-    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _movementSpeed; // this is original bloon speed given in the inspector (cannot change)
+    private float _currentMovementSpeed; // this is a value that can change in certain situations
 
     [Header("Level")]
     [SerializeField] private GameObject _levelObject;
@@ -21,6 +22,11 @@ public class EnemyMovement : MonoBehaviour
     {
         _currentPosition = transform.position; // position of the bloon
         _level = _levelObject.GetComponent<Level>();
+    }
+
+    private void Awake()
+    {
+        _currentMovementSpeed = _movementSpeed;
     }
 
     private void Update()
@@ -40,13 +46,28 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveToPoint(Vector2 lastPoint, Transform nextPoint)
     {
-        _currentPosition = Vector3.MoveTowards(_currentPosition, nextPoint.transform.position, _movementSpeed * Time.deltaTime); // smooth move from point to another
+        _currentPosition = Vector3.MoveTowards(_currentPosition, nextPoint.transform.position, _currentMovementSpeed * Time.deltaTime); // smooth move from point to another
         transform.position = _currentPosition;
 
-        float movement = _movementSpeed * Time.deltaTime;
+        float movement = _currentMovementSpeed * Time.deltaTime;
         _currentDistance += movement;
 
         _progress = _currentDistance / _level.GetPathLength();
+    }
+
+    public float GetSpeed()
+    {
+        return _currentMovementSpeed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _currentMovementSpeed = speed;
+    }
+
+    public void SetDefaultSpeed()
+    {
+        _currentMovementSpeed = _movementSpeed;
     }
 
     public float GetProgress()

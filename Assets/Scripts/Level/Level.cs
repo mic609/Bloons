@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -27,9 +29,13 @@ public class Level : MonoBehaviour
 
     private IEnumerator spawnEnemy()
     {
-        for(int i = 0; i < _spawnCount; i++)
+        var initialObjectToSpawn = _objectToSpawn;
+
+        for (int i = 0; i < _spawnCount; i++)
         {
             Instantiate(_objectToSpawn);
+            //_objectToSpawn.GetComponent<BloonController>().SpawnEnemyLayers();
+
             yield return new WaitForSeconds(_timeBetweenSpawn);
         }
     }
