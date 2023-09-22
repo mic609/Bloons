@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51541e6f105bf541a7cf829b28ff937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
   _whereToSpawn: {fileID: 4213543130449918921}
-  _timeBetweenSpawn: 1
-  _spawnCount: 25
+  _levels:
+  - {fileID: 11400000, guid: fe24bb2812bfcd24b8bb5110b631d9f1, type: 2}
+  - {fileID: 11400000, guid: b9e718addf4c9564eb41fb3446bec501, type: 2}
+  - {fileID: 11400000, guid: e60e49ac82cc5a9468136851c4b70ef3, type: 2}
   _points:
   - {fileID: 5881182387736227846, guid: 0b0ad572eab2bff4cad5ec79180f3dfb, type: 3}
   - {fileID: 7667275203731667417, guid: 7b9cbbbc1c2e38e43a60485efbcf7ec7, type: 3}

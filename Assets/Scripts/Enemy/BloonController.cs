@@ -12,6 +12,9 @@ public class BloonController : MonoBehaviour
 
     [Header("Health")]
     [SerializeField] private int _rbe;
+
+    [Header("Parent")]
+    private GameObject _parent;
     
     private EnemyMovement _enemyMovement;
     private bool _isAppQuitting = false;
@@ -19,6 +22,8 @@ public class BloonController : MonoBehaviour
     private void Start()
     {
         _enemyMovement = GetComponent<EnemyMovement>();
+        _parent = GameObject.Find("BloonHolder");
+        gameObject.transform.SetParent(_parent.transform);
     }
 
     public GameObject SpawnWeakerEnemy()
@@ -70,30 +75,34 @@ public class BloonController : MonoBehaviour
     //    enemyToSpawn = gameObject;
     //}
 
-    //private void OnDestroy()
-    //{
-    //    //// The app is still running
-    //    //if (!_isAppQuitting)
-    //    //{
-    //    //    if (_weakerEnemy != null)
-    //    //    {
-    //    //        GameObject newBloon = Instantiate(_weakerEnemy, transform.position, transform.rotation);
-    //    //        EnemyMovement newBloonController = newBloon.GetComponent<EnemyMovement>();
+    private void OnDestroy()
+    {
+        // The app is still running
+        if (!_isAppQuitting)
+        {
+            if (_weakerEnemy != null)
+            {
+                var newBloon = Instantiate(_weakerEnemy, transform.position, transform.rotation);
+                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
+                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
-    //    //        //newBloon.GetComponent<EnemyMovement>() = _enemyMovement;
-    //    //    }
-    //    //}
-    //    if (!_isAppQuitting)
-    //    {
-    //        var objMaterial = new Material(_enemyToReplace.GetComponent<Renderer>().material);
-    //        Color newColor = new Color(objMaterial.color.r, objMaterial.color.g, objMaterial.color.b, 255f);
-    //        objMaterial.color = newColor;
-    //        _enemyToReplace.GetComponent<Renderer>().material = objMaterial;
-    //        _enemyToReplace.GetComponent<Collider2D>().enabled = true;
+                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance());
+                newEnemyMovement.SetCurrentPosition(oldEnemyMovement.GetCurrentPosition());
+                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
+            }
+        }
+        //if (!_isAppQuitting)
+        //{
+        //    var objMaterial = new Material(_enemyToReplace.GetComponent<Renderer>().material);
+        //    Color newColor = new Color(objMaterial.color.r, objMaterial.color.g, objMaterial.color.b, 255f);
+        //    objMaterial.color = newColor;
+        //    _enemyToReplace.GetComponent<Renderer>().material = objMaterial;
+        //    _enemyToReplace.GetComponent<Collider2D>().enabled = true;
 
-    //        _enemyToReplace.GetComponent<EnemyMovement>().SetDefaultSpeed();
-    //    }
-    //}
+        //    _enemyToReplace.GetComponent<EnemyMovement>().SetDefaultSpeed();
+        //}
+    }
 
     //public void SendEnemy(GameObject newEnemy)
     //{

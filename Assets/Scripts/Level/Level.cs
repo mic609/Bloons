@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
     [Header("Spawner")]
-    [SerializeField] GameObject _objectToSpawn;
-    [SerializeField] Transform _whereToSpawn;
-    [SerializeField] private float _timeBetweenSpawn;
-    [SerializeField] private int _spawnCount;
+    [SerializeField] Transform _whereToSpawn; // position of the spawner
+
+    [Header("Levels")]
+    [SerializeField] List<LevelData> _levels; // list of all possible levels in the game
+    [SerializeField] private NextLevel _nextLevel;
+    [SerializeField] private GameObject _bloonHolder; // object that contains all bloons
+    private LevelData _currentLevel;
+    private int _currentLevelIndex;
+    private int _numberOfBloons; // current number of bloons on map
 
     [Header("Path")]
     [SerializeField] private Transform[] _points;
@@ -21,22 +24,35 @@ public class Level : MonoBehaviour
         // Calculating path length
         CalculatePathLength();
 
-        // Enemy Spawn on the beginning of the level
-        Transform spawnObjectTransform = _objectToSpawn.transform;
-        spawnObjectTransform.position = _whereToSpawn.position; // we set only position
+        // Set the first level of the game
+        _currentLevelIndex = 0;
+        _currentLevel = _levels[_currentLevelIndex];
+    }
+
+    void Update()
+    {
+        _numberOfBloons = _bloonHolder.transform.childCount;
+    }
+
+    public void spawnEnemyCoroutine()
+    {
         StartCoroutine("spawnEnemy");
     }
 
     private IEnumerator spawnEnemy()
     {
-        var initialObjectToSpawn = _objectToSpawn;
-
-        for (int i = 0; i < _spawnCount; i++)
+        // next events
+        for(int j = 0; j < _currentLevel.enemiesSpawnEvents.Count; j++)
         {
-            Instantiate(_objectToSpawn);
-            //_objectToSpawn.GetComponent<BloonController>().SpawnEnemyLayers();
+            var levelEvent = _currentLevel.enemiesSpawnEvents[j]; // current level event
 
-            yield return new WaitForSeconds(_timeBetweenSpawn);
+            // spawning enemies in events
+            for (int i = 0; i < levelEvent.spawnCount; i++)
+            {
+                Instantiate(levelEvent.enemyToSpawn, _whereToSpawn.transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(levelEvent.timeBetweenSpawn);
+            }
+            yield return new WaitForSeconds(levelEvent.timeEndEvent);
         }
     }
 
@@ -58,7 +74,22 @@ public class Level : MonoBehaviour
         }
     }
 
-    public Transform [] GetPoints()
+    public int GetNumberOfBloons()
+    {
+        return _numberOfBloons;
+    }
+
+    public void SwitchLevel()
+    {
+        if(_currentLevelIndex < (_levels.Count + 1))
+        {
+            _currentLevel = _levels[_currentLevelIndex];
+            _currentLevelIndex++;
+        }
+        Debug.Log(_currentLevelIndex);
+    }
+
+    public Transform[] GetPoints()
     {
         return _points;
     }

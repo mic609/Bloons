@@ -55,19 +55,43 @@ public class EnemyMovement : MonoBehaviour
         _progress = _currentDistance / _level.GetPathLength();
     }
 
-    public float GetSpeed()
+    //////////////////////////////////////
+    // Get and Set
+    //////////////////////////////////////
+
+    public void SetCurrentPosition(Vector3 currentPosition)
     {
-        return _currentMovementSpeed;
+        _currentPosition = currentPosition;
     }
 
-    public void SetSpeed(float speed)
+    public Vector3 GetCurrentPosition()
     {
-        _currentMovementSpeed = speed;
+        return _currentPosition;
     }
 
-    public void SetDefaultSpeed()
+    public void SetPointsIndex(int pointsIndex)
     {
-        _currentMovementSpeed = _movementSpeed;
+        _pointsIndex = pointsIndex;
+    }
+
+    public int GetPointsIndex()
+    {
+        return _pointsIndex;
+    }
+
+    public void SetCurrentDistance(float currentDistance)
+    {
+        _currentDistance = currentDistance;
+    }
+
+    public float GetCurrentDistance()
+    {
+        return _currentDistance;
+    }
+
+    public void SetProgress(float progress)
+    {
+        _progress = progress;
     }
 
     public float GetProgress()

@@ -58,7 +58,6 @@ public class Projectile : MonoBehaviour
 
             var enemy = collision.gameObject;
             Destroy(enemy);
-            Instantiate(enemy.GetComponent<BloonController>().SpawnWeakerEnemy());
         }
     }
 
