@@ -15,14 +15,12 @@ public class RangeCollider : MonoBehaviour
 
     [SerializeField] private List<Transform> _enemies;
     private TowerAttack _towerAttack;
-    private TowerRotation _towerRotation;
     private float _previuosRadius;
 
     private void Start()
     {
         _enemies = new List<Transform>();
         _towerAttack = GetComponent<TowerAttack>();
-        _towerRotation = GetComponent<TowerRotation>();
         ChangeRadiusSize(); // Set radius at the beginning from the inspector
     }
 

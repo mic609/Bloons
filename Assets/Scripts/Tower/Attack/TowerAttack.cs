@@ -23,7 +23,7 @@ public class TowerAttack : MonoBehaviour
 
     private void Start()
     {
-        _towerRotation = GetComponent<TowerRotation>();
+        _towerRotation = GetComponentInChildren<TowerRotation>();
         _delayTimer = _delay;
         _animator = GetComponentInChildren<Animator>();
 

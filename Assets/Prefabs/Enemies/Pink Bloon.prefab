@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 5
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
+  _progress: 0
 --- !u!50 &2913598632785887363
 Rigidbody2D:
   serializedVersion: 4
@@ -133,7 +134,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.009490728}
@@ -153,5 +154,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weakerEnemy: {fileID: 8229490488641719920, guid: 38e7bea15bdaf134793215075dc587f5, type: 3}
   _enemyAmount: 1
-  _bloonInOrder: 0
   _rbe: 5

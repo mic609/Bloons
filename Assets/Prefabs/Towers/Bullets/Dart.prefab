@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
-  _maxDistance: 7
+  _maxDistance: 13
 --- !u!50 &4557516264514669387
 Rigidbody2D:
   serializedVersion: 4
@@ -147,4 +147,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 1
+  m_Constraints: 7

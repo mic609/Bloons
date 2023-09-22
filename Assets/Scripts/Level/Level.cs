@@ -15,6 +15,9 @@ public class Level : MonoBehaviour
     private int _currentLevelIndex;
     private int _numberOfBloons; // current number of bloons on map
 
+    [Header("Messages")]
+    [SerializeField] private GameObject _messageField;
+
     [Header("Path")]
     [SerializeField] private Transform[] _points;
     private static float _pathLength; // it is the global variable
@@ -23,10 +26,6 @@ public class Level : MonoBehaviour
     {
         // Calculating path length
         CalculatePathLength();
-
-        // Set the first level of the game
-        _currentLevelIndex = 0;
-        _currentLevel = _levels[_currentLevelIndex];
     }
 
     void Update()
@@ -36,13 +35,13 @@ public class Level : MonoBehaviour
 
     public void spawnEnemyCoroutine()
     {
-        StartCoroutine("spawnEnemy");
+        StartCoroutine(spawnEnemy());
     }
 
     private IEnumerator spawnEnemy()
     {
         // next events
-        for(int j = 0; j < _currentLevel.enemiesSpawnEvents.Count; j++)
+        for (int j = 0; j < _currentLevel.enemiesSpawnEvents.Count; j++)
         {
             var levelEvent = _currentLevel.enemiesSpawnEvents[j]; // current level event
 
@@ -54,6 +53,11 @@ public class Level : MonoBehaviour
             }
             yield return new WaitForSeconds(levelEvent.timeEndEvent);
         }
+        while (_numberOfBloons > 0)
+        {
+            yield return null;
+        }
+        _messageField.GetComponent<MessageField>().ActivateMessage();
     }
 
     private void CalculatePathLength()
@@ -81,12 +85,11 @@ public class Level : MonoBehaviour
 
     public void SwitchLevel()
     {
-        if(_currentLevelIndex < (_levels.Count + 1))
+        if (_currentLevelIndex < (_levels.Count + 1))
         {
             _currentLevel = _levels[_currentLevelIndex];
             _currentLevelIndex++;
         }
-        Debug.Log(_currentLevelIndex);
     }
 
     public Transform[] GetPoints()
@@ -97,5 +100,10 @@ public class Level : MonoBehaviour
     public float GetPathLength()
     {
         return _pathLength;
+    }
+
+    public LevelData GetCurrentLevel()
+    {
+        return _currentLevel;
     }
 }

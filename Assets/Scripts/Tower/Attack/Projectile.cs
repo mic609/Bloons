@@ -1,5 +1,6 @@
 // The script describes the bullet behaviour
 
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -15,12 +16,14 @@ public class Projectile : MonoBehaviour
 
     private void Awake()
     {
-        _startingPosition = transform.position;
+        _startingPosition = transform.parent.parent.position;
     }
 
     public void Attack(Transform target)
     {
+        Debug.Log("ATTACK");
         gameObject.SetActive(true);
+        transform.position = _startingPosition;
         _target = target;
     }
 
@@ -32,7 +35,7 @@ public class Projectile : MonoBehaviour
         if (_target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, _target.position, Time.deltaTime * _bulletSpeed);
-
+            
             // rotation of the dart
             var dir = _target.transform.position - transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
