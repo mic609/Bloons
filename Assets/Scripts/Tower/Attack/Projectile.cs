@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
 
     public void Attack(Transform target)
     {
-        Debug.Log("ATTACK");
         gameObject.SetActive(true);
         transform.position = _startingPosition;
         _target = target;

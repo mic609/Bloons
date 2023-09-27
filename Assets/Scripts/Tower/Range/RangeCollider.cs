@@ -46,8 +46,8 @@ public class RangeCollider : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow; // Ustaw kolor gizmos na ¿ó³ty lub inny, który wolisz
-        Gizmos.DrawWireSphere(transform.position, _radius); // Narysuj okr¹g wokó³ pozycji wie¿y o okreœlonym promieniu
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 
     private void FindEnemy()
