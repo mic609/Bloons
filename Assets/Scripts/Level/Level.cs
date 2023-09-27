@@ -24,6 +24,8 @@ public class Level : MonoBehaviour
 
     private void Awake()
     {
+        _currentLevel = _levels[0];
+
         // Calculating path length
         CalculatePathLength();
     }
@@ -90,6 +92,11 @@ public class Level : MonoBehaviour
             _currentLevel = _levels[_currentLevelIndex];
             _currentLevelIndex++;
         }
+    }
+
+    public LevelData GetLevel()
+    {
+        return _currentLevel;
     }
 
     public Transform[] GetPoints()

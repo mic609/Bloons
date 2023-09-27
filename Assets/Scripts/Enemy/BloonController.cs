@@ -14,7 +14,11 @@ public class BloonController : MonoBehaviour
 
     [Header("Parent")]
     private GameObject _parent;
-    
+
+    [Header("Level")]
+    [SerializeField] private GameObject _levelObject;
+    private PlayerStats _playerStats;
+
     private EnemyMovement _enemyMovement;
     private bool _isAppQuitting = false;
 
@@ -22,6 +26,7 @@ public class BloonController : MonoBehaviour
     {
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
+        _playerStats = GameObject.Find("GameManager").GetComponent<PlayerStats>();
         gameObject.transform.SetParent(_parent.transform);
     }
 
@@ -34,10 +39,10 @@ public class BloonController : MonoBehaviour
         }
     }
 
-    public GameObject SpawnWeakerEnemy()
-    {
-        return _weakerEnemy;
-    }
+    //public GameObject SpawnWeakerEnemy()
+    //{
+    //    return _weakerEnemy;
+    //}
 
     private void OnDestroy()
     {
@@ -46,16 +51,29 @@ public class BloonController : MonoBehaviour
         {
             if (_weakerEnemy != null)
             {
-                var newBloon = Instantiate(_weakerEnemy, transform.position, transform.rotation);
-                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
-                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
-
-                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance());
-                newEnemyMovement.SetCurrentPosition(oldEnemyMovement.GetCurrentPosition());
-                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
-                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
+                SpawnWeakerLayer();
             }
+
+            // for every bloon popped the money amount increases
+            _playerStats.AddMoneyForBloonPop();
         }
+        // The bloon reached the end
+        if(_enemyMovement.GetProgress() >= 1.0f)
+        {
+            _playerStats.DecreaseLifeAmount(_rbe);
+        }
+    }
+
+    private void SpawnWeakerLayer()
+    {
+        var newBloon = Instantiate(_weakerEnemy, transform.position, transform.rotation);
+        var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
+        var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+
+        newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance());
+        newEnemyMovement.SetCurrentPosition(oldEnemyMovement.GetCurrentPosition());
+        newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+        newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
     }
 
     private void OnApplicationQuit()

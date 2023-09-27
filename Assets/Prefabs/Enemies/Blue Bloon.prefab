@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8229490488641719922}
   - component: {fileID: 8229490488641719921}
   - component: {fileID: 8229490488641719923}
+  - component: {fileID: 5523797257457610646}
   - component: {fileID: 2913598632785887363}
   - component: {fileID: 3036021363905629040}
-  - component: {fileID: 5523797257457610646}
   m_Layer: 8
   m_Name: Blue Bloon
   m_TagString: Enemy
@@ -103,6 +103,22 @@ MonoBehaviour:
   _movementSpeed: 2
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
   _progress: 0
+--- !u!114 &5523797257457610646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1c2ab3c639f8f42b73f4e152d77a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weakerEnemy: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
+  _enemyAmount: 1
+  _rbe: 2
+  _levelObject: {fileID: 0}
 --- !u!50 &2913598632785887363
 Rigidbody2D:
   serializedVersion: 4
@@ -140,18 +156,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.00000007947286}
   m_Size: {x: 0.5264549, y: 0.6737447}
   m_Direction: 0
---- !u!114 &5523797257457610646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8229490488641719920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1c2ab3c639f8f42b73f4e152d77a49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weakerEnemy: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
-  _enemyAmount: 1
-  _rbe: 2

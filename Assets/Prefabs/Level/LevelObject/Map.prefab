@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4213543130408135223}
   - component: {fileID: 4213543130408135222}
   m_Layer: 0
-  m_Name: Map1
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe24bb2812bfcd24b8bb5110b631d9f1, type: 2}
   - {fileID: 11400000, guid: b9e718addf4c9564eb41fb3446bec501, type: 2}
   - {fileID: 11400000, guid: e60e49ac82cc5a9468136851c4b70ef3, type: 2}
+  _nextLevel: {fileID: 0}
+  _bloonHolder: {fileID: 0}
+  _messageField: {fileID: 0}
   _points:
   - {fileID: 5881182387736227846, guid: 0b0ad572eab2bff4cad5ec79180f3dfb, type: 3}
   - {fileID: 7667275203731667417, guid: 7b9cbbbc1c2e38e43a60485efbcf7ec7, type: 3}

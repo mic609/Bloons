@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619be41b14b36a54c8bfbcbf6aa643f4, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  levelNumber: 0
+  levelNumber: 3
   levelDescription: Besides having more layers, the different colored bloons also
     move faster.
   enemiesSpawnEvents:

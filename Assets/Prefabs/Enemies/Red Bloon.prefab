@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 1
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
+  _progress: 0
 --- !u!114 &5523797257457610646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +118,7 @@ MonoBehaviour:
   _weakerEnemy: {fileID: 0}
   _enemyAmount: 1
   _rbe: 1
+  _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
 --- !u!70 &3036021363905629040
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
