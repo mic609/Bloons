@@ -17,7 +17,6 @@ public class BloonController : MonoBehaviour
 
     [Header("Level")]
     [SerializeField] private GameObject _levelObject;
-    private PlayerStats _playerStats;
 
     private EnemyMovement _enemyMovement;
     private bool _isAppQuitting = false;
@@ -26,7 +25,6 @@ public class BloonController : MonoBehaviour
     {
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
-        _playerStats = GameObject.Find("GameManager").GetComponent<PlayerStats>();
         gameObject.transform.SetParent(_parent.transform);
     }
 
@@ -55,12 +53,12 @@ public class BloonController : MonoBehaviour
             }
 
             // for every bloon popped the money amount increases
-            _playerStats.AddMoneyForBloonPop();
+            PlayerStats.Instance.AddMoneyForBloonPop();
         }
         // The bloon reached the end
         if(_enemyMovement.GetProgress() >= 1.0f)
         {
-            _playerStats.DecreaseLifeAmount(_rbe);
+            PlayerStats.Instance.DecreaseLifeAmount(_rbe);
         }
     }
 

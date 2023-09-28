@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ChooseTower : MonoBehaviour
 {
@@ -60,9 +62,11 @@ public class ChooseTower : MonoBehaviour
     public void SelectTower()
     {
         _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
+
         _moveableTower.GetComponent<TowerAttack>().enabled = false;
         _moveableTower.GetComponent<RangeCollider>().enabled = false;
         _moveableTower.GetComponent<CircleCollider2D>().enabled = false;
+
         _towerRange = _moveableTower.transform.Find("Range");
         _towerRange.GetComponent<SpriteRenderer>().enabled = true;
         _towerColor = _towerRange.GetComponent<SpriteRenderer>().color;
@@ -86,6 +90,18 @@ public class ChooseTower : MonoBehaviour
         return true;
     }
 
+    public void SellTower()
+    {
+        var towerCost = _moveableTower.GetComponent<ManageTower>().GetTowerInfo().standardPrice;
+        var sellDiscount = _moveableTower.GetComponent<ManageTower>().GetSellDiscount();
+        var moneyToAdd = Mathf.RoundToInt(towerCost - towerCost * sellDiscount);
+
+        PlayerStats.Instance.AddMoneyForSoldTower(moneyToAdd);
+
+        Destroy(_moveableTower);
+        Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "UpgradePanel").SetActive(false);
+    }
+
     private void PlaceTower()
     {
         _isTowerMoving = false;
@@ -98,5 +114,8 @@ public class ChooseTower : MonoBehaviour
 
         _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _moveableTower.transform.position = new Vector3(_mousePosition.x, _mousePosition.y, 0);
+
+        var towerCost = _moveableTower.GetComponent<ManageTower>().GetTowerInfo().standardPrice;
+        PlayerStats.Instance.DecreaseMoneyForBoughtTower(towerCost);
     }
 }

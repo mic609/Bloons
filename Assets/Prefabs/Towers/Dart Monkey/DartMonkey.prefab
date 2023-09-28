@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1855790453018097074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33073602409315413}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &33073602409315413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855790453018097074}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.36618567, y: 0.030300677, z: 0.051036015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6110713934753920714}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6110713934753920712
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +42,7 @@ GameObject:
   - component: {fileID: 6110713934753920714}
   - component: {fileID: 6110713934753920717}
   - component: {fileID: 6110713934753920716}
+  - component: {fileID: 3557128112247194425}
   - component: {fileID: 7954760365690634210}
   m_Layer: 9
   m_Name: DartMonkey
@@ -34,6 +66,7 @@ Transform:
   - {fileID: 6110713936146610928}
   - {fileID: 6110713936061166696}
   - {fileID: 6110713935255402634}
+  - {fileID: 33073602409315413}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,6 +125,20 @@ MonoBehaviour:
   - {fileID: 8885035158114718254, guid: dbe507bd4a4debe48b96c3338ec22725, type: 3}
   - {fileID: 8885035158114718254, guid: dbe507bd4a4debe48b96c3338ec22725, type: 3}
   _amountToPool: 20
+--- !u!114 &3557128112247194425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110713934753920712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b595289f8dd29fa4dbe7fecd9ed2ea08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerInfo: {fileID: 11400000, guid: d7f73100d0e644643927ccf050554ffc, type: 2}
+  _sellDiscount: 0.11
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0

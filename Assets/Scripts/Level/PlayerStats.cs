@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -12,14 +13,25 @@ public class PlayerStats : MonoBehaviour
     private int _moneyAmount;
     private int _levelNumber;
 
+    public static PlayerStats Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
         _lifesAmount = _standardStats.numberOfLifes;
         _moneyAmount = _standardStats.moneyAtTheBeginning;
         _levelNumber = 1;
         _level = GameObject.Find("Map").GetComponent<Level>();
-
-        Debug.Log("Start: " + _level);
 
         _levelText.text = _levelNumber.ToString();
         _lifesText.text = _lifesAmount.ToString();
@@ -31,7 +43,7 @@ public class PlayerStats : MonoBehaviour
         ChangeLevelInInterface();
     }
 
-    public void ChangeLevelInInterface()
+    private void ChangeLevelInInterface()
     {
         _levelNumber = _level.GetLevel().levelNumber;
         _levelText.text = _levelNumber.ToString();
@@ -40,6 +52,18 @@ public class PlayerStats : MonoBehaviour
     public void AddMoneyForBloonPop()
     {
         _moneyAmount += 1;
+        _moneyText.text = _moneyAmount.ToString();
+    }
+
+    public void AddMoneyForSoldTower(int moneyAmount)
+    {
+        _moneyAmount += moneyAmount;
+        _moneyText.text = _moneyAmount.ToString();
+    }
+
+    public void DecreaseMoneyForBoughtTower(int moneyAmount)
+    {
+        _moneyAmount -= moneyAmount;
         _moneyText.text = _moneyAmount.ToString();
     }
 

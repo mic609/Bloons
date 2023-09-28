@@ -56,10 +56,15 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            // Make the Projectile disappear
             ProjectileReset();
 
+            // Destroy enemy
             var enemy = collision.gameObject;
             Destroy(enemy);
+
+            // Add statistics for the tower
+            transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp();
         }
     }
 
