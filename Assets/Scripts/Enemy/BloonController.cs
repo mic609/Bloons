@@ -41,8 +41,13 @@ public class BloonController : MonoBehaviour
     {
         if(_enemyMovement != null)
         {
+            // The bloon reached the end
+            if (_enemyMovement.GetProgress() >= 1.0f)
+            {
+                PlayerStats.Instance.DecreaseLifeAmount(_rbe);
+            }
             // The app is still running
-            if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
+            else if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
             {
                 if (_weakerEnemy != null)
                 {
@@ -52,18 +57,13 @@ public class BloonController : MonoBehaviour
                 // for every bloon popped the money amount increases
                 PlayerStats.Instance.AddMoneyForBloonPop();
             }
-            // The bloon reached the end
-            if (_enemyMovement.GetProgress() >= 1.0f)
-            {
-                PlayerStats.Instance.DecreaseLifeAmount(_rbe);
-            }
         }
     }
 
     private void SpawnWeakerLayer()
     {
-        var distanceFromCenter = 0.0f;
-        var addDistance = 0.0f;
+        float distanceFromCenter = 0.0f;
+        float addDistance = 0.0f;
 
         // In switch we need to define the distance between weaker spawned bloons
         switch (_enemyAmount)
@@ -76,13 +76,13 @@ public class BloonController : MonoBehaviour
                 }
             case 2:
                 {
-                    distanceFromCenter = -0.3f;
+                    distanceFromCenter = 0.3f * (-1);
                     addDistance = 0.6f;
                     break;
                 }
             case 4:
                 {
-                    distanceFromCenter = -1.5f;
+                    distanceFromCenter = 1.5f * (-1);
                     addDistance = 1.0f;
                     break;
                 }
@@ -99,18 +99,23 @@ public class BloonController : MonoBehaviour
             for (int i = 0; i < _enemyAmount; i++)
             {
                 // Setting position
-                var setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
+                var setPosition = Vector3.zero;
+                if (movementDirection == Vector3.down)
+                    setPosition = new Vector3(transform.position.x, transform.position.y - distanceFromCenter, transform.position.z);
+                else if(movementDirection == Vector3.up)
+                    setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
 
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
+                var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
+
                 // Setting distance, position and progress of the new bloon
-                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance() + distanceFromCenter);
+                newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
                 newEnemyMovement.SetCurrentPosition(setPosition);
                 newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
-                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
 
                 distanceFromCenter += addDistance;
             }
@@ -120,18 +125,23 @@ public class BloonController : MonoBehaviour
             for (int i = 0; i < _enemyAmount; i++)
             {
                 // Setting position
-                var setPosition = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, transform.position.z);
+                var setPosition = Vector3.zero;
+                if (movementDirection == Vector3.right)
+                    setPosition = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, transform.position.z);
+                else if (movementDirection == Vector3.left)
+                    setPosition = new Vector3(transform.position.x - distanceFromCenter, transform.position.y, transform.position.z);
 
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
+                var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
+
                 // Setting distance, position and progress of the new bloon
-                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance() + distanceFromCenter);
+                newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
                 newEnemyMovement.SetCurrentPosition(setPosition);
                 newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
-                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
 
                 distanceFromCenter += addDistance;
             }
