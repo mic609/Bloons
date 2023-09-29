@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -69,12 +71,17 @@ public class PlayerStats : MonoBehaviour
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         var hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-        // If the tower interface is active
+        // We just want to click somewhere else to close tower interface
         if (_clickedTower != null)
         {
-            _clickedTower.GetComponent<ManageTower>().ShowUpgradePanel();
-            _clickedTower = null;
+            // "Somewhere else" is not the tower interface
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                _clickedTower.GetComponent<ManageTower>().ShowUpgradePanel();
+                _clickedTower = null;
+            }
         }
+        // The tower is being chosen already by the player
         else if (hit.collider != null)
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Tower"))
@@ -134,5 +141,10 @@ public class PlayerStats : MonoBehaviour
     public GameObject GetClickedTower()
     {
         return _clickedTower;
+    }
+
+    public void ForgetClickedTower()
+    {
+        _clickedTower = null;
     }
 }

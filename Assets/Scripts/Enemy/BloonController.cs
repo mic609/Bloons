@@ -37,41 +37,105 @@ public class BloonController : MonoBehaviour
         }
     }
 
-    //public GameObject SpawnWeakerEnemy()
-    //{
-    //    return _weakerEnemy;
-    //}
-
     private void OnDestroy()
     {
-        // The app is still running
-        if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
+        if(_enemyMovement != null)
         {
-            if (_weakerEnemy != null)
+            // The app is still running
+            if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
             {
-                SpawnWeakerLayer();
-            }
+                if (_weakerEnemy != null)
+                {
+                    SpawnWeakerLayer();
+                }
 
-            // for every bloon popped the money amount increases
-            PlayerStats.Instance.AddMoneyForBloonPop();
-        }
-        // The bloon reached the end
-        if(_enemyMovement.GetProgress() >= 1.0f)
-        {
-            PlayerStats.Instance.DecreaseLifeAmount(_rbe);
+                // for every bloon popped the money amount increases
+                PlayerStats.Instance.AddMoneyForBloonPop();
+            }
+            // The bloon reached the end
+            if (_enemyMovement.GetProgress() >= 1.0f)
+            {
+                PlayerStats.Instance.DecreaseLifeAmount(_rbe);
+            }
         }
     }
 
     private void SpawnWeakerLayer()
     {
-        var newBloon = Instantiate(_weakerEnemy, transform.position, transform.rotation);
-        var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
-        var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+        var distanceFromCenter = 0.0f;
+        var addDistance = 0.0f;
 
-        newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance());
-        newEnemyMovement.SetCurrentPosition(oldEnemyMovement.GetCurrentPosition());
-        newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
-        newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
+        // In switch we need to define the distance between weaker spawned bloons
+        switch (_enemyAmount)
+        {
+            case 1:
+                {
+                    distanceFromCenter = 0.0f;
+                    addDistance = 0.0f;
+                    break;
+                }
+            case 2:
+                {
+                    distanceFromCenter = -0.3f;
+                    addDistance = 0.6f;
+                    break;
+                }
+            case 4:
+                {
+                    distanceFromCenter = -1.5f;
+                    addDistance = 1.0f;
+                    break;
+                }
+        }
+
+        // We need to know the movement direction of the bloons, so we can spawn them in proper places
+        var movementDirection = gameObject.GetComponent<EnemyMovement>().GetMovementDirection();
+
+        if (movementDirection == Vector3.zero)
+            return;
+
+        if (movementDirection == Vector3.down || movementDirection == Vector3.up)
+        {
+            for (int i = 0; i < _enemyAmount; i++)
+            {
+                // Setting position
+                var setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
+
+                // Instantiating new bloon
+                var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
+                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
+                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+
+                // Setting distance, position and progress of the new bloon
+                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance() + distanceFromCenter);
+                newEnemyMovement.SetCurrentPosition(setPosition);
+                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
+
+                distanceFromCenter += addDistance;
+            }
+        }
+        else if(movementDirection == Vector3.right || movementDirection == Vector3.left)
+        {
+            for (int i = 0; i < _enemyAmount; i++)
+            {
+                // Setting position
+                var setPosition = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, transform.position.z);
+
+                // Instantiating new bloon
+                var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
+                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
+                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+
+                // Setting distance, position and progress of the new bloon
+                newEnemyMovement.SetCurrentDistance(oldEnemyMovement.GetCurrentDistance() + distanceFromCenter);
+                newEnemyMovement.SetCurrentPosition(setPosition);
+                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+                newEnemyMovement.SetProgress(oldEnemyMovement.GetProgress());
+
+                distanceFromCenter += addDistance;
+            }
+        }
     }
 
     private void OnApplicationQuit()

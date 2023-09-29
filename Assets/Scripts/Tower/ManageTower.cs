@@ -2,7 +2,6 @@
 
 using System.Linq;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class ManageTower : MonoBehaviour
@@ -63,6 +62,7 @@ public class ManageTower : MonoBehaviour
 
         PlayerStats.Instance.AddMoneyForSoldTower(moneyToAdd);
         PlayerStats.Instance.DeleteInstantiatedTower();
+        PlayerStats.Instance.ForgetClickedTower();
 
         Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "UpgradePanel").SetActive(false);
     }

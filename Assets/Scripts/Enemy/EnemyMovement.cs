@@ -1,5 +1,6 @@
 // The script describes the movement of the bloon
 
+using TMPro;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -97,5 +98,19 @@ public class EnemyMovement : MonoBehaviour
     public float GetProgress()
     {
         return _progress;
+    }
+
+    public Vector3 GetMovementDirection()
+    {
+        var points = _level.GetPoints();
+        if (_pointsIndex < points.Length)
+        {
+            var movementDirection = (_currentPosition - points[_pointsIndex].position).normalized;
+            return movementDirection;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
     }
 }

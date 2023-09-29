@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8e015c01f9cd848ba0b71cb7816bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 0.5
+  _delay: 1.3
   _parent: {fileID: 6110713935255402634}
   _objectToPool: {fileID: 8885035158114718254, guid: dbe507bd4a4debe48b96c3338ec22725, type: 3}
   _bullets:
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerInfo: {fileID: 11400000, guid: d7f73100d0e644643927ccf050554ffc, type: 2}
   _sellDiscount: 0.11
+  _bloonsPoppedInt: 0
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0
