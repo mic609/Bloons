@@ -9,7 +9,7 @@ public class ManageTower : MonoBehaviour
     [SerializeField] private TowerData _towerInfo;
     [SerializeField] private float _sellDiscount;
     
-    [SerializeField] private int _bloonsPoppedInt;
+    private int _bloonsPoppedInt;
 
     // upgrade Panel
     private GameObject _upgradePanelToShow;

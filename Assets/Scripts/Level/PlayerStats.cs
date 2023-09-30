@@ -13,7 +13,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _moneyText;
     [SerializeField] private TextMeshProUGUI _levelText;
     private Level _level;
-    [SerializeField] private int _lifesAmount;
+    private int _lifesAmount;
     private int _moneyAmount;
     private int _levelNumber;
 

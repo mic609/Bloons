@@ -61,10 +61,13 @@ public class Projectile : MonoBehaviour
 
             // Destroy enemy
             var enemy = collision.gameObject;
-            Destroy(enemy);
+            if (enemy.GetComponent<BloonController>().LayerDestroyed())
+            {
+                Destroy(enemy);
 
-            // Add statistics for the tower
-            transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp();
+                // Add statistics for the tower
+                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp();
+            }
         }
     }
 

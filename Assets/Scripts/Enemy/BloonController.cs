@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,11 +5,14 @@ using UnityEngine.UIElements;
 public class BloonController : MonoBehaviour
 {
     [Header("Layers")]
-    [SerializeField] private GameObject _weakerEnemy; // weaker enemy prefab
+    [SerializeField] private List <GameObject> _weakerEnemies; // weaker enemy prefab
     [SerializeField] private int _enemyAmount; // enemies count after bloon defeat
+    [SerializeField] private List<Sprite> _temporarySprites;
 
     [Header("Health")]
     [SerializeField] private int _rbe;
+    [SerializeField] private int _layerHp; // for ceramic, moabs, etc.
+    [SerializeField] private int _hitCount; // for ceramic, moabs, etc.
 
     [Header("Parent")]
     private GameObject _parent;
@@ -26,6 +28,7 @@ public class BloonController : MonoBehaviour
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
         gameObject.transform.SetParent(_parent.transform);
+        _hitCount = -1;
     }
 
     private void Update()
@@ -49,13 +52,26 @@ public class BloonController : MonoBehaviour
             // The app is still running
             else if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
             {
-                if (_weakerEnemy != null)
+                if (_weakerEnemies.Count != 0)
                 {
                     SpawnWeakerLayer();
                 }
 
                 // for every bloon popped the money amount increases
                 PlayerStats.Instance.AddMoneyForBloonPop();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Change Sprites while shooting
+        if (_layerHp > 1)
+        {
+            _hitCount++;
+            if (_hitCount % 2 == 0 && _hitCount >= 2 && _hitCount < _layerHp)
+            {
+                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_hitCount / 2 - 1];
             }
         }
     }
@@ -94,6 +110,8 @@ public class BloonController : MonoBehaviour
         if (movementDirection == Vector3.zero)
             return;
 
+        var weakerEnemyIndex = 0;
+
         if (movementDirection == Vector3.down || movementDirection == Vector3.up)
         {
             for (int i = 0; i < _enemyAmount; i++)
@@ -106,7 +124,7 @@ public class BloonController : MonoBehaviour
                     setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
 
                 // Instantiating new bloon
-                var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
+                var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
@@ -118,6 +136,9 @@ public class BloonController : MonoBehaviour
                 newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
 
                 distanceFromCenter += addDistance;
+
+                if (_weakerEnemies.Count > 1)
+                    weakerEnemyIndex++;
             }
         }
         else if(movementDirection == Vector3.right || movementDirection == Vector3.left)
@@ -132,7 +153,7 @@ public class BloonController : MonoBehaviour
                     setPosition = new Vector3(transform.position.x - distanceFromCenter, transform.position.y, transform.position.z);
 
                 // Instantiating new bloon
-                var newBloon = Instantiate(_weakerEnemy, setPosition, transform.rotation);
+                var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
@@ -144,17 +165,30 @@ public class BloonController : MonoBehaviour
                 newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
 
                 distanceFromCenter += addDistance;
+
+                if (_weakerEnemies.Count > 1)
+                    weakerEnemyIndex++;
             }
+        }
+    }
+
+    public bool LayerDestroyed()
+    {
+        if(_layerHp > 1)
+        {
+            if (_hitCount >= _layerHp)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
     private void OnApplicationQuit()
     {
         _isAppQuitting = true;
-    }
-
-    public GameObject GetWeakerEnemy()
-    {
-        return _weakerEnemy;
     }
 }

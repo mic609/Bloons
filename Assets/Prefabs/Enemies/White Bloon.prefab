@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 3.3
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
-  _progress: 0
+  _currentDistance: 0
 --- !u!114 &5523797257457610646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,9 +115,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1c2ab3c639f8f42b73f4e152d77a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weakerEnemy: {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
+  _weakerEnemies:
+  - {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
   _enemyAmount: 2
+  _temporarySprites: []
   _rbe: 11
+  _layerHp: 1
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
 --- !u!50 &2913598632785887363
 Rigidbody2D:
