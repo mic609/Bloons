@@ -28,7 +28,7 @@ public class BloonController : MonoBehaviour
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
         gameObject.transform.SetParent(_parent.transform);
-        _hitCount = -1;
+        _hitCount = 0;
     }
 
     private void Update()
@@ -66,9 +66,10 @@ public class BloonController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Change Sprites while shooting
-        if (_layerHp > 1)
+        if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
         {
             _hitCount++;
+            Debug.Log(_hitCount);
             if (_hitCount % 2 == 0 && _hitCount >= 2 && _hitCount < _layerHp)
             {
                 transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_hitCount / 2 - 1];

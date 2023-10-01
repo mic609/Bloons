@@ -17,11 +17,6 @@ MonoBehaviour:
   upgradeCost: 0.2
   numberOfLifes: 1
   bloonSpeedIncrease: 17.5
-  difficultyDescription: '-Tower and upgrade costs are increased by 20%
-
-    -1 starting
-    life
-
-    -Bloon speeds are increased by a flat 17.5
-
-    -Rounds 1-85'
+  difficultyDescription: On impoppable mode, tower and upgrade costs are increased
+    by 20%, you have only 1 starting life, bloon speeds are increased by a flat 17.5.
+    Pass 85 rounds to achieve platinum medal on this map

@@ -17,11 +17,6 @@ MonoBehaviour:
   upgradeCost: 0.08
   numberOfLifes: 100
   bloonSpeedIncrease: 8.75
-  difficultyDescription: '-Tower and upgrade costs are increased by 8%
-
-    -100
-    starting lives
-
-    -Bloon speeds are increased by a flat 8.75
-
-    -Rounds 1-85'
+  difficultyDescription: On hard mode tower and upgrade costs are increased by 8%,
+    you have 100 starting lives, bloon speeds are increased by a flat 8.75. Pass
+    85 rounds to achieve gold medal on this map

@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f8ce6bb29efc146946436fe9fb9038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldToShow: {fileID: 949216054}
+  _fieldToShow: {fileID: 949216054}
 --- !u!1 &88390013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,8 +2726,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -99, y: -53}
-  m_SizeDelta: {x: 148, y: 142}
+  m_AnchoredPosition: {x: -99, y: -71.90491}
+  m_SizeDelta: {x: 148, y: 179.8098}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949216057
 MonoBehaviour:
@@ -2863,7 +2863,7 @@ GameObject:
   - component: {fileID: 1050051048}
   - component: {fileID: 1050051047}
   m_Layer: 5
-  m_Name: MessageText
+  m_Name: DescriptionPanelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4657,7 +4657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a25d969ad41d64b89ad35368a9a27c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _standardStats: {fileID: 11400000, guid: 95ece299bacdb1d4ebcfcc4035b2760e, type: 2}
+  _standardStats: {fileID: 11400000, guid: 896e965429022c945a77d8f99db1a725, type: 2}
   _lifesText: {fileID: 866163739}
   _moneyText: {fileID: 2129586590}
   _levelText: {fileID: 2131419864}

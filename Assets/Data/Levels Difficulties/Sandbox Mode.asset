@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f60e1ccce9b68942a4128b651386612, type: 3}
-  m_Name: Easy Mode
+  m_Name: Sandbox Mode
   m_EditorClassIdentifier: 
-  moneyAtTheBeginning: 650
+  moneyAtTheBeginning: 999999
   numberOfLevels: 50
-  upgradeCost: -0.15
+  upgradeCost: 0
   numberOfLifes: 200
   bloonSpeedIncrease: 0
-  difficultyDescription: On easy mode, tower and upgrade costs are reduced by 15%,
-    you have 200 starting lives, bloons move at their base speed. Pass 50 rounds
-    to achieve bronze medal on this map
+  difficultyDescription: Sandbox mode let's you test all the towers. Have fun!

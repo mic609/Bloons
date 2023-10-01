@@ -42,12 +42,17 @@ public class ManageTower : MonoBehaviour
             _upgradePanelToShow.SetActive(true);
             _bloonsPopped.text = _bloonsPoppedInt.ToString();
             _towerName.text = _towerInfo.towerName;
-            _sellText.text = "Sell for: " + Mathf.RoundToInt(_towerInfo.standardPrice - _towerInfo.standardPrice * _sellDiscount).ToString();
+
+            var standardCost = _towerInfo.standardPrice;
+            var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
+            var towerCost = standardCost + standardCost * levelDifficulty.upgradeCost;
+
+            _sellText.text = "Sell for: " + Mathf.RoundToInt(towerCost - towerCost * _sellDiscount).ToString();
         }
         else
         {
-            var _towerRange = gameObject.transform.Find("Range");
-            _towerRange.GetComponent<SpriteRenderer>().enabled = false;
+            var towerRange = gameObject.transform.Find("Range");
+            towerRange.GetComponent<SpriteRenderer>().enabled = false;
 
             _upgradePanelToShow.SetActive(false);
         }
@@ -56,7 +61,10 @@ public class ManageTower : MonoBehaviour
     // Used by button
     public void SellTower()
     {
-        var towerCost = _towerInfo.standardPrice;
+        var standardCost = _towerInfo.standardPrice;
+        var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
+        var towerCost = Mathf.RoundToInt(standardCost + standardCost * levelDifficulty.upgradeCost);
+
         var sellDiscount = _sellDiscount;
         var moneyToAdd = Mathf.RoundToInt(towerCost - towerCost * sellDiscount);
 

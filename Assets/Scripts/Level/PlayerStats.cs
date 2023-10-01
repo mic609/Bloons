@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour
     private int _moneyAmount;
     private int _levelNumber;
 
+    private int additionalCashPerLevel;
+
     // list of towers
     private List<GameObject> _towers;
 
@@ -43,6 +45,7 @@ public class PlayerStats : MonoBehaviour
         _moneyAmount = _standardStats.moneyAtTheBeginning;
         _levelNumber = 1;
         _level = GameObject.Find("Map").GetComponent<Level>();
+        additionalCashPerLevel = 100;
 
         _levelText.text = _levelNumber.ToString();
         _lifesText.text = _lifesAmount.ToString();
@@ -56,6 +59,13 @@ public class PlayerStats : MonoBehaviour
         {
             DetectClickedTower();
         }
+    }
+
+    public void CashAtTheEndOfTheLevel()
+    {
+        _moneyAmount += additionalCashPerLevel;
+        _moneyText.text = _moneyAmount.ToString();
+        additionalCashPerLevel++;
     }
 
     public void SetGameSpeed()
@@ -146,5 +156,15 @@ public class PlayerStats : MonoBehaviour
     public void ForgetClickedTower()
     {
         _clickedTower = null;
+    }
+
+    public int GetMoneyAmount()
+    {
+        return _moneyAmount;
+    }
+
+    public LevelDifficultyData GetLevelDifficulty()
+    {
+        return _standardStats;
     }
 }

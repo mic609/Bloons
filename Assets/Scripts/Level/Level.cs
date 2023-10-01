@@ -30,6 +30,12 @@ public class Level : MonoBehaviour
         CalculatePathLength();
     }
 
+    private void Start()
+    {
+        // Beginning of the level message
+        _messageField.GetComponent<MessageField>().ActivateMessage("GameBegin");
+    }
+
     void Update()
     {
         _numberOfBloons = _bloonHolder.transform.childCount;
@@ -59,7 +65,8 @@ public class Level : MonoBehaviour
         {
             yield return null;
         }
-        _messageField.GetComponent<MessageField>().ActivateMessage();
+        _messageField.GetComponent<MessageField>().ActivateMessage("LevelEnd");
+        PlayerStats.Instance.CashAtTheEndOfTheLevel();
     }
 
     private void CalculatePathLength()

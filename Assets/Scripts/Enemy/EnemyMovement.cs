@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 _currentPosition; // current point
     private int _pointsIndex = 0;
 
-    [SerializeField] private float _currentDistance = 0f; // auxiliary variable
+    private float _currentDistance = 0f; // auxiliary variable
     private float _progress = 0f; // percentage of the path completed by a bloon
 
     private void Start()

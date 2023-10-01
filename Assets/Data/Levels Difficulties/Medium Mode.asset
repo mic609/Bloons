@@ -17,11 +17,6 @@ MonoBehaviour:
   upgradeCost: 0
   numberOfLifes: 150
   bloonSpeedIncrease: 3.5
-  difficultyDescription: '-Tower and upgrade costs use their base prices
-
-    -150
-    starting lives
-
-    -Bloon speeds are increased by a flat 3.5
-
-    -Rounds 1-65'
+  difficultyDescription: On medium mode tower and upgrade costs use their base prices,
+    you have 150 starting lives, bloon speeds are increased by a flat 3.5. Pass 65
+    rounds to achieve silver medal on this map
