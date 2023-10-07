@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class ManageTower : MonoBehaviour
 {
+    [Header("Tower")]
     [SerializeField] private TowerData _towerInfo;
     [SerializeField] private float _sellDiscount;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip _sellTowerSound;
     
     private int _bloonsPoppedInt;
+
+    private int _onClickCounter = 0;
 
     // upgrade Panel
     private GameObject _upgradePanelToShow;
@@ -68,6 +74,9 @@ public class ManageTower : MonoBehaviour
         var sellDiscount = _sellDiscount;
         var moneyToAdd = Mathf.RoundToInt(towerCost - towerCost * sellDiscount);
 
+        // Play Sound
+        SoundManager.Instance.PlaySound(_sellTowerSound);
+
         PlayerStats.Instance.AddMoneyForSoldTower(moneyToAdd);
         PlayerStats.Instance.DeleteInstantiatedTower();
         PlayerStats.Instance.ForgetClickedTower();
@@ -97,5 +106,15 @@ public class ManageTower : MonoBehaviour
     public float GetSellDiscount()
     {
         return _sellDiscount;
+    }
+
+    public int GetNumberOfClicks()
+    {
+        return _onClickCounter;
+    }
+
+    public void Click()
+    {
+        _onClickCounter++;
     }
 }

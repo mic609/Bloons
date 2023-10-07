@@ -23,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
     {
         _currentPosition = transform.position; // position of the bloon
         _level = _levelObject.GetComponent<Level>();
+
+        gameObject.GetComponent<BloonController>().RotateMoabClassBloon(); // rotate bloon if neccesary
     }
 
     private void Awake()
@@ -41,8 +43,19 @@ public class EnemyMovement : MonoBehaviour
             if (_currentPosition == points[_pointsIndex].transform.position)
             {
                 _pointsIndex++;
+                transform.gameObject.GetComponent<BloonController>().RotateMoabClassBloon();
             }
         }
+    }
+
+    public bool CurrentPositionCrossed()
+    {
+        var points = _level.GetPoints();
+        if (_currentPosition == points[_pointsIndex].transform.position)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void MoveToPoint(Vector2 lastPoint, Transform nextPoint)

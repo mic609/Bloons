@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5523797257457610646}
   - component: {fileID: 3036021363905629040}
   - component: {fileID: 7415590076644669888}
+  - component: {fileID: 4655528003729927225}
   m_Layer: 8
   m_Name: Red Bloon
   m_TagString: Enemy
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 1
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
-  _currentDistance: 0
 --- !u!114 &5523797257457610646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,12 +115,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1c2ab3c639f8f42b73f4e152d77a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isMoabClassBloon: 0
+  _isCeramicBloon: 0
   _weakerEnemies: []
   _enemyAmount: 1
   _temporarySprites: []
   _rbe: 1
   _layerHp: 1
+  _hitCount: 0
+  _hitsToChangeSprite: 0
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
+  _popSound: {fileID: 8300000, guid: 69535b19fe10e0742bd90d58a28050dc, type: 3}
 --- !u!70 &3036021363905629040
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -158,3 +163,99 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!82 &4655528003729927225
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

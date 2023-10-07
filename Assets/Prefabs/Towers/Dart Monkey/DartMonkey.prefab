@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6110713934753920714}
-  - component: {fileID: 6110713934753920717}
+  - component: {fileID: 8509773618473976669}
   - component: {fileID: 6110713934753920716}
   - component: {fileID: 3557128112247194425}
   - component: {fileID: 7954760365690634210}
@@ -70,7 +70,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6110713934753920717
+--- !u!114 &8509773618473976669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,15 +79,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6110713934753920712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0654b5627a0284397f15f4e99ba27c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d36418ca75a8b8448da3918910c994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 5
+  _radius: 3.5
   _rangeObject: {fileID: 6110713936061166696}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
-  _enemies: []
 --- !u!114 &6110713934753920716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8e015c01f9cd848ba0b71cb7816bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 1.3
+  _delay: 0.5
   _parent: {fileID: 6110713935255402634}
   _objectToPool: {fileID: 8885035158114718254, guid: dbe507bd4a4debe48b96c3338ec22725, type: 3}
   _bullets:
@@ -137,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b595289f8dd29fa4dbe7fecd9ed2ea08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerInfo: {fileID: 11400000, guid: d7f73100d0e644643927ccf050554ffc, type: 2}
+  _towerInfo: {fileID: 11400000, guid: a43d445fabf55f24db3052fb05ecfde8, type: 2}
   _sellDiscount: 0.11
-  _bloonsPoppedInt: 0
+  _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -153,9 +152,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.042207956, y: -0.22126304}
+  m_Offset: {x: 0.042207718, y: -0.32690543}
   serializedVersion: 2
-  m_Radius: 0.50666165
+  m_Radius: 0.40101928
 --- !u!1 &6110713935255402635
 GameObject:
   m_ObjectHideFlags: 0

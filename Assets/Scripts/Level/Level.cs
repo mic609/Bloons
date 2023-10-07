@@ -27,6 +27,7 @@ public class Level : MonoBehaviour
         _currentLevel = _levels[0];
 
         // Calculating path length
+        _pathLength = 0;
         CalculatePathLength();
     }
 
@@ -63,8 +64,10 @@ public class Level : MonoBehaviour
         }
         while (_numberOfBloons > 0)
         {
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
+
+        // The level has ended
         _messageField.GetComponent<MessageField>().ActivateMessage("LevelEnd");
         PlayerStats.Instance.CashAtTheEndOfTheLevel();
     }

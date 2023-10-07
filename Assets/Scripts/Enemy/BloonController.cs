@@ -1,9 +1,15 @@
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BloonController : MonoBehaviour
 {
+    [Header("Type")]
+    [SerializeField] private bool _isMoabClassBloon;
+    [SerializeField] private bool _isCeramicBloon;
+
     [Header("Layers")]
     [SerializeField] private List <GameObject> _weakerEnemies; // weaker enemy prefab
     [SerializeField] private int _enemyAmount; // enemies count after bloon defeat
@@ -13,6 +19,7 @@ public class BloonController : MonoBehaviour
     [SerializeField] private int _rbe;
     [SerializeField] private int _layerHp; // for ceramic, moabs, etc.
     [SerializeField] private int _hitCount; // for ceramic, moabs, etc.
+    [SerializeField] private int _hitsToChangeSprite;
 
     [Header("Parent")]
     private GameObject _parent;
@@ -20,8 +27,12 @@ public class BloonController : MonoBehaviour
     [Header("Level")]
     [SerializeField] private GameObject _levelObject;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip _popSound;
+
     private EnemyMovement _enemyMovement;
     private bool _isAppQuitting = false;
+    private static bool _isChangingScene = false;
 
     private void Start()
     {
@@ -50,7 +61,7 @@ public class BloonController : MonoBehaviour
                 PlayerStats.Instance.DecreaseLifeAmount(_rbe);
             }
             // The app is still running
-            else if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f)
+            else if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f && !_isChangingScene)
             {
                 if (_weakerEnemies.Count != 0)
                 {
@@ -69,10 +80,9 @@ public class BloonController : MonoBehaviour
         if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
         {
             _hitCount++;
-            Debug.Log(_hitCount);
-            if (_hitCount % 2 == 0 && _hitCount >= 2 && _hitCount < _layerHp)
+            if (_hitCount % _hitsToChangeSprite == 0 && _hitCount >= 2 && _hitCount < _layerHp)
             {
-                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_hitCount / 2 - 1];
+                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_hitCount / _hitsToChangeSprite - 1];
             }
         }
     }
@@ -124,6 +134,12 @@ public class BloonController : MonoBehaviour
                 else if(movementDirection == Vector3.up)
                     setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
 
+                // do not rotate bloon that are not moab class bloon
+                if (!_weakerEnemies[weakerEnemyIndex].GetComponent<BloonController>()._isMoabClassBloon)
+                {
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
+
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
@@ -152,6 +168,12 @@ public class BloonController : MonoBehaviour
                     setPosition = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, transform.position.z);
                 else if (movementDirection == Vector3.left)
                     setPosition = new Vector3(transform.position.x - distanceFromCenter, transform.position.y, transform.position.z);
+
+                // do not rotate bloon that are not moab class bloon
+                if (!_weakerEnemies[weakerEnemyIndex].GetComponent<BloonController>()._isMoabClassBloon)
+                {
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
 
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
@@ -188,8 +210,48 @@ public class BloonController : MonoBehaviour
         }
     }
 
+    public void RotateMoabClassBloon()
+    {
+        if (_isMoabClassBloon)
+        {
+            var movementDirection = gameObject.GetComponent<EnemyMovement>().GetMovementDirection();
+
+            if(movementDirection == Vector3.down)
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 180.0f);
+            }
+            else if(movementDirection == Vector3.up)
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0.0f);
+            }
+            else if(movementDirection == Vector3.right)
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 270.0f);
+            }
+            else if(movementDirection == Vector3.left)
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 90.0f);
+            }
+        }
+    }
+
+    public static void SetIsChangingScene(bool value)
+    {
+        _isChangingScene = value;
+    }
+
+    public bool IsMoabClassBloon()
+    {
+        return _isMoabClassBloon;
+    }
+
     private void OnApplicationQuit()
     {
         _isAppQuitting = true;
+    }
+
+    public AudioClip GetPopSound()
+    {
+        return _popSound;
     }
 }

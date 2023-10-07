@@ -6,8 +6,14 @@ using UnityEngine.EventSystems;
 
 public class ChooseTower : MonoBehaviour
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip _chooseTowerSound;
+    [SerializeField] private AudioClip _placeTowerSound;
+
+    [Header("Tower")]
     [SerializeField] private GameObject _towerToPlace;
     [SerializeField] private List<LayerMask> _layersNotToPlaceTower;
+
     private GameObject _moveableTower;
     private Transform _towerRange;
     private Color _towerColor;
@@ -82,6 +88,12 @@ public class ChooseTower : MonoBehaviour
             {
                 _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
 
+                // sound
+                SoundManager.Instance.PlaySound(_chooseTowerSound);
+
+                // Change radius size
+                _moveableTower.GetComponent<RangeCollider>().ChangeRadiusSize();
+
                 // While deciding where to place the tower, the tower should not attack, detect etc.
                 _moveableTower.GetComponent<TowerAttack>().enabled = false;
                 _moveableTower.GetComponent<RangeCollider>().enabled = false;
@@ -129,6 +141,9 @@ public class ChooseTower : MonoBehaviour
     private void PlaceTower()
     {
         _isTowerMoving = false;
+
+        // Play sound
+        SoundManager.Instance.PlaySound(_placeTowerSound);
 
         // Activate Tower Components
         _moveableTower.GetComponent<TowerAttack>().enabled = true;

@@ -7,42 +7,14 @@ using UnityEngine;
 public class RangeCollider : MonoBehaviour
 {
     [Header("Range")]
-    [SerializeField] private float _radius;
+    [SerializeField] protected float _radius;
     [SerializeField] private Transform _rangeObject;
 
     [Header("Enemy in range")]
     [SerializeField] private LayerMask _layerMask;
 
-    [SerializeField] private List<Transform> _enemies;
-    private TowerAttack _towerAttack;
-    private float _previuosRadius;
-
-    private void Start()
-    {
-        _enemies = new List<Transform>();
-        _towerAttack = GetComponent<TowerAttack>();
-        ChangeRadiusSize(); // Set radius at the beginning from the inspector
-    }
-
-    private void Update()
-    {
-        // Detecting Enemy in Range
-        FindEnemy();
-
-        // There are enemies nearby
-        if(_enemies.Count > 0)
-        {
-            // first target shoot
-            _towerAttack.StartAttack(ChooseFirstTarget());
-        }
-
-        // Changing Range Size
-        if(_previuosRadius != _radius)
-        {
-            ChangeRadiusSize();
-            _previuosRadius = _radius;
-        }
-    }
+    protected List<Transform> _enemies;
+    protected float _previuosRadius;
 
     private void OnDrawGizmos()
     {
@@ -50,7 +22,7 @@ public class RangeCollider : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
 
-    private void FindEnemy()
+    protected void FindEnemy()
     {
         _enemies.Clear(); // we are creating new list of enemies every new frame
         var hitColliders = Physics2D.OverlapCircleAll(transform.position, _radius, _layerMask);
@@ -62,7 +34,7 @@ public class RangeCollider : MonoBehaviour
         }
     }
 
-    private Transform ChooseFirstTarget()
+    protected Transform ChooseFirstTarget()
     {
         var biggestProgress = 0f;
         Transform targetToReturn = null;
@@ -78,7 +50,7 @@ public class RangeCollider : MonoBehaviour
         return targetToReturn;
     }
 
-    private void ChangeRadiusSize()
+    public void ChangeRadiusSize()
     {
         _rangeObject.localScale = new Vector3(_radius * 2.0f, _radius * 2.0f, _rangeObject.localScale.z);
     }

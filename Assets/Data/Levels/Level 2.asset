@@ -16,11 +16,7 @@ MonoBehaviour:
   levelDescription: Have fun unlocking and discovering what all the new tower upgrades
     do.
   enemiesSpawnEvents:
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
-    timeBetweenSpawn: 0.5
-    spawnCount: 15
-    timeEndEvent: 0
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
-    timeBetweenSpawn: 1
-    spawnCount: 3
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
+    timeBetweenSpawn: 0.9
+    spawnCount: 35
     timeEndEvent: 0
