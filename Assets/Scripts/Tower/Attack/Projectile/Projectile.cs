@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
         else
         {
             // If there is no enemy left to defeat, remain the direction
-            transform.position = Vector3.MoveTowards(transform.position, _shootingPosition, Time.deltaTime * _bulletSpeed);
+            transform.position += transform.right * _bulletSpeed * Time.deltaTime;
         }
 
         if (_currentDistance >= _maxDistance)

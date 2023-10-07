@@ -499,6 +499,7 @@ MonoBehaviour:
     m_Bits: 512
   - serializedVersion: 2
     m_Bits: 128
+  _isTowerMoving: 0
 --- !u!114 &27967282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +666,7 @@ MonoBehaviour:
     m_Bits: 512
   - serializedVersion: 2
     m_Bits: 128
+  _isTowerMoving: 0
 --- !u!114 &85226629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9562,19 +9564,19 @@ PrefabInstance:
     - target: {fileID: 4213543130408135222, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
       propertyPath: _levels.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d9f43a4a5f74b6b41b851bd507f99de6, type: 2}
+      objectReference: {fileID: 11400000, guid: fe24bb2812bfcd24b8bb5110b631d9f1, type: 2}
     - target: {fileID: 4213543130408135222, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
       propertyPath: _levels.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 94708b4a1f3692f4ba01751346949a6b, type: 2}
+      objectReference: {fileID: 11400000, guid: d9f43a4a5f74b6b41b851bd507f99de6, type: 2}
     - target: {fileID: 4213543130408135222, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
       propertyPath: _levels.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 8b0e8b4245fe07042b39c047a678cc59, type: 2}
+      objectReference: {fileID: 11400000, guid: 94708b4a1f3692f4ba01751346949a6b, type: 2}
     - target: {fileID: 4213543130408135222, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
       propertyPath: _levels.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: fe24bb2812bfcd24b8bb5110b631d9f1, type: 2}
+      objectReference: {fileID: 11400000, guid: 8b0e8b4245fe07042b39c047a678cc59, type: 2}
     - target: {fileID: 4213543130408135222, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
       propertyPath: _levels.Array.data[4]
       value: 

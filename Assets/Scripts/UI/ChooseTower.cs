@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,12 +15,14 @@ public class ChooseTower : MonoBehaviour
     [SerializeField] private GameObject _towerToPlace;
     [SerializeField] private List<LayerMask> _layersNotToPlaceTower;
 
-    private GameObject _moveableTower;
-    private Transform _towerRange;
-    private Color _towerColor;
+    private static GameObject _moveableTower; // tower itself
+
+    private Transform _towerRange; // range of the tower
+    private Color _towerColor; // color of the tower range
     private Vector3 _mousePosition;
-    private bool _isTowerMoving;
-    private Collider2D[] _colliders; 
+    [SerializeField] private bool _isTowerMoving;
+    private Collider2D[] _colliders; // what the moving tower collides with
+    private static bool _isUsedByAnotherObject = false; // this is used to change tower on the interface 
 
     private void Start()
     {
@@ -34,8 +37,10 @@ public class ChooseTower : MonoBehaviour
             // Move the tower
             _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(_moveableTower != null)
+            if (_moveableTower != null)
                 _moveableTower.transform.position = new Vector3(_mousePosition.x, _mousePosition.y, 0);
+            else if (_moveableTower == null)
+                _isTowerMoving = false;
 
             // Check what the tower collides with right now
             for (int i = 0; i < _layersNotToPlaceTower.Count; i++)
@@ -46,8 +51,9 @@ public class ChooseTower : MonoBehaviour
                     break;
             }
 
+            if(_isTowerMoving) // just to be sure
             // Change range color if neccesary
-            ChangeRangeColor();
+                ChangeRangeColor();
 
             // Place tower when the players clicks the mouse button
             if (Input.GetMouseButtonDown(0))
@@ -77,8 +83,11 @@ public class ChooseTower : MonoBehaviour
     // on button click
     public void SelectTower()
     {
+        Debug.Log(gameObject.name);
+        Debug.Log("Po:" + _moveableTower);
+
         // I want to buy the tower! :>
-        if (_moveableTower == null)
+        if (_moveableTower == null || _moveableTower.GetComponent<ManageTower>().name != (_towerToPlace.name + "(Clone)"))
         {
             var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
             var towerPrice = _towerToPlace.GetComponent<ManageTower>().GetTowerInfo().standardPrice;
@@ -86,7 +95,13 @@ public class ChooseTower : MonoBehaviour
             // If the player has enough money to buy the tower
             if (PlayerStats.Instance.GetMoneyAmount() >= Mathf.RoundToInt(towerPrice + towerPrice * levelDifficulty.upgradeCost))
             {
-                _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
+                if(_moveableTower != null)
+                {
+                    Destroy(_moveableTower);
+                    _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
+                }
+                else
+                    _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
 
                 // sound
                 SoundManager.Instance.PlaySound(_chooseTowerSound);
@@ -115,27 +130,34 @@ public class ChooseTower : MonoBehaviour
         // I don't wanna buy this tower ;((((
         else
         {
+            Debug.Log("Przed:" + _moveableTower);
+            _isTowerMoving = false;
             Destroy(_moveableTower);
+            _moveableTower = null;
         }
     }
 
     // Check if the tower is not going to be placed on path or other monkey or interface
     private bool TowerCanBePlaced()
     {
-        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_moveableTower != null)
+        {
+            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        for(int i = 0; i <_layersNotToPlaceTower.Count; i++)
-        {
-            if(_colliders.Length > 0)
+            for (int i = 0; i < _layersNotToPlaceTower.Count; i++)
             {
-                return _colliders.Length == 0;
+                if (_colliders.Length > 0)
+                {
+                    return _colliders.Length == 0;
+                }
             }
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return false;
+            }
+            return true;
         }
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     private void PlaceTower()
@@ -163,7 +185,7 @@ public class ChooseTower : MonoBehaviour
 
         // Check the tower price and decrease player's money
         var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
-        var towerPrice = _towerToPlace.GetComponent<ManageTower>().GetTowerInfo().standardPrice;
+        var towerPrice = _moveableTower.GetComponent<ManageTower>().GetTowerInfo().standardPrice;
         PlayerStats.Instance.DecreaseMoneyForBoughtTower(Mathf.RoundToInt(towerPrice + towerPrice * levelDifficulty.upgradeCost));
 
         _moveableTower = null;

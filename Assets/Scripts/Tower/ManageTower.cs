@@ -67,7 +67,7 @@ public class ManageTower : MonoBehaviour
     // Used by button
     public void SellTower()
     {
-        var standardCost = _towerInfo.standardPrice;
+        var standardCost = PlayerStats.Instance.GetClickedTower().GetComponent<ManageTower>().GetTowerInfo().standardPrice;
         var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
         var towerCost = Mathf.RoundToInt(standardCost + standardCost * levelDifficulty.upgradeCost);
 
