@@ -11,14 +11,15 @@ public class BombProjectile : Projectile
     [Header("Enemy")]
     [SerializeField] private LayerMask _layerMask;
 
-    private Transform _explosion;
+    [Header("SFX")]
+    [SerializeField] private AudioClip _bombSound;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject;
-            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound());
+            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(false));
 
             // Find all of the bloons in the explosion area
             var colliders = Physics2D.OverlapCircleAll(gameObject.transform.position, _explosionDiameter / 2, _layerMask);
@@ -32,6 +33,7 @@ public class BombProjectile : Projectile
 
             // BOOM!
             transform.GetComponentInParent<BombTowerAttack>().ExplosionDuration(collision.gameObject.transform, _explosionDiameter);
+            SoundManager.Instance.PlaySound(_bombSound);
 
             for (int i = 0; i < _numberOfBloonsToPop; i++)
             {
@@ -41,7 +43,8 @@ public class BombProjectile : Projectile
                 var index = Random.Range(0, bloonsToDestroy.Count);
                 var bloonToDestroy = bloonsToDestroy[index];
 
-                if (enemy.GetComponent<BloonController>().LayerDestroyed())
+                // The whole shield needs to be destroyed and the bloon cannot be immune to bombs
+                if (enemy.GetComponent<BloonController>().LayerDestroyed() && !enemy.GetComponent<BloonController>().IsBombImmune())
                 {
                     Destroy(bloonToDestroy);
                     transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp();

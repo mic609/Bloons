@@ -106,6 +106,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
+  _bombSound: {fileID: 8300000, guid: 24f2503986049724a919ee5405a6dedf, type: 3}
 --- !u!61 &8885035158114718252
 BoxCollider2D:
   m_ObjectHideFlags: 0

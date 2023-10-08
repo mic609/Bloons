@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 619be41b14b36a54c8bfbcbf6aa643f4, type: 3}
-  m_Name: Test Level 2
+  m_Name: Different Bloons Level
   m_EditorClassIdentifier: 
   levelNumber: -2
   levelDescription: Different bloons are fun!
@@ -40,6 +40,10 @@ MonoBehaviour:
     spawnCount: 5
     timeEndEvent: 3
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 902829ebb24a18a4aa1824b8c5fb22f5, type: 3}
+    timeBetweenSpawn: 1
+    spawnCount: 5
+    timeEndEvent: 3
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 8a3e17f0f3a9d344b853e7606c0f7d9a, type: 3}
     timeBetweenSpawn: 1
     spawnCount: 5
     timeEndEvent: 3

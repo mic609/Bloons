@@ -10,8 +10,12 @@ public class DartProjectile : Projectile
         {
             // Destroy enemy
             var enemy = collision.gameObject;
-            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound());
-            if (enemy.GetComponent<BloonController>().LayerDestroyed())
+            var cannotPopLead = enemy.GetComponent<BloonController>().IsLeadBloon();
+
+            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(cannotPopLead));
+
+            // Dart needs to destroy the whole shield and the bloon is not a lead bloon
+            if (enemy.GetComponent<BloonController>().LayerDestroyed() && !cannotPopLead)
             {
                 Destroy(enemy);
 

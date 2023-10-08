@@ -6,11 +6,14 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private float _soundInterval;
     [SerializeField] private float _soundIntervalCeramic;
+    [SerializeField] private float _soundIntervalBomb;
     private float lastAttackTime = 0.0f;
     private float lastAttackTimeCeramic = 0.0f;
+    private float lastAttackTimeBomb = 0.0f;
 
     private AudioSource _soundSource;
     private AudioSource _soundSourceForCeramics;
+    private AudioSource _soundSourceForBombs;
     private AudioSource _musicSource;
     private AudioClip _sound;
 
@@ -18,6 +21,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundSource = GetComponent<AudioSource>();
         _soundSourceForCeramics = GetComponent<AudioSource>();
+        _soundSourceForBombs = GetComponent<AudioSource>();
 
         _musicSource = transform.GetChild(0).GetComponent<AudioSource>(); // return audio component of the first child
 
@@ -40,23 +44,38 @@ public class SoundManager : MonoBehaviour
     {
         if(_sound != null)
         {
-            if (_sound.name != "bloonPop")
+            switch (_sound.name)
             {
-                if (Time.time - lastAttackTimeCeramic >= _soundIntervalCeramic)
-                {
-                    lastAttackTimeCeramic = Time.time;
-                    _soundSourceForCeramics.PlayOneShot(_sound);
-                    _sound = null;
-                }
-            }
-            else if(_sound.name == "bloonPop")
-            {
-                if (Time.time - lastAttackTime >= _soundInterval)
-                {
-                    lastAttackTime = Time.time;
-                    _soundSource.PlayOneShot(_sound);
-                    _sound = null;
-                }
+                case "ceramicPop":
+                    {
+                        if (Time.time - lastAttackTimeCeramic >= _soundIntervalCeramic)
+                        {
+                            lastAttackTimeCeramic = Time.time;
+                            _soundSourceForCeramics.PlayOneShot(_sound);
+                            _sound = null;
+                        }
+                    }
+                    break;
+                case "bombSound":
+                    {
+                        if (Time.time - lastAttackTimeBomb >= _soundIntervalBomb)
+                        {
+                            lastAttackTimeBomb = Time.time;
+                            _soundSourceForBombs.PlayOneShot(_sound);
+                            _sound = null;
+                        }
+                    }
+                    break;
+                default:
+                    {
+                        if (Time.time - lastAttackTime >= _soundInterval)
+                        {
+                            lastAttackTime = Time.time;
+                            _soundSource.PlayOneShot(_sound);
+                            _sound = null;
+                        }
+                    }
+                break;
             }
         }
     }

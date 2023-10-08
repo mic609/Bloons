@@ -9,6 +9,8 @@ public class BloonController : MonoBehaviour
     [Header("Type")]
     [SerializeField] private bool _isMoabClassBloon;
     [SerializeField] private bool _isCeramicBloon;
+    [SerializeField] private bool _isLeadBloon;
+    [SerializeField] private bool _isBombImmune;
 
     [Header("Layers")]
     [SerializeField] private List <GameObject> _weakerEnemies; // weaker enemy prefab
@@ -29,6 +31,7 @@ public class BloonController : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] private AudioClip _popSound;
+    [SerializeField] private AudioClip _leadSound;
 
     private EnemyMovement _enemyMovement;
     private bool _isAppQuitting = false;
@@ -245,13 +248,26 @@ public class BloonController : MonoBehaviour
         return _isMoabClassBloon;
     }
 
+    public bool IsLeadBloon()
+    {
+        return _isLeadBloon;
+    }
+
+    public bool IsBombImmune()
+    {
+        return _isBombImmune;
+    }
+
     private void OnApplicationQuit()
     {
         _isAppQuitting = true;
     }
 
-    public AudioClip GetPopSound()
+    public AudioClip GetPopSound(bool cannotPopLead)
     {
-        return _popSound;
+        if(!cannotPopLead)
+            return _popSound;
+        else
+            return _leadSound;
     }
 }

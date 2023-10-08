@@ -22,7 +22,6 @@ public class ChooseTower : MonoBehaviour
     private Vector3 _mousePosition;
     [SerializeField] private bool _isTowerMoving;
     private Collider2D[] _colliders; // what the moving tower collides with
-    private static bool _isUsedByAnotherObject = false; // this is used to change tower on the interface 
 
     private void Start()
     {
@@ -83,9 +82,6 @@ public class ChooseTower : MonoBehaviour
     // on button click
     public void SelectTower()
     {
-        Debug.Log(gameObject.name);
-        Debug.Log("Po:" + _moveableTower);
-
         // I want to buy the tower! :>
         if (_moveableTower == null || _moveableTower.GetComponent<ManageTower>().name != (_towerToPlace.name + "(Clone)"))
         {
