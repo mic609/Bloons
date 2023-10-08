@@ -16,12 +16,14 @@ public class BloonController : MonoBehaviour
     [SerializeField] private List <GameObject> _weakerEnemies; // weaker enemy prefab
     [SerializeField] private int _enemyAmount; // enemies count after bloon defeat
     [SerializeField] private List<Sprite> _temporarySprites;
+    private int _spriteIndex = 0;
 
     [Header("Health")]
     [SerializeField] private int _rbe;
     [SerializeField] private int _layerHp; // for ceramic, moabs, etc.
     [SerializeField] private int _hitCount; // for ceramic, moabs, etc.
     [SerializeField] private int _hitsToChangeSprite;
+    [SerializeField] private List<int> _criticalPoints;
 
     [Header("Parent")]
     private GameObject _parent;
@@ -37,8 +39,14 @@ public class BloonController : MonoBehaviour
     private bool _isAppQuitting = false;
     private static bool _isChangingScene = false;
 
+    // Info from other towers
+    private int _popThrough;
+    private bool _isDestroyed;
+
     private void Start()
     {
+        _isDestroyed = false;
+
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
         gameObject.transform.SetParent(_parent.transform);
@@ -52,10 +60,22 @@ public class BloonController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (!_isDestroyed && _popThrough > 0)
+        {
+            DestroyBloonsTillPierceEnd();
+        }
+    }
+
+    private void DestroyBloonsTillPierceEnd()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
+        _isDestroyed = true;
+
         if(_enemyMovement != null)
         {
             // The bloon reached the end
@@ -63,11 +83,12 @@ public class BloonController : MonoBehaviour
             {
                 PlayerStats.Instance.DecreaseLifeAmount(_rbe);
             }
-            // The app is still running
+            // The app is still running, on destroying objects spawn new bloons
             else if (!_isAppQuitting && _enemyMovement.GetProgress() < 1.0f && !_isChangingScene)
             {
                 if (_weakerEnemies.Count != 0)
                 {
+                    _popThrough--;
                     SpawnWeakerLayer();
                 }
 
@@ -77,15 +98,50 @@ public class BloonController : MonoBehaviour
         }
     }
 
+    // Destroy object hit by physical projectile (1 damage)
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        DestroyLayeredEnemy(collision, 1);
+    }
+
+    public void DestroyLayeredEnemy(Collider2D collision, int hitAmount)
+    {
         // Change Sprites while shooting
-        if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
+        if (collision != null)
         {
-            _hitCount++;
-            if (_hitCount % _hitsToChangeSprite == 0 && _hitCount >= 2 && _hitCount < _layerHp)
+            if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
             {
-                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_hitCount / _hitsToChangeSprite - 1];
+                Debug.Log("DART HIT");
+                int previousHitCount = _hitCount;
+                _hitCount++;
+
+                foreach (int criticalPoint in _criticalPoints)
+                {
+                    if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
+                    {
+                        transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
+                        _spriteIndex++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (_layerHp > 1)
+            {
+                Debug.Log("SNIPER HIT");
+
+                int previousHitCount = _hitCount;
+                _hitCount += hitAmount;
+
+                foreach (int criticalPoint in _criticalPoints)
+                {
+                    if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
+                    {
+                        transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
+                        _spriteIndex++;
+                    }
+                }
             }
         }
     }
@@ -145,6 +201,8 @@ public class BloonController : MonoBehaviour
 
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+                newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
+
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
@@ -180,6 +238,8 @@ public class BloonController : MonoBehaviour
 
                 // Instantiating new bloon
                 var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+                newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
+
                 var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
                 var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
 
@@ -238,9 +298,19 @@ public class BloonController : MonoBehaviour
         }
     }
 
+    public void SetIsPopThrough(int popThrough)
+    {
+        _popThrough = popThrough;
+    }
+
     public static void SetIsChangingScene(bool value)
     {
         _isChangingScene = value;
+    }
+
+    public bool IsCeramicBloon()
+    {
+        return _isCeramicBloon;
     }
 
     public bool IsMoabClassBloon()

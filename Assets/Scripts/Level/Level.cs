@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
     [Header("Levels")]
     [SerializeField] List<LevelData> _levels; // list of all possible levels in the game
     [SerializeField] private NextLevel _nextLevel;
-    [SerializeField] private GameObject _bloonHolder; // object that contains all bloons
+    [SerializeField] private Transform _bloonHolder; // object that contains all bloons
     private LevelData _currentLevel;
     private int _currentLevelIndex;
     private int _numberOfBloons; // current number of bloons on map
@@ -42,12 +42,12 @@ public class Level : MonoBehaviour
         _numberOfBloons = _bloonHolder.transform.childCount;
     }
 
-    public void spawnEnemyCoroutine()
+    public void SpawnEnemyCoroutine()
     {
-        StartCoroutine(spawnEnemy());
+        StartCoroutine(SpawnEnemy());
     }
 
-    private IEnumerator spawnEnemy()
+    private IEnumerator SpawnEnemy()
     {
         // next events
         for (int j = 0; j < _currentLevel.enemiesSpawnEvents.Count; j++)
@@ -90,11 +90,6 @@ public class Level : MonoBehaviour
         }
     }
 
-    public int GetNumberOfBloons()
-    {
-        return _numberOfBloons;
-    }
-
     public void SwitchLevel()
     {
         if (_currentLevelIndex < (_levels.Count + 1))
@@ -102,6 +97,21 @@ public class Level : MonoBehaviour
             _currentLevel = _levels[_currentLevelIndex];
             _currentLevelIndex++;
         }
+    }
+
+    ////////////////////////////////////////
+    // Getters and setters
+    ////////////////////////////////////////
+    
+    public Transform GetAllBloons()
+    {
+        // return the object that contains all of the bloons
+        return _bloonHolder;
+    }
+
+    public int GetNumberOfBloons()
+    {
+        return _numberOfBloons;
     }
 
     public LevelData GetLevel()

@@ -13,7 +13,7 @@ public class NextLevel : MonoBehaviour
         {
             SoundManager.Instance.PlaySound(_buttonClick);
             _level.GetComponent<Level>().SwitchLevel();
-            _level.GetComponent<Level>().spawnEnemyCoroutine();
+            _level.GetComponent<Level>().SpawnEnemyCoroutine();
         }
     }
 }
