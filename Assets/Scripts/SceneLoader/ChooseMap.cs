@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+// Choosing map in the main menu logic
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

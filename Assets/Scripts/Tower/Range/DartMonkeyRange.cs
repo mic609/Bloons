@@ -1,4 +1,5 @@
-using System.Collections;
+// Dart monkey detecting enemies in range
+
 using System.Collections.Generic;
 using UnityEngine;
 

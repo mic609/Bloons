@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BombTowerAttack : TowerAttack
 {
-    private Transform _explosion;
+    private Transform _explosion; // explosion object
 
     // When enemy in range
     public void StartAttack(Transform enemy)
@@ -29,6 +29,7 @@ public class BombTowerAttack : TowerAttack
         }
     }
 
+    // After hitting bloons show the explosion for the certain amount of time
     public void ExplosionDuration(Transform bulletTransform, float explosionDiameter)
     {
         _explosion = transform.Find("Explosion");

@@ -1,10 +1,6 @@
+// The script describes the dart monkey attack logic
 
-// The script describes the tower attack logic
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class DartMonkeyAttack : TowerAttack
 {

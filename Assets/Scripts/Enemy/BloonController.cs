@@ -1,3 +1,5 @@
+// Destroying bloons logic, other bloon details
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,6 +8,7 @@ using UnityEngine.UIElements;
 
 public class BloonController : MonoBehaviour
 {
+    // Define some special bloons type
     [Header("Type")]
     [SerializeField] private bool _isMoabClassBloon;
     [SerializeField] private bool _isCeramicBloon;
@@ -13,20 +16,23 @@ public class BloonController : MonoBehaviour
     [SerializeField] private bool _isBombImmune;
 
     [Header("Layers")]
-    [SerializeField] private List <GameObject> _weakerEnemies; // weaker enemy prefab
-    [SerializeField] private int _enemyAmount; // enemies count after bloon defeat
+    [SerializeField] private List <GameObject> _weakerEnemies; // after bloon destroy, _weakerEnemies are going to be spawned
+    [SerializeField] private int _enemyAmount; // the number of _weakerEnemies
+
+    // This applies to heavy bloons that need more than 1 damage to be destroyed
+    // Sprites represents damage state of heavy bloon
+    [Header("Shield")]
     [SerializeField] private List<Sprite> _temporarySprites;
     private int _spriteIndex = 0;
 
     [Header("Health")]
-    [SerializeField] private int _rbe;
-    [SerializeField] private int _layerHp; // for ceramic, moabs, etc.
-    [SerializeField] private int _hitCount; // for ceramic, moabs, etc.
-    [SerializeField] private int _hitsToChangeSprite;
-    [SerializeField] private List<int> _criticalPoints;
+    [SerializeField] private int _rbe; // red bloon equivalent- this is the bloon health
+    [SerializeField] private int _layerHp; // additional shield for heavy bloons
+    private int _hitCount; // for ceramic, moabs, etc.
+    [SerializeField] private List<int> _criticalPoints; // critical points represent the place where the sprite is being changed 
 
     [Header("Parent")]
-    private GameObject _parent;
+    private GameObject _parent; // bloon holder object
 
     [Header("Level")]
     [SerializeField] private GameObject _levelObject;
@@ -40,16 +46,16 @@ public class BloonController : MonoBehaviour
     private static bool _isChangingScene = false;
 
     // Info from other towers
-    private int _popThrough;
-    private bool _isDestroyed;
+    private int _popThrough; // If this variable is greater than zero bloon needs to be destroyed
+    private bool _isDestroyed; // Is bloon being destroyed right now?
 
     private void Start()
     {
-        _isDestroyed = false;
-
         _enemyMovement = GetComponent<EnemyMovement>();
         _parent = GameObject.Find("BloonHolder");
         gameObject.transform.SetParent(_parent.transform);
+
+        _isDestroyed = false;
         _hitCount = 0;
     }
 
@@ -61,15 +67,11 @@ public class BloonController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Destroy the bloon if the projectile has more than 1 point damage
         if (!_isDestroyed && _popThrough > 0)
         {
-            DestroyBloonsTillPierceEnd();
+            Destroy(gameObject);
         }
-    }
-
-    private void DestroyBloonsTillPierceEnd()
-    {
-        Destroy(gameObject);
     }
 
     private void OnDestroy()
@@ -104,54 +106,47 @@ public class BloonController : MonoBehaviour
         DestroyLayeredEnemy(collision, 1);
     }
 
+    // Destroying enemies with shield logic
     public void DestroyLayeredEnemy(Collider2D collision, int hitAmount)
     {
-        // Change Sprites while shooting
+        // This is from physical projectile on scene
         if (collision != null)
         {
             if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
-            {
-                Debug.Log("DART HIT");
-                int previousHitCount = _hitCount;
-                _hitCount++;
-
-                foreach (int criticalPoint in _criticalPoints)
-                {
-                    if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
-                    {
-                        transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
-                        _spriteIndex++;
-                    }
-                }
-            }
+                ChangeSprite(hitAmount);
         }
+        // There is no projectile to destroy enemy (sniper monkey etc.)
         else
         {
             if (_layerHp > 1)
+                ChangeSprite(hitAmount);
+        }
+    }
+
+    // Destroying enemies with shield logic
+    private void ChangeSprite(int hitAmount)
+    {
+        int previousHitCount = _hitCount;
+        _hitCount += hitAmount;
+
+        foreach (int criticalPoint in _criticalPoints)
+        {
+            if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
             {
-                Debug.Log("SNIPER HIT");
-
-                int previousHitCount = _hitCount;
-                _hitCount += hitAmount;
-
-                foreach (int criticalPoint in _criticalPoints)
-                {
-                    if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
-                    {
-                        transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
-                        _spriteIndex++;
-                    }
-                }
+                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
+                _spriteIndex++;
             }
         }
     }
 
+    // On destroy spawn weaker enemies
     private void SpawnWeakerLayer()
     {
         float distanceFromCenter = 0.0f;
         float addDistance = 0.0f;
 
         // In switch we need to define the distance between weaker spawned bloons
+        // For example in case 2: *bloon* (x = -0.3), x = 0, *bloon* (x = 0.3)
         switch (_enemyAmount)
         {
             case 1:
@@ -174,9 +169,8 @@ public class BloonController : MonoBehaviour
                 }
         }
 
-        // We need to know the movement direction of the bloons, so we can spawn them in proper places
+        // We need to know the movement direction of the bloons, so we can spawn them vertically or horizontally
         var movementDirection = gameObject.GetComponent<EnemyMovement>().GetMovementDirection();
-
         if (movementDirection == Vector3.zero)
             return;
 
@@ -186,32 +180,14 @@ public class BloonController : MonoBehaviour
         {
             for (int i = 0; i < _enemyAmount; i++)
             {
-                // Setting position
+                // Setting position of the spawned bloons
                 var setPosition = Vector3.zero;
                 if (movementDirection == Vector3.down)
                     setPosition = new Vector3(transform.position.x, transform.position.y - distanceFromCenter, transform.position.z);
                 else if(movementDirection == Vector3.up)
                     setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
 
-                // do not rotate bloon that are not moab class bloon
-                if (!_weakerEnemies[weakerEnemyIndex].GetComponent<BloonController>()._isMoabClassBloon)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
-
-                // Instantiating new bloon
-                var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
-                newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
-
-                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
-                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
-
-                var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
-
-                // Setting distance, position and progress of the new bloon
-                newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
-                newEnemyMovement.SetCurrentPosition(setPosition);
-                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+                InstantiateWeakerEnemy(weakerEnemyIndex, setPosition, distanceFromCenter);
 
                 distanceFromCenter += addDistance;
 
@@ -223,32 +199,14 @@ public class BloonController : MonoBehaviour
         {
             for (int i = 0; i < _enemyAmount; i++)
             {
-                // Setting position
+                // Setting position of the spawned bloons
                 var setPosition = Vector3.zero;
                 if (movementDirection == Vector3.right)
                     setPosition = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, transform.position.z);
                 else if (movementDirection == Vector3.left)
                     setPosition = new Vector3(transform.position.x - distanceFromCenter, transform.position.y, transform.position.z);
 
-                // do not rotate bloon that are not moab class bloon
-                if (!_weakerEnemies[weakerEnemyIndex].GetComponent<BloonController>()._isMoabClassBloon)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
-
-                // Instantiating new bloon
-                var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
-                newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
-
-                var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
-                var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
-
-                var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
-
-                // Setting distance, position and progress of the new bloon
-                newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
-                newEnemyMovement.SetCurrentPosition(setPosition);
-                newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+                InstantiateWeakerEnemy(weakerEnemyIndex, setPosition, distanceFromCenter);
 
                 distanceFromCenter += addDistance;
 
@@ -258,21 +216,39 @@ public class BloonController : MonoBehaviour
         }
     }
 
-    public bool LayerDestroyed()
+    private void InstantiateWeakerEnemy(int weakerEnemyIndex, Vector3 setPosition, float distanceFromCenter)
+    {
+        // do not rotate bloon that are not moab class bloon
+        if (!_weakerEnemies[weakerEnemyIndex].GetComponent<BloonController>()._isMoabClassBloon)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+
+        // Instantiating new bloon
+        var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+        newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
+        var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
+
+        var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+        var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
+
+        // Setting distance, position and progress of the new bloon based on the old bloon
+        newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
+        newEnemyMovement.SetCurrentPosition(setPosition);
+        newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+    }
+
+    // Check if the layer of heavy bloons is destroyed
+    public int LayerDestroyed()
     {
         if(_layerHp > 1)
         {
-            if (_hitCount >= _layerHp)
-                return true;
-            else
-                return false;
+            return _hitCount - _layerHp;
         }
-        else
-        {
-            return true;
-        }
+        return 0;
     }
 
+    // Rotate Moab class bloon based on the movement direction
     public void RotateMoabClassBloon()
     {
         if (_isMoabClassBloon)
@@ -296,6 +272,23 @@ public class BloonController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 90.0f);
             }
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _isAppQuitting = true;
+    }
+
+    ////////////////////////////////////////////
+    // Getters and setters
+    ////////////////////////////////////////////
+
+    public AudioClip GetPopSound(bool cannotPopLead)
+    {
+        if (!cannotPopLead)
+            return _popSound;
+        else
+            return _leadSound;
     }
 
     public void SetIsPopThrough(int popThrough)
@@ -328,16 +321,8 @@ public class BloonController : MonoBehaviour
         return _isBombImmune;
     }
 
-    private void OnApplicationQuit()
+    public bool IsUnderAttack()
     {
-        _isAppQuitting = true;
-    }
-
-    public AudioClip GetPopSound(bool cannotPopLead)
-    {
-        if(!cannotPopLead)
-            return _popSound;
-        else
-            return _leadSound;
+        return _isDestroyed;
     }
 }

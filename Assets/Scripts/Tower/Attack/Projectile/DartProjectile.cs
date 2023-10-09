@@ -1,4 +1,4 @@
-// The script describes the bullet behaviour
+// The script describes the dart behaviour
 
 using UnityEngine;
 
@@ -12,15 +12,16 @@ public class DartProjectile : Projectile
             var enemy = collision.gameObject;
             var cannotPopLead = enemy.GetComponent<BloonController>().IsLeadBloon();
 
+            // If the bloon is lead, play lead sound, otherwise play normal sound
             SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(cannotPopLead));
 
             // Dart needs to destroy the whole shield and the bloon is not a lead bloon
-            if (enemy.GetComponent<BloonController>().LayerDestroyed() && !cannotPopLead)
+            if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !cannotPopLead)
             {
                 Destroy(enemy);
 
                 // Add statistics for the tower
-                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp();
+                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(1);
             }
 
             // Make the Projectile disappear

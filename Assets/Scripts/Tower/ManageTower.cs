@@ -7,7 +7,7 @@ using UnityEngine;
 public class ManageTower : MonoBehaviour
 {
     [Header("Tower")]
-    [SerializeField] private TowerData _towerInfo;
+    [SerializeField] private TowerData _towerInfo; // the tower cost, name etc.
     [SerializeField] private float _sellDiscount;
 
     [Header("SFX")]
@@ -93,9 +93,13 @@ public class ManageTower : MonoBehaviour
         }
     }
 
-    public void BloonsPoppedUp()
+    //////////////////////////////
+    // Getters and setters
+    //////////////////////////////
+
+    public void BloonsPoppedUp(int bloonsAmount)
     {
-        _bloonsPoppedInt += 1;
+        _bloonsPoppedInt += bloonsAmount;
     }
 
     public TowerData GetTowerInfo()

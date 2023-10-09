@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Statistics and setup")]
-    private LevelDifficultyData _standardStats;
+    private LevelDifficultyData _standardStats; // difficulty info
     [SerializeField] private TextMeshProUGUI _lifesText;
     [SerializeField] private TextMeshProUGUI _moneyText;
     [SerializeField] private TextMeshProUGUI _levelText;
@@ -22,16 +22,17 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioClip _clickTowerSound;
     
     private Level _level;
+
+    // Game stats
     private int _lifesAmount;
     private int _moneyAmount;
     private int _levelNumber;
-
     private int additionalCashPerLevel;
 
-    // list of towers
+    // List of instantiated towers during the game
     private List<GameObject> _towers;
 
-    // clicked tower by user
+    // Current chosen tower
     private GameObject _clickedTower;
 
     public static PlayerStats Instance { get; private set; }
@@ -172,36 +173,42 @@ public class PlayerStats : MonoBehaviour
         _towers.Add(newTower);
     }
 
+    // Delete the tower chosen by user (on sell)
     public void DeleteInstantiatedTower()
     {
         _towers.Remove(_clickedTower);
         Destroy(_clickedTower);
     }
 
+    // Show current level to the user
     private void ChangeLevelInInterface()
     {
         _levelNumber = _level.GetLevel().levelNumber;
         _levelText.text = _levelNumber.ToString();
     }
 
+    // For every popped bloon you earn money. Show to the user amount of money
     public void AddMoneyForBloonPop()
     {
         _moneyAmount += 1;
         _moneyText.text = _moneyAmount.ToString();
     }
 
+    // Show the amount of money after selling the tower
     public void AddMoneyForSoldTower(int moneyAmount)
     {
         _moneyAmount += moneyAmount;
         _moneyText.text = _moneyAmount.ToString();
     }
 
+    // Show the amount of money after buying the tower
     public void DecreaseMoneyForBoughtTower(int moneyAmount)
     {
         _moneyAmount -= moneyAmount;
         _moneyText.text = _moneyAmount.ToString();
     }
 
+    // If the bloon reaches the end, change number of lives
     public void DecreaseLifeAmount(int rbe)
     {
         if(_lifesAmount > 0)
@@ -215,6 +222,10 @@ public class PlayerStats : MonoBehaviour
             _lifesText.text = _lifesAmount.ToString();
         }
     }
+
+    //////////////////////////
+    // Getters and Setters
+    //////////////////////////
 
     public GameObject GetClickedTower()
     {

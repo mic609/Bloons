@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+// Sniper Monkey attack logic
+
 using UnityEngine;
 
 public class SniperMonkeyAttack : MonoBehaviour
 {
     [Header("Attack Details")]
-    [SerializeField] private float _delay;
+    [SerializeField] private float _delay; // time between shooting
+    [SerializeField] private float _delayTimer;
     [SerializeField] private int _damage; // how many bloons the tower can pop through
-    private bool _bonusDamageForCeramic;
+    private bool _bonusDamageForCeramic; // applied for specific sniper monkey upgrades to destroy ceramic bloon immediately
     
-    private GameObject _bloons;
-    
+    private GameObject _bloons; // bloons on the map
+
     private TowerRotation _towerRotation;
-    private float _delayTimer;
 
     private void Start()
     {
@@ -27,9 +26,12 @@ public class SniperMonkeyAttack : MonoBehaviour
     {
         if (_bloons.transform.childCount > 0)
         {
-            // first target shoot
-            StartAttack(ChooseFirstTarget());
+            // Tell the sniper monkey management class that sniper is ready to attack
+            // More details in SniperMonkeyManager class
+            SniperMonkeyManager.Instance.AddToTheQueue(this);
         }
+
+        _delayTimer += Time.deltaTime;
     }
 
     // When enemy in range
@@ -37,7 +39,6 @@ public class SniperMonkeyAttack : MonoBehaviour
     {
         if (enemy != null) // there is enemy
         {
-            _delayTimer += Time.deltaTime;
             if (_delayTimer >= _delay)
             {
                 // Rotate Tower towards target
@@ -50,14 +51,46 @@ public class SniperMonkeyAttack : MonoBehaviour
                 var isMoabClassBloon = enemy.gameObject.GetComponent<BloonController>().IsMoabClassBloon();
                 var isCeramicBloon = enemy.gameObject.GetComponent<BloonController>().IsCeramicBloon();
 
+                // Destroying bloons with shield
                 if ((isMoabClassBloon || isCeramicBloon) && !_bonusDamageForCeramic)
                 {
+                    // Break the bloon shield
                     enemy.gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, _damage);
-                    if (enemy.gameObject.GetComponent<BloonController>().LayerDestroyed())
+
+                    var hitsLeft = enemy.gameObject.GetComponent<BloonController>().LayerDestroyed();
+
+                    // This is complicated. The shield bloon (ceramic, moab) after being destroyed still can affect
+                    // weaker enemies (hitsLeft > 0), but it depends on the shield remaining health
+                    if (hitsLeft == 0)
+                    {
                         Destroy(enemy.gameObject);
+                        transform.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                    }
+                    else if(hitsLeft > 0)
+                    {
+                        // there is +1 for some reason. We will understand why it needs to be like this
+
+                        if (!isMoabClassBloon)
+                        {
+                            transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                            enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(hitsLeft + 1);
+                            Destroy(enemy.gameObject);
+                        }
+                        else
+                        {
+                            enemy.gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, _damage);
+                            Destroy(enemy.gameObject);
+                        }
+                    }
+
                 }
+                // Destroying bloons without shield
                 else
                 {
+                    // how much bloons the sniper popped
+                    transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                    
+                    // PopThrough is being set to destroy multiple layers of the bloons at once
                     enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(_damage);
                     Destroy(enemy.gameObject);
                 }
@@ -67,21 +100,5 @@ public class SniperMonkeyAttack : MonoBehaviour
             }
 
         }
-    }
-
-    private Transform ChooseFirstTarget()
-    {
-        var biggestProgress = 0f;
-        Transform targetToReturn = null;
-
-        foreach (Transform enemy in _bloons.transform)
-        {
-            if (enemy.GetComponent<EnemyMovement>().GetProgress() > biggestProgress)
-            {
-                biggestProgress = enemy.GetComponent<EnemyMovement>().GetProgress();
-                targetToReturn = enemy;
-            }
-        }
-        return targetToReturn;
     }
 }

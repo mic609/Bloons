@@ -103,11 +103,16 @@ public class ChooseTower : MonoBehaviour
                 SoundManager.Instance.PlaySound(_chooseTowerSound);
 
                 // Change radius size
-                _moveableTower.GetComponent<RangeCollider>().ChangeRadiusSize();
+                if(_moveableTower.GetComponent<RangeCollider>() != null)
+                    _moveableTower.GetComponent<RangeCollider>().ChangeRadiusSize();
 
                 // While deciding where to place the tower, the tower should not attack, detect etc.
-                _moveableTower.GetComponent<TowerAttack>().enabled = false;
-                _moveableTower.GetComponent<RangeCollider>().enabled = false;
+                if (_moveableTower.GetComponent<SniperMonkeyAttack>() != null)
+                    _moveableTower.GetComponent<SniperMonkeyAttack>().enabled = false;
+                if (_moveableTower.GetComponent<TowerAttack>() != null)
+                    _moveableTower.GetComponent<TowerAttack>().enabled = false;
+                if (_moveableTower.GetComponent<RangeCollider>() != null)
+                    _moveableTower.GetComponent<RangeCollider>().enabled = false;
                 _moveableTower.GetComponent<CircleCollider2D>().enabled = false;
 
                 // Set tower range to visible
@@ -126,7 +131,6 @@ public class ChooseTower : MonoBehaviour
         // I don't wanna buy this tower ;((((
         else
         {
-            Debug.Log("Przed:" + _moveableTower);
             _isTowerMoving = false;
             Destroy(_moveableTower);
             _moveableTower = null;
@@ -164,8 +168,12 @@ public class ChooseTower : MonoBehaviour
         SoundManager.Instance.PlaySound(_placeTowerSound);
 
         // Activate Tower Components
-        _moveableTower.GetComponent<TowerAttack>().enabled = true;
-        _moveableTower.GetComponent<RangeCollider>().enabled = true;
+        if (_moveableTower.GetComponent<SniperMonkeyAttack>() != null)
+            _moveableTower.GetComponent<SniperMonkeyAttack>().enabled = true;
+        if (_moveableTower.GetComponent<TowerAttack>() != null)
+            _moveableTower.GetComponent<TowerAttack>().enabled = true;
+        if (_moveableTower.GetComponent<RangeCollider>() != null)
+            _moveableTower.GetComponent<RangeCollider>().enabled = true;
         _moveableTower.GetComponent<CircleCollider2D>().enabled = true;
         
         // Set Range to invisible

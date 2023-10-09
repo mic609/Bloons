@@ -1,7 +1,6 @@
 // The script describes enemy detection in range of the tower
 
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class RangeCollider : MonoBehaviour
@@ -34,6 +33,7 @@ public class RangeCollider : MonoBehaviour
         }
     }
 
+    // We want to attack the enemy that is closest to exit
     protected Transform ChooseFirstTarget()
     {
         var biggestProgress = 0f;

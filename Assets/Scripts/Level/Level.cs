@@ -1,3 +1,5 @@
+// Spawning enemies logic, path and calculating path details
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,21 +11,23 @@ public class Level : MonoBehaviour
 
     [Header("Levels")]
     [SerializeField] List<LevelData> _levels; // list of all possible levels in the game
-    [SerializeField] private NextLevel _nextLevel;
-    [SerializeField] private Transform _bloonHolder; // object that contains all bloons
     private LevelData _currentLevel;
     private int _currentLevelIndex;
+    [SerializeField] private NextLevel _nextLevel;
+    [SerializeField] private Transform _bloonHolder; // object that contains all bloons
     private int _numberOfBloons; // current number of bloons on map
 
-    [Header("Messages")]
+    [Header("Level messages")]
     [SerializeField] private GameObject _messageField;
 
+    // Points on the path
     [Header("Path")]
     [SerializeField] private Transform[] _points;
     private static float _pathLength; // it is the global variable
 
     private void Awake()
     {
+        // Set the initial level of the game
         _currentLevel = _levels[0];
 
         // Calculating path length
@@ -33,7 +37,7 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        // Beginning of the level message
+        // Beginning of the game message
         _messageField.GetComponent<MessageField>().ActivateMessage("GameBegin");
     }
 
