@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 619be41b14b36a54c8bfbcbf6aa643f4, type: 3}
-  m_Name: One Ceramic
+  m_Name: Rainbow Waves
   m_EditorClassIdentifier: 
   levelNumber: 0
-  levelDescription: One Ceramic
+  levelDescription: 
   enemiesSpawnEvents:
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 58e2fa8b3f7ce28418b69ad0af7292e3, type: 3}
-    timeBetweenSpawn: 0
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 787f0b377cb8ea54d9e8268061d8494d, type: 3}
+    timeBetweenSpawn: 0.5
     spawnCount: 1
-    timeEndEvent: 0
+    timeEndEvent: 3

@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, _shootingPosition, Time.deltaTime * _bulletSpeed);
             _shootingDirection = _target.transform.position - transform.position;
 
-            // rotation of the dart
+            // rotation of the projectile
             var angle = Mathf.Atan2(_shootingDirection.y, _shootingDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }

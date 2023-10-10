@@ -34,7 +34,7 @@ public class RangeCollider : MonoBehaviour
     }
 
     // We want to attack the enemy that is closest to exit
-    protected Transform ChooseFirstTarget()
+    protected virtual Transform ChooseFirstTarget()
     {
         var biggestProgress = 0f;
         Transform targetToReturn = null;
@@ -47,6 +47,7 @@ public class RangeCollider : MonoBehaviour
                 targetToReturn = enemy;
             }
         }
+
         return targetToReturn;
     }
 

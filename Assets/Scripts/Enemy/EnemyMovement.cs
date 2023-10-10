@@ -65,6 +65,16 @@ public class EnemyMovement : MonoBehaviour
         _progress = _currentDistance / _level.GetPathLength();
     }
 
+    public void SetMovementSpeed(float speedDifference, bool decrease)
+    {
+        if(decrease)
+            _currentMovementSpeed = _currentMovementSpeed - _currentMovementSpeed * speedDifference;
+        else
+        {
+            _currentMovementSpeed = _movementSpeed;
+        }
+    }
+
     //////////////////////////////////////
     // Geters and Setters
     //////////////////////////////////////
@@ -81,6 +91,11 @@ public class EnemyMovement : MonoBehaviour
         {
             return Vector3.zero;
         }
+    }
+
+    public float GetMovementSpeed()
+    {
+        return _currentMovementSpeed;
     }
 
     public void SetCurrentPosition(Vector3 currentPosition)

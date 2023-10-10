@@ -226,11 +226,32 @@ public class BloonController : MonoBehaviour
 
         // Instantiating new bloon
         var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+        if (_popThrough > 0)
+        {
+            // Don't show inside bloons while shooting pop through
+            newBloon.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
         newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
         var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
 
         var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
+        var oldEnemySpeed = oldEnemyMovement.GetMovementSpeed();
         var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
+
+        // set glue effetcs
+        if (gameObject.GetComponent<BloonEffects>().HasGlueEffect())
+        {
+            var newLayersThrough = gameObject.GetComponent<BloonEffects>().GetGlueLayersThrough() - 1;
+            newBloon.GetComponent<BloonEffects>().SetGlueLayersThrough(newLayersThrough);
+
+            if(newLayersThrough > 0)
+            {
+                var movementSpeedDecrease = gameObject.GetComponent<BloonEffects>().GetMovementSpeedDecrease();
+                var glueLastingEffect = gameObject.GetComponent<BloonEffects>().GetGlueLastingEffect();
+                newBloon.GetComponent<BloonEffects>().SetGlueEffect(movementSpeedDecrease, glueLastingEffect, newLayersThrough);
+            }
+        }
 
         // Setting distance, position and progress of the new bloon based on the old bloon
         newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
