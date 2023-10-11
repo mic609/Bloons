@@ -12,6 +12,7 @@ public class GlueProjectile : Projectile
     [SerializeField] private float _movementSpeedDecrease; // glue makes bloons slow
     [SerializeField] private float _glueLastingEffect; // how long bloon is being affected by glue
     [SerializeField] private int _layersThrough; // how much layers of bloon glue affects
+    [SerializeField] private float _poppingSpeed;
 
     [Header("Enemy")]
     [SerializeField] private LayerMask _layerMask;
@@ -42,7 +43,7 @@ public class GlueProjectile : Projectile
 
             var firstBloonToBeGlued = ChooseFirstTargetForArea(bloonsToBeGlued);
             if(firstBloonToBeGlued != null && firstBloonToBeGlued.GetComponent<BloonEffects>() != null)
-                firstBloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough);
+                firstBloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
 
             // Glue all of the bloons in the area
             for (int i = 0; i < _numberOfBloonsToPop - 1; i++)
@@ -50,17 +51,20 @@ public class GlueProjectile : Projectile
                 if (bloonsToBeGlued.Count == 0)
                     break;
 
-                var index = Random.Range(0, bloonsToBeGlued.Count);
-                var bloonToBeGlued = bloonsToBeGlued[index];
-
-                while (bloonToBeGlued == firstBloonToBeGlued)
+                if(!(bloonsToBeGlued.Count <= 1))
                 {
-                    index = Random.Range(0, bloonsToBeGlued.Count);
-                    bloonToBeGlued = bloonsToBeGlued[index];
-                }
+                    var index = Random.Range(0, bloonsToBeGlued.Count);
+                    var bloonToBeGlued = bloonsToBeGlued[index];
 
-                bloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough);
-                bloonsToBeGlued.RemoveAt(index);
+                    while (bloonToBeGlued == firstBloonToBeGlued)
+                    {
+                        index = Random.Range(0, bloonsToBeGlued.Count);
+                        bloonToBeGlued = bloonsToBeGlued[index];
+                    }
+
+                    bloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
+                    bloonsToBeGlued.RemoveAt(index);
+                }
             }
 
             ProjectileReset();

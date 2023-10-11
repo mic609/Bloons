@@ -15,7 +15,7 @@ MonoBehaviour:
   levelNumber: -5
   levelDescription: Lead Bloons
   enemiesSpawnEvents:
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 8a3e17f0f3a9d344b853e7606c0f7d9a, type: 3}
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 77e63503e6cd7ba439d629f104f8a9b0, type: 3}
     timeBetweenSpawn: 0.5
-    spawnCount: 30
+    spawnCount: 100
     timeEndEvent: 0

@@ -23,6 +23,7 @@ public class BloonController : MonoBehaviour
     // Sprites represents damage state of heavy bloon
     [Header("Shield")]
     [SerializeField] private List<Sprite> _temporarySprites;
+    [SerializeField] private List<Sprite> _temporaryGlueSprites;
     private int _spriteIndex = 0;
 
     [Header("Health")]
@@ -103,7 +104,8 @@ public class BloonController : MonoBehaviour
     // Destroy object hit by physical projectile (1 damage)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        DestroyLayeredEnemy(collision, 1);
+        if (!collision.CompareTag("GlueProjectile"))
+            DestroyLayeredEnemy(collision, 1);
     }
 
     // Destroying enemies with shield logic
@@ -133,7 +135,12 @@ public class BloonController : MonoBehaviour
         {
             if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
             {
-                transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
+                // for glued bloons
+                if (gameObject.GetComponent<BloonEffects>().HasGlueEffect() && _temporaryGlueSprites.Count != 0)
+                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporaryGlueSprites[_spriteIndex];
+                // for standard bloons
+                else
+                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
                 _spriteIndex++;
             }
         }
@@ -236,20 +243,24 @@ public class BloonController : MonoBehaviour
         var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
 
         var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
-        var oldEnemySpeed = oldEnemyMovement.GetMovementSpeed();
         var oldEnemyDistance = oldEnemyMovement.GetCurrentDistance();
 
-        // set glue effetcs
-        if (gameObject.GetComponent<BloonEffects>().HasGlueEffect())
+        // (We check it for moabs)
+        if (gameObject.GetComponent<BloonEffects>() != null)
         {
-            var newLayersThrough = gameObject.GetComponent<BloonEffects>().GetGlueLayersThrough() - 1;
-            newBloon.GetComponent<BloonEffects>().SetGlueLayersThrough(newLayersThrough);
-
-            if(newLayersThrough > 0)
+            // set glue effetcs
+            if (gameObject.GetComponent<BloonEffects>().HasGlueEffect())
             {
-                var movementSpeedDecrease = gameObject.GetComponent<BloonEffects>().GetMovementSpeedDecrease();
-                var glueLastingEffect = gameObject.GetComponent<BloonEffects>().GetGlueLastingEffect();
-                newBloon.GetComponent<BloonEffects>().SetGlueEffect(movementSpeedDecrease, glueLastingEffect, newLayersThrough);
+                var newLayersThrough = gameObject.GetComponent<BloonEffects>().GetGlueLayersThrough() - 1;
+                newBloon.GetComponent<BloonEffects>().SetGlueLayersThrough(newLayersThrough);
+
+                if (newLayersThrough > 0)
+                {
+                    var movementSpeedDecrease = gameObject.GetComponent<BloonEffects>().GetMovementSpeedDecrease();
+                    var glueLastingEffect = gameObject.GetComponent<BloonEffects>().GetGlueLastingEffect();
+                    var poppingSpeed = gameObject.GetComponent<BloonEffects>().GetPoppingSpeed();
+                    newBloon.GetComponent<BloonEffects>().SetGlueEffect(movementSpeedDecrease, glueLastingEffect, newLayersThrough, poppingSpeed);
+                }
             }
         }
 
@@ -303,6 +314,11 @@ public class BloonController : MonoBehaviour
     ////////////////////////////////////////////
     // Getters and setters
     ////////////////////////////////////////////
+
+    public Sprite ReturnUnGluedCeramicSprite() 
+    {
+        return _temporarySprites[_spriteIndex - 1];
+    }
 
     public AudioClip GetPopSound(bool cannotPopLead)
     {

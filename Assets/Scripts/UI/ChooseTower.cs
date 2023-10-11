@@ -20,7 +20,7 @@ public class ChooseTower : MonoBehaviour
     private Transform _towerRange; // range of the tower
     private Color _towerColor; // color of the tower range
     private Vector3 _mousePosition;
-    [SerializeField] private bool _isTowerMoving;
+    private bool _isTowerMoving;
     private Collider2D[] _colliders; // what the moving tower collides with
 
     private void Start()

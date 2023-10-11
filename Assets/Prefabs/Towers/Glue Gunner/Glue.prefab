@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4557516264514669387}
   m_Layer: 0
   m_Name: Glue
-  m_TagString: Projectile
+  m_TagString: GlueProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,9 +103,10 @@ MonoBehaviour:
   _maxDistance: 13
   _areaDiameter: 2.5
   _numberOfBloonsToPop: 1
-  _movementSpeedDecrease: 0.4
-  _glueLastingEffect: 14
+  _movementSpeedDecrease: 0.5
+  _glueLastingEffect: 11
   _layersThrough: 3
+  _poppingSpeed: 2
   _layerMask:
     serializedVersion: 2
     m_Bits: 256

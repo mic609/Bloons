@@ -116,9 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2ce35f8582d074ca2d2a47f0f803e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glueLastingEffect: 3
-  _layersThrough: 3
-  _poppingSpeed: 2
   _glueBloonSprite: {fileID: 21300000, guid: 5eebb21cc17609e4ea3ff93bd6468142, type: 3}
 --- !u!114 &5523797257457610646
 MonoBehaviour:
@@ -144,6 +141,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e3a8e74316aae2842a4113ca7bc24a81, type: 3}
   - {fileID: 21300000, guid: 65199aae4e96e48428f5506805145661, type: 3}
   - {fileID: 21300000, guid: 403598b990e7112498f98f2c162e0ecb, type: 3}
+  _temporaryGlueSprites:
+  - {fileID: 21300000, guid: f1427dddf401d504ca3c5131bdbb2549, type: 3}
+  - {fileID: 21300000, guid: e0fbfaf90d813444ab7ceb2566bd8c38, type: 3}
+  - {fileID: 21300000, guid: bce67107d831bea458eb7419a479958a, type: 3}
+  - {fileID: 21300000, guid: 7273df45f3f111140861f15b1c6e230d, type: 3}
   _rbe: 104
   _layerHp: 10
   _criticalPoints: 02000000040000000600000008000000

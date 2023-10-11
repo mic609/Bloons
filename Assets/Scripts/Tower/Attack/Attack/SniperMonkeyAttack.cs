@@ -1,5 +1,7 @@
 // Sniper Monkey attack logic
 
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class SniperMonkeyAttack : MonoBehaviour
@@ -96,9 +98,18 @@ public class SniperMonkeyAttack : MonoBehaviour
                 }
 
                 // Animation
-                //_animator.SetTrigger("Attack");
+                var fireSprite = GetComponentInChildren<SpriteRenderer>().transform.GetChild(0);
+                StartCoroutine(ActivateFireAnimation(fireSprite));
             }
 
         }
+    }
+
+    private IEnumerator ActivateFireAnimation(Transform fireSprite)
+    {
+        Debug.Log(fireSprite);
+        fireSprite.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        fireSprite.gameObject.SetActive(false);
     }
 }
