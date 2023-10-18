@@ -16,6 +16,9 @@ public class ChooseTower : MonoBehaviour
     [SerializeField] private GameObject _towerToPlace;
     [SerializeField] private List<LayerMask> _layersNotToPlaceTower;
 
+    [Header("TowerType")]
+    [SerializeField] private bool _isNotOneObject; // for monkey ace for example there is a runway and a plane
+
     private static GameObject _moveableTower; // tower itself
 
     private Transform _towerRange; // range of the tower
@@ -100,7 +103,11 @@ public class ChooseTower : MonoBehaviour
                     _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
                 }
                 else
+                {
                     _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
+                    if (_isNotOneObject)
+                        _moveableTower.transform.GetChild(0).gameObject.SetActive(false);
+                }
 
                 // sound
                 SoundManager.Instance.PlaySound(_chooseTowerSound);
@@ -116,7 +123,10 @@ public class ChooseTower : MonoBehaviour
                     _moveableTower.GetComponent<TowerAttack>().enabled = false;
                 if (_moveableTower.GetComponent<RangeCollider>() != null)
                     _moveableTower.GetComponent<RangeCollider>().enabled = false;
-                _moveableTower.GetComponent<CircleCollider2D>().enabled = false;
+                if (_moveableTower.GetComponent<CircleCollider2D>() != null)
+                    _moveableTower.GetComponent<CircleCollider2D>().enabled = false;
+                if (_moveableTower.GetComponent<BoxCollider2D>() != null)
+                    _moveableTower.GetComponent<BoxCollider2D>().enabled = false;
 
                 // Set tower range to visible
                 _towerRange = _moveableTower.transform.Find("Range");
@@ -183,8 +193,15 @@ public class ChooseTower : MonoBehaviour
             _moveableTower.GetComponent<TowerAttack>().enabled = true;
         if (_moveableTower.GetComponent<RangeCollider>() != null)
             _moveableTower.GetComponent<RangeCollider>().enabled = true;
-        _moveableTower.GetComponent<CircleCollider2D>().enabled = true;
-        
+        if (_moveableTower.GetComponent<CircleCollider2D>() != null)
+            _moveableTower.GetComponent<CircleCollider2D>().enabled = true;
+        if (_moveableTower.GetComponent<BoxCollider2D>() != null)
+            _moveableTower.GetComponent<BoxCollider2D>().enabled = true;
+
+        // activate more than objets etc. for monkey aces
+        if (_isNotOneObject)
+            _moveableTower.transform.GetChild(0).gameObject.SetActive(true);
+
         // Set Range to invisible
         _towerRange = _moveableTower.transform.Find("Range");
         _towerRange.GetComponent<SpriteRenderer>().enabled = false;
