@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8229490488641719923}
   - component: {fileID: 857063697020804059}
   - component: {fileID: 5523797257457610646}
+  - component: {fileID: 4631486192076996959}
   - component: {fileID: 2913598632785887363}
   - component: {fileID: 3036021363905629040}
   - component: {fileID: -8276884189077600498}
@@ -116,9 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2ce35f8582d074ca2d2a47f0f803e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glueLastingEffect: 3
-  _layersThrough: 3
-  _poppingSpeed: 2
   _glueBloonSprite: {fileID: 21300000, guid: d9f9d78e221ce1543801e92d20272a6d, type: 3}
 --- !u!114 &5523797257457610646
 MonoBehaviour:
@@ -140,12 +138,25 @@ MonoBehaviour:
   - {fileID: 8229490488641719920, guid: 88e44e133a5ded449b48052d6b6f7eff, type: 3}
   _enemyAmount: 2
   _temporarySprites: []
+  _temporaryGlueSprites: []
   _rbe: 23
   _layerHp: 1
   _criticalPoints: 
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
   _popSound: {fileID: 8300000, guid: 69535b19fe10e0742bd90d58a28050dc, type: 3}
   _leadSound: {fileID: 8300000, guid: f928bf5388a32b345b2e6a695ac7186a, type: 3}
+--- !u!114 &4631486192076996959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9876e21701130154bb388199a81fe4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &2913598632785887363
 Rigidbody2D:
   serializedVersion: 4

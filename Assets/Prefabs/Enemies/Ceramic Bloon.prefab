@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8229490488641719923}
   - component: {fileID: -1960380438558801084}
   - component: {fileID: 5523797257457610646}
+  - component: {fileID: 2443300467307696233}
   - component: {fileID: 2913598632785887363}
   - component: {fileID: 3036021363905629040}
   - component: {fileID: -3045745470664609486}
@@ -152,6 +153,18 @@ MonoBehaviour:
   _levelObject: {fileID: 4213543130408135220, guid: 9e61326f1ad678547bad68aa3ad9099a, type: 3}
   _popSound: {fileID: 8300000, guid: fd65f634dbe4ac742a38260dde413929, type: 3}
   _leadSound: {fileID: 0}
+--- !u!114 &2443300467307696233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229490488641719920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9876e21701130154bb388199a81fe4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &2913598632785887363
 Rigidbody2D:
   serializedVersion: 4

@@ -17,7 +17,10 @@ public class ChooseMap : MonoBehaviour
         SoundManager.Instance.PlaySound(_buttonClick);
         _exitButton = FindObjectOfType<ExitButton>();
         _chooseDifficultyScreen = transform.Find("ChooseLevelDifficulty");
-        _exitButton.gameObject.SetActive(false);
+
+        if(_exitButton != null)
+            _exitButton.gameObject.SetActive(false);
+        
         _chooseDifficultyScreen.gameObject.SetActive(true);
     }
 
@@ -54,7 +57,10 @@ public class ChooseMap : MonoBehaviour
     public void Back()
     {
         SoundManager.Instance.PlaySound(_buttonClick);
-        _exitButton.gameObject.SetActive(true);
+
+        if(_exitButton != null)
+            _exitButton.gameObject.SetActive(true);
+        
         _chooseDifficultyScreen.gameObject.SetActive(false);
     }
 

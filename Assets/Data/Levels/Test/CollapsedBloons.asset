@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 619be41b14b36a54c8bfbcbf6aa643f4, type: 3}
-  m_Name: One Bloon
+  m_Name: CollapsedBloons
   m_EditorClassIdentifier: 
-  levelNumber: 0
-  levelDescription: One Bloon
+  levelNumber: -201
+  levelDescription: collapsed!
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 77e63503e6cd7ba439d629f104f8a9b0, type: 3}
-    timeBetweenSpawn: 0
-    spawnCount: 1
+    timeBetweenSpawn: 0.2
+    spawnCount: 100
     timeEndEvent: 0

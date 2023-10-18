@@ -248,26 +248,34 @@ public class BloonController : MonoBehaviour
         // (We check it for moabs)
         if (gameObject.GetComponent<BloonEffects>() != null)
         {
-            // set glue effetcs
-            if (gameObject.GetComponent<BloonEffects>().HasGlueEffect())
-            {
-                var newLayersThrough = gameObject.GetComponent<BloonEffects>().GetGlueLayersThrough() - 1;
-                newBloon.GetComponent<BloonEffects>().SetGlueLayersThrough(newLayersThrough);
-
-                if (newLayersThrough > 0)
-                {
-                    var movementSpeedDecrease = gameObject.GetComponent<BloonEffects>().GetMovementSpeedDecrease();
-                    var glueLastingEffect = gameObject.GetComponent<BloonEffects>().GetGlueLastingEffect();
-                    var poppingSpeed = gameObject.GetComponent<BloonEffects>().GetPoppingSpeed();
-                    newBloon.GetComponent<BloonEffects>().SetGlueEffect(movementSpeedDecrease, glueLastingEffect, newLayersThrough, poppingSpeed);
-                }
-            }
+            GlueEffectsDetails(newBloon);
         }
 
         // Setting distance, position and progress of the new bloon based on the old bloon
         newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
         newEnemyMovement.SetCurrentPosition(setPosition);
         newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+    }
+
+    private void GlueEffectsDetails(GameObject newBloon)
+    {
+        // glue effetcs
+        if (gameObject.GetComponent<BloonEffects>().HasGlueEffect())
+        {
+            var newLayersThrough = gameObject.GetComponent<BloonEffects>().GetGlueLayersThrough() - 1;
+            newBloon.GetComponent<BloonEffects>().SetGlueLayersThrough(newLayersThrough);
+
+            if (newLayersThrough > 0)
+            {
+                var movementSpeedDecrease = gameObject.GetComponent<BloonEffects>().GetMovementSpeedDecrease();
+                var glueLastingEffect = gameObject.GetComponent<BloonEffects>().GetGlueLastingEffect();
+                var poppingSpeed = gameObject.GetComponent<BloonEffects>().GetPoppingSpeed();
+                newBloon.GetComponent<BloonEffects>().SetGlueEffect(movementSpeedDecrease, glueLastingEffect, newLayersThrough, poppingSpeed);
+            }
+
+            // remember the tower that has initially attacked
+            newBloon.GetComponent<BloonTowerReference>().SetTowerThatAttacks(gameObject.GetComponent<BloonTowerReference>().GetTower());
+        }
     }
 
     // Check if the layer of heavy bloons is destroyed
@@ -361,5 +369,10 @@ public class BloonController : MonoBehaviour
     public bool IsUnderAttack()
     {
         return _isDestroyed;
+    }
+
+    public int getRbe()
+    {
+        return _rbe;
     }
 }

@@ -14,6 +14,7 @@ public class BombProjectile : Projectile
 
     [Header("SFX")]
     [SerializeField] private AudioClip _bombSound;
+    [SerializeField] private AudioClip _ceramicPop;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,6 +39,8 @@ public class BombProjectile : Projectile
             transform.GetComponentInParent<BombTowerAttack>().ExplosionDuration(collision.gameObject.transform, _explosionDiameter);
             SoundManager.Instance.PlaySound(_bombSound);
 
+            var ifStatementReached = false;
+
             // Destroy all of the bloons in the area
             for (int i = 0; i < _numberOfBloonsToPop; i++)
             {
@@ -46,6 +49,13 @@ public class BombProjectile : Projectile
 
                 var index = Random.Range(0, bloonsToDestroy.Count);
                 var bloonToDestroy = bloonsToDestroy[index];
+
+                // play sound for ceramic bloons
+                if(bloonToDestroy.GetComponent<BloonController>().IsCeramicBloon() && !ifStatementReached)
+                {
+                    SoundManager.Instance.PlaySound(bloonToDestroy.GetComponent<BloonController>().GetPopSound(false));
+                    ifStatementReached = true;
+                }
 
                 // The whole shield needs to be destroyed and the bloon cannot be immune to bombs
                 if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !enemy.GetComponent<BloonController>().IsBombImmune())

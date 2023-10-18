@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Projectile
   - GlueProjectile
+  - Background
   layers:
   - Default
   - TransparentFX

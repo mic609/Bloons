@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class SniperMonkeyAttack : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class SniperMonkeyAttack : MonoBehaviour
                 var isMoabClassBloon = enemy.gameObject.GetComponent<BloonController>().IsMoabClassBloon();
                 var isCeramicBloon = enemy.gameObject.GetComponent<BloonController>().IsCeramicBloon();
 
+                var bloonsPopped = BloonsPoppedAmount(enemy);
+
                 // Destroying bloons with shield
                 if ((isMoabClassBloon || isCeramicBloon) && !_bonusDamageForCeramic)
                 {
@@ -66,7 +69,7 @@ public class SniperMonkeyAttack : MonoBehaviour
                     if (hitsLeft == 0)
                     {
                         Destroy(enemy.gameObject);
-                        transform.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                        transform.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
                     }
                     else if(hitsLeft > 0)
                     {
@@ -74,7 +77,7 @@ public class SniperMonkeyAttack : MonoBehaviour
 
                         if (!isMoabClassBloon)
                         {
-                            transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                            transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
                             enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(hitsLeft + 1);
                             Destroy(enemy.gameObject);
                         }
@@ -90,7 +93,7 @@ public class SniperMonkeyAttack : MonoBehaviour
                 else
                 {
                     // how much bloons the sniper popped
-                    transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                    transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
                     
                     // PopThrough is being set to destroy multiple layers of the bloons at once
                     enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(_damage);
@@ -105,9 +108,17 @@ public class SniperMonkeyAttack : MonoBehaviour
         }
     }
 
+    private int BloonsPoppedAmount(Transform enemy)
+    {
+        var bloonRbe = enemy.gameObject.GetComponent<BloonController>().getRbe();
+        if (bloonRbe < _damage)
+            return bloonRbe;
+        else
+            return _damage;
+    }
+
     private IEnumerator ActivateFireAnimation(Transform fireSprite)
     {
-        Debug.Log(fireSprite);
         fireSprite.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         fireSprite.gameObject.SetActive(false);

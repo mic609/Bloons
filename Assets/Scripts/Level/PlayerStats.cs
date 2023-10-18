@@ -139,7 +139,7 @@ public class PlayerStats : MonoBehaviour
     public void DetectClickedTower()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hit = Physics2D.Raycast(ray.origin, ray.direction);
+        var hits = Physics2D.RaycastAll(ray.origin, ray.direction);
 
         // We just want to click somewhere else to close tower interface
         if (_clickedTower != null)
@@ -153,17 +153,24 @@ public class PlayerStats : MonoBehaviour
             }
         }
         // The tower is being chosen already by the player
-        else if (hit.collider != null)
+        else if (hits.Length != 0)
         {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Tower"))
+            foreach (var hit in hits)
             {
-                if(hit.collider.gameObject.GetComponent<ManageTower>().GetNumberOfClicks() <= 0)
-                    hit.collider.gameObject.GetComponent<ManageTower>().Click();
-                else
-                    SoundManager.Instance.PlaySound(_clickTowerSound);
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Tower"))
+                    {
+                        if (hit.collider.gameObject.GetComponent<ManageTower>().GetNumberOfClicks() <= 0)
+                            hit.collider.gameObject.GetComponent<ManageTower>().Click();
+                        else
+                            SoundManager.Instance.PlaySound(_clickTowerSound);
 
-                _clickedTower = hit.collider.gameObject;
-                _clickedTower.GetComponent<ManageTower>().ShowUpgradePanel();
+                        _clickedTower = hit.collider.gameObject;
+                        _clickedTower.GetComponent<ManageTower>().ShowUpgradePanel();
+                        break;
+                    }
+                }
             }
         }
     }

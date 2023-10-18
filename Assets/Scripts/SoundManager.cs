@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -15,13 +17,17 @@ public class SoundManager : MonoBehaviour
     private AudioSource _soundSourceForCeramics;
     private AudioSource _soundSourceForBombs;
     private AudioSource _musicSource;
-    private AudioClip _sound;
+
+    private List<AudioClip> _soundsToPlay;
+    private List<AudioClip> _soundsToPlayTemp;
 
     private void Awake()
     {
         _soundSource = GetComponent<AudioSource>();
         _soundSourceForCeramics = GetComponent<AudioSource>();
         _soundSourceForBombs = GetComponent<AudioSource>();
+        _soundsToPlay = new List<AudioClip>();
+        _soundsToPlayTemp = new List<AudioClip>(_soundsToPlay);
 
         _musicSource = transform.GetChild(0).GetComponent<AudioSource>(); // return audio component of the first child
 
@@ -42,46 +48,47 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        if(_sound != null)
+        if(_soundsToPlay.Count > 0)
         {
-            switch (_sound.name)
+            foreach (var sound in _soundsToPlay)
             {
-                case "ceramicPop":
-                    {
-                        if (Time.time - lastAttackTimeCeramic >= _soundIntervalCeramic)
+                switch (sound.name)
+                {
+                    case "ceramicPop":
                         {
-                            lastAttackTimeCeramic = Time.time;
-                            _soundSourceForCeramics.PlayOneShot(_sound);
-                            _sound = null;
+                            if (Time.time - lastAttackTimeCeramic >= _soundIntervalCeramic)
+                            {
+                                lastAttackTimeCeramic = Time.time;
+                                _soundSourceForCeramics.PlayOneShot(sound);
+                            }
                         }
-                    }
-                    break;
-                case "bombSound":
-                    {
-                        if (Time.time - lastAttackTimeBomb >= _soundIntervalBomb)
+                        break;
+                    case "bombSound":
                         {
-                            lastAttackTimeBomb = Time.time;
-                            _soundSourceForBombs.PlayOneShot(_sound);
-                            _sound = null;
+                            if (Time.time - lastAttackTimeBomb >= _soundIntervalBomb)
+                            {
+                                lastAttackTimeBomb = Time.time;
+                                _soundSourceForBombs.PlayOneShot(sound);
+                            }
                         }
-                    }
-                    break;
-                default:
-                    {
-                        if (Time.time - lastAttackTime >= _soundInterval)
+                        break;
+                    default:
                         {
-                            lastAttackTime = Time.time;
-                            _soundSource.PlayOneShot(_sound);
-                            _sound = null;
+                            if (Time.time - lastAttackTime >= _soundInterval)
+                            {
+                                lastAttackTime = Time.time;
+                                _soundSource.PlayOneShot(sound);
+                            }
                         }
-                    }
-                break;
+                        break;
+                }
             }
+            _soundsToPlay.Clear();
         }
     }
 
     public void PlaySound(AudioClip sound)
     {
-        _sound = sound;
+        _soundsToPlay.Add(sound);
     }
 }

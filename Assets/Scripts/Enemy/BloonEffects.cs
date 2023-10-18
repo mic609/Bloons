@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class BloonEffects : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class BloonEffects : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite _glueBloonSprite;
     private Sprite _standardSprite;
+    private Sprite _lastSprite;
 
     private bool _hasGlueEffect = false;
 
@@ -39,7 +38,16 @@ public class BloonEffects : MonoBehaviour
 
             gameObject.GetComponent<EnemyMovement>().SetMovementSpeed(movementSpeedDecrease, true);
             _standardSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-            gameObject.GetComponent<SpriteRenderer>().sprite = _glueBloonSprite;
+
+            if (gameObject.GetComponent<BloonController>().IsCeramicBloon())
+            {
+                if(_lastSprite != null)
+                    gameObject.GetComponent<SpriteRenderer>().sprite = _lastSprite;
+                else
+                    gameObject.GetComponent<SpriteRenderer>().sprite = _glueBloonSprite;
+            }
+            else
+                gameObject.GetComponent<SpriteRenderer>().sprite = _glueBloonSprite;
         }
         _hasGlueEffect = true;
 
@@ -65,6 +73,12 @@ public class BloonEffects : MonoBehaviour
 
     private void PopBloonsWithGlue()
     {
+        // Pop count for the tower here
+        var tower = gameObject.GetComponent<BloonTowerReference>().GetTower();
+        
+        if(tower != null)
+            tower.GetComponent<ManageTower>().BloonsPoppedUp(1);
+
         Destroy(gameObject);
     }
 
@@ -81,10 +95,13 @@ public class BloonEffects : MonoBehaviour
     {
         gameObject.GetComponent<EnemyMovement>().SetMovementSpeed(0f, false);
 
-        if(!gameObject.GetComponent<BloonController>().IsCeramicBloon())
+        if (!gameObject.GetComponent<BloonController>().IsCeramicBloon())
+        {
             gameObject.GetComponent<SpriteRenderer>().sprite = _standardSprite;
+        }
         else
         {
+            _lastSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
             gameObject.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<BloonController>().ReturnUnGluedCeramicSprite();
         }
 

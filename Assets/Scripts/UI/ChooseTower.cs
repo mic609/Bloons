@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class ChooseTower : MonoBehaviour
 {
@@ -68,7 +69,9 @@ public class ChooseTower : MonoBehaviour
     {
         if(_towerRange != null)
         {
-            if (_colliders.Length > 0 || EventSystem.current.IsPointerOverGameObject())
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var hit = Physics2D.OverlapPoint(mousePosition);
+            if (_colliders.Length > 0 || EventSystem.current.IsPointerOverGameObject() || (hit == null || !hit.CompareTag("Background")))
             {
                 _towerRange.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, _towerColor.a);
             }
@@ -155,6 +158,12 @@ public class ChooseTower : MonoBehaviour
             {
                 return false;
             }
+
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var hit = Physics2D.OverlapPoint(mousePosition);
+            if (hit == null || !hit.CompareTag("Background"))
+                return false;
+
             return true;
         }
         return false;

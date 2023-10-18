@@ -15,7 +15,7 @@ public class TowerDescription : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerEnter(PointerEventData eventData)
     {
         _fieldToShow.SetActive(true);
-        var towerCost = gameObject.GetComponent<ChooseTower>().GetTowerCost() + gameObject.GetComponent<ChooseTower>().GetTowerCost() * PlayerStats.Instance.GetLevelDifficulty().upgradeCost;
+        var towerCost = Mathf.RoundToInt(gameObject.GetComponent<ChooseTower>().GetTowerCost() + gameObject.GetComponent<ChooseTower>().GetTowerCost() * PlayerStats.Instance.GetLevelDifficulty().upgradeCost);
 
         if(_counter == 0)
         {

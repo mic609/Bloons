@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -43,7 +44,10 @@ public class GlueProjectile : Projectile
 
             var firstBloonToBeGlued = ChooseFirstTargetForArea(bloonsToBeGlued);
             if(firstBloonToBeGlued != null && firstBloonToBeGlued.GetComponent<BloonEffects>() != null)
+            {
+                firstBloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
                 firstBloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
+            }
 
             // Glue all of the bloons in the area
             for (int i = 0; i < _numberOfBloonsToPop - 1; i++)
@@ -62,6 +66,7 @@ public class GlueProjectile : Projectile
                         bloonToBeGlued = bloonsToBeGlued[index];
                     }
 
+                    bloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
                     bloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
                     bloonsToBeGlued.RemoveAt(index);
                 }

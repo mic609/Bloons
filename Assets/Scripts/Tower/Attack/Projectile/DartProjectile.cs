@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DartProjectile : Projectile
 {
+    [SerializeField] private int _pierce;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))

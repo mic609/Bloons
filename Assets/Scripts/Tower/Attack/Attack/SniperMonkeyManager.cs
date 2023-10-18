@@ -104,6 +104,7 @@ public class SniperMonkeyManager : MonoBehaviour
                     sniperMonkey.StartAttack(target);
             }
             towerEnemyPairs.Clear();
+            _attackedBloons.Clear();
         }
         finally
         {
