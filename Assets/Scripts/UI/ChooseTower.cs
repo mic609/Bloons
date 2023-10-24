@@ -101,6 +101,8 @@ public class ChooseTower : MonoBehaviour
                 {
                     Destroy(_moveableTower);
                     _moveableTower = Instantiate(_towerToPlace, gameObject.transform.position, gameObject.transform.rotation);
+                    if (_isNotOneObject)
+                        _moveableTower.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else
                 {
@@ -127,6 +129,8 @@ public class ChooseTower : MonoBehaviour
                     _moveableTower.GetComponent<CircleCollider2D>().enabled = false;
                 if (_moveableTower.GetComponent<BoxCollider2D>() != null)
                     _moveableTower.GetComponent<BoxCollider2D>().enabled = false;
+                if (_moveableTower.GetComponentInChildren<OnMouseTowerRotation>() != null)
+                    _moveableTower.GetComponentInChildren<OnMouseTowerRotation>().enabled = false;
 
                 // Set tower range to visible
                 _towerRange = _moveableTower.transform.Find("Range");
@@ -197,6 +201,8 @@ public class ChooseTower : MonoBehaviour
             _moveableTower.GetComponent<CircleCollider2D>().enabled = true;
         if (_moveableTower.GetComponent<BoxCollider2D>() != null)
             _moveableTower.GetComponent<BoxCollider2D>().enabled = true;
+        if (_moveableTower.GetComponentInChildren<OnMouseTowerRotation>() != null)
+            _moveableTower.GetComponentInChildren<OnMouseTowerRotation>().enabled = true;
 
         // activate more than objets etc. for monkey aces
         if (_isNotOneObject)

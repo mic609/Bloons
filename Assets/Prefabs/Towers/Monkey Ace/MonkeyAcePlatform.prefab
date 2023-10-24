@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &389320637414888538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7484437962654563265}
+  m_Layer: 9
+  m_Name: Bullets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7484437962654563265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389320637414888538}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4793217647493406631}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4793217647493406649
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +42,7 @@ GameObject:
   - component: {fileID: 4793217647493406631}
   - component: {fileID: 4793217647493406648}
   - component: {fileID: 6100525948179138815}
+  - component: {fileID: 1490728101304511960}
   - component: {fileID: 1718906635910281842}
   m_Layer: 9
   m_Name: MonkeyAcePlatform
@@ -33,6 +65,7 @@ Transform:
   m_Children:
   - {fileID: 4793217649277206418}
   - {fileID: 6251171706524619181}
+  - {fileID: 7484437962654563265}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103,6 +136,28 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: 2de59617fc925884ea788d8bdcb73817, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+--- !u!114 &1490728101304511960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793217647493406649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869a4e966fa054a48a3ca0c1074019f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delay: 1.5
+  _parent: {fileID: 7484437962654563265}
+  _objectToPool: {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  _bullets:
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  _amountToPool: 5
 --- !u!61 &1718906635910281842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +196,7 @@ GameObject:
   - component: {fileID: 4793217649277206419}
   - component: {fileID: 4793217649277206420}
   m_Layer: 9
-  m_Name: MonkeyAce
+  m_Name: MonkeyAceSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

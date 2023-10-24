@@ -136,7 +136,7 @@ public class BloonController : MonoBehaviour
             if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
             {
                 // for glued bloons
-                if (gameObject.GetComponent<BloonEffects>().HasGlueEffect() && _temporaryGlueSprites.Count != 0)
+                if (gameObject.GetComponent<BloonEffects>() != null && gameObject.GetComponent<BloonEffects>().HasGlueEffect() && _temporaryGlueSprites.Count != 0)
                     transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporaryGlueSprites[_spriteIndex];
                 // for standard bloons
                 else

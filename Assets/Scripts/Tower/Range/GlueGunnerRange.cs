@@ -40,7 +40,7 @@ public class GlueGunnerRange : RangeCollider
 
         foreach (var enemy in _enemies)
         {
-            if (enemy.GetComponent<EnemyMovement>().GetProgress() > biggestProgress && !enemy.GetComponent<BloonEffects>().HasGlueEffect())
+            if (enemy.GetComponent<EnemyMovement>().GetProgress() > biggestProgress && enemy.GetComponent<BloonEffects>() != null && !enemy.GetComponent<BloonEffects>().HasGlueEffect())
             {
                 biggestProgress = enemy.GetComponent<EnemyMovement>().GetProgress();
                 targetToReturn = enemy;

@@ -2,28 +2,28 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float _bulletSpeed;
-    [SerializeField] private float _maxDistance;
+    [SerializeField] protected float _bulletSpeed;
+    [SerializeField] protected float _maxDistance;
 
-    private Transform _target;
-    private Vector3 _startingPosition;
-    private Vector3 _shootingDirection;
-    private Vector3 _shootingPosition;
-    private float _currentDistance = 0f;
+    protected Transform _target;
+    protected Vector3 _startingPosition;
+    protected Vector3 _shootingDirection;
+    protected Vector3 _shootingPosition;
+    protected float _currentDistance = 0f;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _startingPosition = transform.parent.parent.position;
     }
 
-    public void Attack(Transform target)
+    public virtual void Attack(Transform target)
     {
         gameObject.SetActive(true);
         transform.position = _startingPosition;
         _target = target;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         var move = Time.deltaTime * _bulletSpeed;
         _currentDistance += move;
@@ -52,7 +52,7 @@ public class Projectile : MonoBehaviour
     }
 
     // Object has reached max distance or hit the target
-    public void ProjectileReset()
+    protected void ProjectileReset()
     {
         _currentDistance = 0f;
         transform.position = _startingPosition;

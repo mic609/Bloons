@@ -1,10 +1,7 @@
-// The script describes the dart behaviour
-
 using UnityEngine;
 
-public class DartProjectile : Projectile
+public class AceProjectile : MonoBehaviour
 {
-    
     [SerializeField] private int _pierce;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,13 +19,17 @@ public class DartProjectile : Projectile
             if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !cannotPopLead)
             {
                 Destroy(enemy);
-
+                gameObject.SetActive(false);
                 // Add statistics for the tower
-                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(1);
+                transform.parent.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(1);
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
 
             // Make the Projectile disappear
-            ProjectileReset();
+            gameObject.transform.position = gameObject.transform.parent.position;
         }
     }
 }
