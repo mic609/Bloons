@@ -9,8 +9,8 @@ public class RangeCollider : MonoBehaviour
     [SerializeField] protected float _radius;
     [SerializeField] private Transform _rangeObject;
 
-    [Header("Enemy in range")]
-    [SerializeField] private LayerMask _layerMask;
+    [Header("Object in range")]
+    [SerializeField] protected LayerMask _layerMask;
 
     protected List<Transform> _enemies;
     protected float _previuosRadius;

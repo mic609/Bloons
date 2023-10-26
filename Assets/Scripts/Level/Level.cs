@@ -16,6 +16,7 @@ public class Level : MonoBehaviour
     [SerializeField] private NextLevel _nextLevel;
     [SerializeField] private Transform _bloonHolder; // object that contains all bloons
     private int _numberOfBloons; // current number of bloons on map
+    private bool _levelIsFinished;
 
     [Header("Level messages")]
     [SerializeField] private GameObject _messageField;
@@ -27,6 +28,8 @@ public class Level : MonoBehaviour
 
     private void Awake()
     {
+        _levelIsFinished = true;
+
         // Set the initial level of the game
         _currentLevel = _levels[0];
 
@@ -48,6 +51,7 @@ public class Level : MonoBehaviour
 
     public void SpawnEnemyCoroutine()
     {
+        _levelIsFinished = false;
         StartCoroutine(SpawnEnemy());
     }
 
@@ -68,12 +72,13 @@ public class Level : MonoBehaviour
         }
         while (_numberOfBloons > 0)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         // The level has ended
         _messageField.GetComponent<MessageField>().ActivateMessage("LevelEnd");
         PlayerStats.Instance.CashAtTheEndOfTheLevel();
+        _levelIsFinished = true;
     }
 
     private void CalculatePathLength()
@@ -131,6 +136,11 @@ public class Level : MonoBehaviour
     public float GetPathLength()
     {
         return _pathLength;
+    }
+
+    public bool IsLevelFinished()
+    {
+        return _levelIsFinished;
     }
 
     public LevelData GetCurrentLevel()

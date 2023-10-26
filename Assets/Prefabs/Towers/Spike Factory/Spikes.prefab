@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8885035158114718253}
   - component: {fileID: 8885035158114718251}
-  - component: {fileID: 7090468214308293060}
+  - component: {fileID: 5185937379530840252}
   - component: {fileID: 8885035158114718252}
   - component: {fileID: 4557516264514669387}
   m_Layer: 0
-  m_Name: Dart
+  m_Name: Spikes
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 2014766017
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6399af7a3d8365143a2dcd277e79c59b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b69a1a6dc3c45bc449df756887782eb9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7090468214308293060
+--- !u!114 &5185937379530840252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,12 +96,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8885035158114718254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a0be2ce7eece544cbe891566d0449b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8416eec71cc911d438c0a420c37f4d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 8
-  _maxDistance: 25
+  _bulletSpeed: 4
+  _maxDistance: 1.5
   _pierce: 1
+  _timeAlive: 40
+  _sprites:
+  - {fileID: 21300000, guid: b69a1a6dc3c45bc449df756887782eb9, type: 3}
+  - {fileID: 21300000, guid: f6ff930356e98264c97a3a0cb01d80a1, type: 3}
+  - {fileID: 21300000, guid: 8b6fcd9a7513b374ea0d057d59b4242e, type: 3}
+  - {fileID: 21300000, guid: 51f490baf00f6574bad506e132851c53, type: 3}
+  - {fileID: 21300000, guid: 32516b59f3e6b0048b2be6b363979658, type: 3}
+  - {fileID: 21300000, guid: cb7c9c11b3bbde545800df858381b310, type: 3}
+  - {fileID: 21300000, guid: 5e3e2af94ab40a744a7aecd48d78e75f, type: 3}
+  - {fileID: 21300000, guid: 68192773c2823714faeae64991812ef5, type: 3}
+  - {fileID: 21300000, guid: 0451004e47f111f4788f751a5ea4c8c3, type: 3}
+  - {fileID: 21300000, guid: 53f8e25c2700913409b344d2cf211668, type: 3}
 --- !u!61 &8885035158114718252
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -115,18 +127,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014566109, y: 0.002077788}
+  m_Offset: {x: -0.015840605, y: -0.018648699}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.55, y: 0.63}
+    oldSize: {x: 0.81, y: 0.88}
     newSize: {x: 1.9166666, y: 2.6458333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18258515, y: 0.40588737}
+  m_Size: {x: 0.4392216, y: 0.42078444}
   m_EdgeRadius: 0
 --- !u!50 &4557516264514669387
 Rigidbody2D:

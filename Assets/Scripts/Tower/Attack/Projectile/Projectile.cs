@@ -23,6 +23,10 @@ public class Projectile : MonoBehaviour
         _target = target;
     }
 
+    public virtual void Attack(Transform target, Vector3 direction)
+    {
+    }
+
     protected virtual void Update()
     {
         var move = Time.deltaTime * _bulletSpeed;
