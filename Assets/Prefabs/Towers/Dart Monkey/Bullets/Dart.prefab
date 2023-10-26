@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8885035158114718253}
   - component: {fileID: 8885035158114718251}
   - component: {fileID: 8885035158114718252}
-  - component: {fileID: 8885035158114718250}
   - component: {fileID: 4557516264514669387}
+  - component: {fileID: 8885035158114718250}
   m_Layer: 0
   m_Name: Dart
   m_TagString: Projectile
@@ -113,20 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2654902, y: 1.0702227}
   m_EdgeRadius: 0
---- !u!114 &8885035158114718250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8885035158114718254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a6de7f765b4be40a6d4265a69d4e07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletSpeed: 8
-  _maxDistance: 13
 --- !u!50 &4557516264514669387
 Rigidbody2D:
   serializedVersion: 4
@@ -148,3 +134,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &8885035158114718250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885035158114718254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a6de7f765b4be40a6d4265a69d4e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpeed: 8
+  _maxDistance: 13
+  _pierce: 0

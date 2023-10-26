@@ -1,25 +1,20 @@
 // Sniper Monkey attack logic
 
-using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
-public class SniperMonkeyAttack : MonoBehaviour
+public class SniperMonkeyAttack : TowerAttack
 {
     [Header("Attack Details")]
-    [SerializeField] private float _delay; // time between shooting
-    [SerializeField] private float _delayTimer;
-    [SerializeField] private int _damage; // how many bloons the tower can pop through
-    private bool _bonusDamageForCeramic; // applied for specific sniper monkey upgrades to destroy ceramic bloon immediately
+    //[SerializeField] private float _delay; // time between shooting
+    //private float _delayTimer;
     
     private GameObject _bloons; // bloons on the map
 
-    private TowerRotation _towerRotation;
+    //private TowerRotation _towerRotation;
 
-    private void Start()
+    protected override void Start()
     {
-        _bonusDamageForCeramic = false;
         _bloons = GameObject.Find("BloonHolder");
         _towerRotation = GetComponentInChildren<TowerRotation>();
         _delayTimer = _delay;
@@ -57,7 +52,7 @@ public class SniperMonkeyAttack : MonoBehaviour
                 var bloonsPopped = BloonsPoppedAmount(enemy);
 
                 // Destroying bloons with shield
-                if ((isMoabClassBloon || isCeramicBloon) && !_bonusDamageForCeramic)
+                if ((isMoabClassBloon || isCeramicBloon))
                 {
                     // Break the bloon shield
                     enemy.gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, _damage);
@@ -110,7 +105,7 @@ public class SniperMonkeyAttack : MonoBehaviour
 
     private int BloonsPoppedAmount(Transform enemy)
     {
-        var bloonRbe = enemy.gameObject.GetComponent<BloonController>().getRbe();
+        var bloonRbe = enemy.gameObject.GetComponent<BloonController>().GetRbe();
         if (bloonRbe < _damage)
             return bloonRbe;
         else

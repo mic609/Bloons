@@ -1,5 +1,6 @@
 // Tower attack details
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +8,12 @@ public class TowerAttack : MonoBehaviour
 {
     [Header("Attack Details")]
     [SerializeField] protected float _delay;
+    [SerializeField] protected int _damage; // how many bloons the tower can pop through
 
     [Header("Projectile Details")]
     [SerializeField] private Transform _parent; // where the objects need to be instantiated
     [SerializeField] private GameObject _objectToPool;
-    [SerializeField] private List<GameObject> _bullets;
+    [SerializeField] protected List<GameObject> _bullets;
     [SerializeField] private int _amountToPool;
 
     protected Animator _animator;
@@ -19,7 +21,7 @@ public class TowerAttack : MonoBehaviour
     protected TowerRotation _towerRotation;
     protected float _delayTimer;
 
-    private void Start()
+    protected virtual void Start()
     {
         _towerRotation = GetComponentInChildren<TowerRotation>();
         _delayTimer = _delay;
@@ -50,5 +52,19 @@ public class TowerAttack : MonoBehaviour
             }
         }
         return null;
+    }
+
+    // getters and setters
+    public List<GameObject> GetBullets()
+    {
+        return _bullets;
+    }
+    public void SetDelay(float delay)
+    {
+        _delay = delay;
+    }
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 }

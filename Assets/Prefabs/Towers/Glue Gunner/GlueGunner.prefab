@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 1
+  _damage: 0
   _parent: {fileID: 6110713935255402634}
   _objectToPool: {fileID: 8885035158114718254, guid: 86ecba0b5c48fc243aa55990aae5a9f7, type: 3}
   _bullets:
@@ -107,6 +108,11 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: fd4cb3dd0d0e9c8429f82385c2d24dff, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+  _upgrades:
+  - {fileID: 11400000, guid: a0120be45e94a8f4d9a6cdf178849ae7, type: 2}
+  - {fileID: 11400000, guid: 20cd74834d0ff374da4eb90afa9a554b, type: 2}
+  - {fileID: 11400000, guid: 8fe45d0d750ea4549a472633bf4a285f, type: 2}
+  - {fileID: 11400000, guid: 5afef502ca332d548878df9b34758b06, type: 2}
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0

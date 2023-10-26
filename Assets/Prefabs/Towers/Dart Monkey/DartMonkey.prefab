@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7954760365690634210}
   m_Layer: 9
   m_Name: DartMonkey
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 1.5
+  _damage: 0
   _parent: {fileID: 6110713935255402634}
   _objectToPool: {fileID: 8885035158114718254, guid: dbe507bd4a4debe48b96c3338ec22725, type: 3}
   _bullets:
@@ -139,6 +140,9 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: a43d445fabf55f24db3052fb05ecfde8, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+  _upgrades:
+  - {fileID: 11400000, guid: 177f29e981750f345aa0574934647312, type: 2}
+  - {fileID: 11400000, guid: 48ce6cd1d9f97ae4ba6c947467cc8e75, type: 2}
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0

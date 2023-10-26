@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,5 +18,10 @@ public class OnMouseTowerRotation : MonoBehaviour
         var angleDifference = Mathf.DeltaAngle(currentAngle, angle);
         var rotationAmount = Mathf.Clamp(angleDifference, -_rotationSpeed * Time.deltaTime, _rotationSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle + rotationAmount));
+    }
+
+    public void SetRotationSpeed(float rotationSpeed)
+    {
+        _rotationSpeed = rotationSpeed;
     }
 }

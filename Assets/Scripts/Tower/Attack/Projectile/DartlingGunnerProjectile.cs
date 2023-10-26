@@ -4,18 +4,20 @@ public class DartlingGunnerProjectile : Projectile
 {
     [SerializeField] private int _pierce;
 
-    private Vector3 _borderVectorA;
-    private Vector3 _borderVectorB;
+    [SerializeField] private Vector3 _borderVectorA;
+    [SerializeField] private Vector3 _borderVectorB;
 
+    private Vector3 _initialVectorA;
+    private Vector3 _initialVectorB;
     private Vector3 _previousBorderVectorA;
     private Vector3 _previousBorderVectorB;
 
     protected override void Awake()
     {
         _startingPosition = transform.parent.parent.Find("Sprite").Find("AttackPoint").position;
-        _borderVectorA = new Vector3(-1, -4, 0);
-        _borderVectorB = new Vector3(1, -4, 0);
 
+        _initialVectorA = _borderVectorA;
+        _initialVectorB = _borderVectorB;
         _previousBorderVectorA = _borderVectorA;
         _previousBorderVectorB = _borderVectorB;
     }
@@ -69,8 +71,8 @@ public class DartlingGunnerProjectile : Projectile
         var angleInDegrees = transform.parent.parent.Find("Sprite").rotation.eulerAngles.z;
         var angleInRadians = angleInDegrees * Mathf.Deg2Rad;
         var distance = Mathf.Sin(angleInRadians);
-        var rotatedVectorA = Quaternion.Euler(0, 0, angleInDegrees) * new Vector3(-1, -4, distance);
-        var rotatedVectorB = Quaternion.Euler(0, 0, angleInDegrees) * new Vector3(1, -4, -distance);
+        var rotatedVectorA = Quaternion.Euler(0, 0, angleInDegrees) * new Vector3(_initialVectorA.x, _initialVectorA.y, distance);
+        var rotatedVectorB = Quaternion.Euler(0, 0, angleInDegrees) * new Vector3(_initialVectorB.x, _initialVectorB.y, -distance);
         _borderVectorA = rotatedVectorA;
         _borderVectorB = rotatedVectorB;
 
@@ -85,6 +87,12 @@ public class DartlingGunnerProjectile : Projectile
             _previousBorderVectorA = _borderVectorA;
             _previousBorderVectorB = _borderVectorB;
         }
+    }
+
+    public override void UpgradeBullet(UpgradeData _upgrade)
+    {
+        _initialVectorA = _upgrade.borderVectorA;
+        _initialVectorB = _upgrade.borderVectorB;
     }
 
     private void OnDrawGizmos()

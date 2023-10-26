@@ -52,6 +52,8 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: 0a377b23deb60a14e86ed6c524fba933, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+  _upgrades:
+  - {fileID: 11400000, guid: d8a426cf7ef5e2346ab17cf4fdc88434, type: 2}
 --- !u!114 &7547860537228127419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 0.25
+  _damage: 0
   _parent: {fileID: 6110713935255402634}
   _objectToPool: {fileID: 8885035158114718254, guid: 4700cbf22b160604087755a7ccc7c78f, type: 3}
   _bullets:
@@ -360,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce01548ecd379084aa24537a2dc45ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 100
+  _rotationSpeed: 80
 --- !u!1 &7931373474303038532
 GameObject:
   m_ObjectHideFlags: 0

@@ -97,6 +97,15 @@ public class GlueProjectile : Projectile
         return targetToReturn;
     }
 
+    public override void UpgradeBullet(UpgradeData _upgrade)
+    {
+        _numberOfBloonsToPop = _upgrade.numberOfBloonsToPop;
+        _movementSpeedDecrease = _upgrade.movementSpeedDecrease;
+        _glueLastingEffect = _upgrade.glueLastingEffect;
+        _layersThrough = _upgrade.layersAffected;
+        _poppingSpeed = _upgrade.poppingSpeed;
+    }
+
     // Glue area
     private void OnDrawGizmos()
     {

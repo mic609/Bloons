@@ -84,10 +84,18 @@ public class BloonEffects : MonoBehaviour
 
     private IEnumerator PopShieldedBloonsWithGlue()
     {
-        for (int i = 0; i < _layersThrough; i++)
+        // Works only for ceramic!!! (ceramic has 10 damage!)
+        for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(_poppingSpeed);
             gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, 1);
+        }
+
+        var hitsLeft = gameObject.GetComponent<BloonController>().LayerDestroyed();
+        if (hitsLeft == 0)
+        {
+            Destroy(gameObject);
+            transform.GetComponent<ManageTower>().BloonsPoppedUp(1);
         }
     }
 

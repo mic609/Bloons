@@ -136,6 +136,9 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: 2de59617fc925884ea788d8bdcb73817, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+  _upgrades:
+  - {fileID: 11400000, guid: fb11ccc53dcfb1c44a6d007a49c2049b, type: 2}
+  - {fileID: 11400000, guid: 914d0cec6195b6b46b6a2f5f76e24a15, type: 2}
 --- !u!114 &1490728101304511960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 1.5
+  _damage: 0
   _parent: {fileID: 7484437962654563265}
   _objectToPool: {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
   _bullets:
@@ -157,7 +161,27 @@ MonoBehaviour:
   - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
   - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
   - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
-  _amountToPool: 5
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  - {fileID: 7247327436512608098, guid: 52557d31c1080f247aaa690b37457ed1, type: 3}
+  _amountToPool: 25
 --- !u!61 &1718906635910281842
 BoxCollider2D:
   m_ObjectHideFlags: 0

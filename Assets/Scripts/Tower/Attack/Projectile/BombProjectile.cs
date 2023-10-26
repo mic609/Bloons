@@ -72,6 +72,12 @@ public class BombProjectile : Projectile
         }
     }
 
+    public override void UpgradeBullet(UpgradeData _upgrade)
+    {
+        _explosionDiameter = _upgrade.projectileArea;
+        _numberOfBloonsToPop = _upgrade.numberOfBloonsToPop;
+    }
+
     // Explosion area
     private void OnDrawGizmos()
     {

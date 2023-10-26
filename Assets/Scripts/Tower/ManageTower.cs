@@ -1,8 +1,10 @@
 // Everything that the player sees in the upgrade panel is managed here
 
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManageTower : MonoBehaviour
 {
@@ -12,7 +14,11 @@ public class ManageTower : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] private AudioClip _sellTowerSound;
-    
+
+    [Header("Upgrades")]
+    [SerializeField] private List<UpgradeData> _upgrades;
+    private int _upgradeIndex;
+
     private int _bloonsPoppedInt;
 
     private int _onClickCounter = 0;
@@ -22,6 +28,7 @@ public class ManageTower : MonoBehaviour
     private TextMeshProUGUI _towerName;
     private TextMeshProUGUI _bloonsPopped;
     private TextMeshProUGUI _sellText;
+    private GameObject _upgradeButton;
 
     private void Start()
     {
@@ -29,8 +36,10 @@ public class ManageTower : MonoBehaviour
         _towerName = Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "TowerName").GetComponent<TextMeshProUGUI>();
         _bloonsPopped = Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "BloonsPoppedCount").GetComponent<TextMeshProUGUI>();
         _sellText = Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "SellButtonText").GetComponent<TextMeshProUGUI>();
+        _upgradeButton = Resources.FindObjectsOfTypeAll<GameObject>().First(x => x.name == "UpgradeButton");
         _bloonsPopped.text = "0";
         _bloonsPoppedInt = 0;
+        _upgradeIndex = 0;
     }
 
     private void Update()
@@ -48,6 +57,15 @@ public class ManageTower : MonoBehaviour
             _upgradePanelToShow.SetActive(true);
             _bloonsPopped.text = _bloonsPoppedInt.ToString();
             _towerName.text = _towerInfo.towerName;
+
+            if(_upgradeIndex >= _upgrades.Count)
+                _upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MAX UPGRADES";
+            else
+            {
+                _upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text =
+                    _upgrades[_upgradeIndex].upgradeDescription + " (" + _upgrades[_upgradeIndex].upgradeNumber + "): "
+                    + _upgrades[_upgradeIndex].upgradeCost + "$"; ;
+            }
 
             var standardCost = _towerInfo.standardPrice;
             var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
@@ -85,11 +103,57 @@ public class ManageTower : MonoBehaviour
     }
 
     // If the tower is chosen change bloons popped text in the interface while bloons are being popped
-    public void UpdateBloonsPoppedText()
+    private void UpdateBloonsPoppedText()
     {
         if(PlayerStats.Instance.GetClickedTower() != null)
         {
             _bloonsPopped.text = PlayerStats.Instance.GetClickedTower().GetComponent<ManageTower>()._bloonsPoppedInt.ToString();
+        }
+    }
+
+    // button will use this method
+    public void Upgrade()
+    {
+        var towerToUpgrade = PlayerStats.Instance.GetClickedTower();
+        if (towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex < towerToUpgrade.GetComponent<ManageTower>()._upgrades.Count)
+        {
+            var bullets = towerToUpgrade.GetComponent<TowerAttack>().GetBullets();
+            var upgrade = towerToUpgrade.GetComponent<ManageTower>()._upgrades[towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex];
+
+            // upgrade bullets
+            foreach (var bullet in bullets)
+            {
+                if(bullet.GetComponent<Projectile>() != null)
+                {
+                    var dart = bullet.GetComponent<Projectile>();
+                    dart.UpgradeBullet(upgrade);
+                }
+                else if(bullet.GetComponent<BulletSet>() != null)
+                {
+                    var bulletSet = bullet.GetComponent<BulletSet>();
+                    bulletSet.UpgradeBullet(upgrade);
+                }
+            }
+            // upgrade tower data
+            towerToUpgrade.GetComponent<TowerAttack>().SetDelay(upgrade.delay);
+            if(towerToUpgrade.GetComponent<RangeCollider>() != null)
+                towerToUpgrade.GetComponent<RangeCollider>().SetRadius(upgrade.radius);
+            towerToUpgrade.GetComponent<TowerAttack>().SetDamage(upgrade.damage);
+            if (towerToUpgrade.GetComponentInChildren<OnMouseTowerRotation>() != null)
+                towerToUpgrade.GetComponentInChildren<OnMouseTowerRotation>().SetRotationSpeed(upgrade.rotationSpeed);
+
+            PlayerStats.Instance.DecreaseMoneyForBoughtTower(upgrade.upgradeCost);
+
+            towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex++;
+            if (towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex >= towerToUpgrade.GetComponent<ManageTower>()._upgrades.Count)
+                towerToUpgrade.GetComponent<ManageTower>()._upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text
+                    = "MAX UPGRADES";
+            else
+            {
+                upgrade = towerToUpgrade.GetComponent<ManageTower>()._upgrades[towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex];
+                towerToUpgrade.GetComponent<ManageTower>()._upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text
+                    = upgrade.upgradeDescription + " (" + upgrade.upgradeNumber + "): " + upgrade.upgradeCost + "$";
+            }
         }
     }
 

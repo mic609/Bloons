@@ -1,5 +1,6 @@
 // Monkey Ace dart attack
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class BulletSet : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _maxDistance;
+    [SerializeField] private int _bulletsAmount;
+    private int _bulletCount;
     private Transform _startingPosition;
 
     private float _currentDistance;
@@ -21,6 +24,11 @@ public class BulletSet : MonoBehaviour
         foreach (Transform child in transform)
         {
             _bulletList.Add(child.gameObject);
+            child.gameObject.SetActive(true);
+            _bulletCount++;
+
+            if (_bulletCount == _bulletsAmount)
+                break;
         }
 
         ActivateBullets();
@@ -72,5 +80,22 @@ public class BulletSet : MonoBehaviour
             bullet.gameObject.SetActive(true);
         }
         gameObject.SetActive(false);
+    }
+
+    public void UpgradeBullet(UpgradeData upgrade)
+    {
+        _bulletsAmount = upgrade.bulletsAmount;
+        _bulletList.Clear();
+        _bulletCount = 0;
+
+        foreach (Transform child in transform)
+        {
+            _bulletList.Add(child.gameObject);
+            child.gameObject.SetActive(true);
+            _bulletCount++;
+
+            if (_bulletCount == _bulletsAmount)
+                break;
+        }
     }
 }

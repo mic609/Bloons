@@ -147,4 +147,9 @@ public class SpikeFactoryProjectile : Projectile
             }
         }
     }
+
+    public override void UpgradeBullet(UpgradeData _upgrade)
+    {
+        _timeAlive = _upgrade.timeAlive;
+    }
 }

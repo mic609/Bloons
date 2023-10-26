@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb0df67c32c83045af24f65f10f7c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 4
+  _radius: 3.5
   _rangeObject: {fileID: 6110713936061166696}
   _layerMask:
     serializedVersion: 2
@@ -192,6 +192,10 @@ MonoBehaviour:
   _towerInfo: {fileID: 11400000, guid: d7f73100d0e644643927ccf050554ffc, type: 2}
   _sellDiscount: 0.11
   _sellTowerSound: {fileID: 8300000, guid: de11902dcedcd4043b29effacbf46843, type: 3}
+  _upgrades:
+  - {fileID: 11400000, guid: 9e71bcfff756d8d40acbab1bbd05adb8, type: 2}
+  - {fileID: 11400000, guid: 5449dd81c8cb58340a7ed5541990801f, type: 2}
+  - {fileID: 11400000, guid: 237f23809d8dee641b132278eda19fbb, type: 2}
 --- !u!58 &7954760365690634210
 CircleCollider2D:
   m_ObjectHideFlags: 0

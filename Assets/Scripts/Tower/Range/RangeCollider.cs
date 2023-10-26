@@ -1,5 +1,6 @@
 // The script describes enemy detection in range of the tower
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,5 +55,11 @@ public class RangeCollider : MonoBehaviour
     public void ChangeRadiusSize()
     {
         _rangeObject.localScale = new Vector3(_radius * 2.0f, _radius * 2.0f, _rangeObject.localScale.z);
+    }
+
+    // Getters and setters
+    public void SetRadius(float radius)
+    {
+        _radius = radius;
     }
 }

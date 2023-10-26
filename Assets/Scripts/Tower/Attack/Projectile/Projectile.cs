@@ -62,4 +62,8 @@ public class Projectile : MonoBehaviour
         transform.position = _startingPosition;
         gameObject.SetActive(false);
     }
+
+    public virtual void UpgradeBullet(UpgradeData _upgrade)
+    {
+    }
 }

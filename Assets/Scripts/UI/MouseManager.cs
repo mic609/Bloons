@@ -21,9 +21,8 @@ public class MouseManager : MonoBehaviour
     public bool IsMouseOutsideGame()
     {
         Vector3 mousePosition = Input.mousePosition;
-        Vector3 worldMousePosition = gameCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10f)); // Zak³ada g³êbokoœæ 10 w przestrzeni z
+        Vector3 worldMousePosition = gameCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10f));
 
-        // Tutaj za³ó¿my granice kamery na podstawie widoku kamery
         float cameraWidth = gameCamera.orthographicSize * gameCamera.aspect;
         float cameraHeight = gameCamera.orthographicSize;
 

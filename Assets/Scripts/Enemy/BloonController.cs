@@ -102,7 +102,7 @@ public class BloonController : MonoBehaviour
     }
 
     // Destroy object hit by physical projectile (1 damage)
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("GlueProjectile"))
             DestroyLayeredEnemy(collision, 1);
@@ -115,7 +115,9 @@ public class BloonController : MonoBehaviour
         if (collision != null)
         {
             if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
+            {
                 ChangeSprite(hitAmount);
+            }
         }
         // There is no projectile to destroy enemy (sniper monkey etc.)
         else
@@ -371,7 +373,7 @@ public class BloonController : MonoBehaviour
         return _isDestroyed;
     }
 
-    public int getRbe()
+    public int GetRbe()
     {
         return _rbe;
     }
