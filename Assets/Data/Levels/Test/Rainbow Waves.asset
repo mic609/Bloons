@@ -17,5 +17,5 @@ MonoBehaviour:
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 787f0b377cb8ea54d9e8268061d8494d, type: 3}
     timeBetweenSpawn: 0.5
-    spawnCount: 1
+    spawnCount: 50
     timeEndEvent: 3

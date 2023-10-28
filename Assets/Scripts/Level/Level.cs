@@ -72,7 +72,7 @@ public class Level : MonoBehaviour
         }
         while (_numberOfBloons > 0)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         // The level has ended
@@ -105,6 +105,10 @@ public class Level : MonoBehaviour
         {
             _currentLevel = _levels[_currentLevelIndex];
             _currentLevelIndex++;
+        }
+        else
+        {
+            // end of the game
         }
     }
 

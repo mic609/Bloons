@@ -100,13 +100,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
-  _maxDistance: 13
+  _maxDistance: 7
+  _cannotPopLead: 0
+  _pierce: 0
+  _damage: 0
   _areaDiameter: 2.5
   _numberOfBloonsToPop: 1
   _movementSpeedDecrease: 0.5
   _glueLastingEffect: 11
   _layersThrough: 3
-  _poppingSpeed: 2
+  _poppingSpeed: 0
   _layerMask:
     serializedVersion: 2
     m_Bits: 256

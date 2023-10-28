@@ -12,11 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
   m_Name: SniperMonkeyUp2
   m_EditorClassIdentifier: 
-  upgradeNumber: 1
-  upgradeCost: 400
+  upgradeNumber: 2
+  upgradeCost: 600
   upgradeDescription: Shoots faster
   delay: 1
   radius: 0
+  cannotPopLead: 1
+  upgradeSprite: {fileID: 0}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 4
+  pierce: 0
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

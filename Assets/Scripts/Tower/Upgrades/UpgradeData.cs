@@ -10,6 +10,7 @@ public class UpgradeData : ScriptableObject
     [TextArea] public string upgradeDescription;
     public float delay; // speed attack
     public float radius;
+    public bool cannotPopLead;
 
     [Header("Sprite")]
     public Sprite upgradeSprite;
@@ -20,6 +21,7 @@ public class UpgradeData : ScriptableObject
 
     [Header("Pop through")]
     public int damage;
+    public int pierce;
 
     [Header("Glue effects")]
     public float movementSpeedDecrease;

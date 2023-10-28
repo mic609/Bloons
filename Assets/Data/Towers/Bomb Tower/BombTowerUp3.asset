@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
   m_Name: BombTowerUp3
   m_EditorClassIdentifier: 
-  upgradeNumber: 1
-  upgradeCost: 600
-  upgradeDescription: Attack speed increased
-  delay: 2
-  radius: 3.5
-  projectileArea: 4
+  upgradeNumber: 3
+  upgradeCost: 1450
+  upgradeDescription: Attack speed increased and bombs are even bigger and stronger!
+  delay: 1.5
+  radius: 4
+  cannotPopLead: 0
+  upgradeSprite: {fileID: 21300000, guid: a602c8afe5a4c31489a2bfaf541f11d5, type: 3}
+  projectileArea: 6
   numberOfBloonsToPop: 12
+  damage: 2
+  pierce: 1
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

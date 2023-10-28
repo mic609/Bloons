@@ -101,7 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
   _maxDistance: 25
-  _pierce: 1
+  _cannotPopLead: 1
+  _pierce: 3
+  _damage: 1
   _borderVectorA: {x: -1, y: -4, z: 0}
   _borderVectorB: {x: 1, y: -4, z: 0}
 --- !u!61 &8885035158114718252

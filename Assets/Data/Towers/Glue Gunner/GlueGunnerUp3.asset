@@ -12,16 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
   m_Name: GlueGunnerUp3
   m_EditorClassIdentifier: 
-  upgradeNumber: 1
-  upgradeCost: 600
+  upgradeNumber: 3
+  upgradeCost: 2150
   upgradeDescription: Can glue 3 bloons at once. Popping speed is even faster
   delay: 1
   radius: 4
+  cannotPopLead: 0
   upgradeSprite: {fileID: 0}
-  projectileArea: 0
+  projectileArea: 2.5
   numberOfBloonsToPop: 3
   damage: 0
+  pierce: 0
   movementSpeedDecrease: 0.3
   glueLastingEffect: 15
-  layersAffected: 300
+  layersAffected: 3
   poppingSpeed: 0.1
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BloonController : MonoBehaviour
 {
@@ -29,7 +27,7 @@ public class BloonController : MonoBehaviour
     [Header("Health")]
     [SerializeField] private int _rbe; // red bloon equivalent- this is the bloon health
     [SerializeField] private int _layerHp; // additional shield for heavy bloons
-    private int _hitCount; // for ceramic, moabs, etc.
+    [SerializeField] private int _hitCount; // for ceramic, moabs, etc.
     [SerializeField] private List<int> _criticalPoints; // critical points represent the place where the sprite is being changed 
 
     [Header("Parent")]
@@ -49,6 +47,11 @@ public class BloonController : MonoBehaviour
     // Info from other towers
     private int _popThrough; // If this variable is greater than zero bloon needs to be destroyed
     private bool _isDestroyed; // Is bloon being destroyed right now?
+
+    private void Awake()
+    {
+        _popThrough = -1;
+    }
 
     private void Start()
     {
@@ -101,53 +104,6 @@ public class BloonController : MonoBehaviour
         }
     }
 
-    // Destroy object hit by physical projectile (1 damage)
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("GlueProjectile"))
-            DestroyLayeredEnemy(collision, 1);
-    }
-
-    // Destroying enemies with shield logic
-    public void DestroyLayeredEnemy(Collider2D collision, int hitAmount)
-    {
-        // This is from physical projectile on scene
-        if (collision != null)
-        {
-            if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile"))
-            {
-                ChangeSprite(hitAmount);
-            }
-        }
-        // There is no projectile to destroy enemy (sniper monkey etc.)
-        else
-        {
-            if (_layerHp > 1)
-                ChangeSprite(hitAmount);
-        }
-    }
-
-    // Destroying enemies with shield logic
-    private void ChangeSprite(int hitAmount)
-    {
-        int previousHitCount = _hitCount;
-        _hitCount += hitAmount;
-
-        foreach (int criticalPoint in _criticalPoints)
-        {
-            if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
-            {
-                // for glued bloons
-                if (gameObject.GetComponent<BloonEffects>() != null && gameObject.GetComponent<BloonEffects>().HasGlueEffect() && _temporaryGlueSprites.Count != 0)
-                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporaryGlueSprites[_spriteIndex];
-                // for standard bloons
-                else
-                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
-                _spriteIndex++;
-            }
-        }
-    }
-
     // On destroy spawn weaker enemies
     private void SpawnWeakerLayer()
     {
@@ -193,7 +149,7 @@ public class BloonController : MonoBehaviour
                 var setPosition = Vector3.zero;
                 if (movementDirection == Vector3.down)
                     setPosition = new Vector3(transform.position.x, transform.position.y - distanceFromCenter, transform.position.z);
-                else if(movementDirection == Vector3.up)
+                else if (movementDirection == Vector3.up)
                     setPosition = new Vector3(transform.position.x, transform.position.y + distanceFromCenter, transform.position.z);
 
                 InstantiateWeakerEnemy(weakerEnemyIndex, setPosition, distanceFromCenter);
@@ -204,7 +160,7 @@ public class BloonController : MonoBehaviour
                     weakerEnemyIndex++;
             }
         }
-        else if(movementDirection == Vector3.right || movementDirection == Vector3.left)
+        else if (movementDirection == Vector3.right || movementDirection == Vector3.left)
         {
             for (int i = 0; i < _enemyAmount; i++)
             {
@@ -235,13 +191,13 @@ public class BloonController : MonoBehaviour
 
         // Instantiating new bloon
         var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+        newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
+
         if (_popThrough > 0)
         {
             // Don't show inside bloons while shooting pop through
             newBloon.GetComponent<SpriteRenderer>().enabled = false;
         }
-
-        newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
         var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
 
         var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
@@ -257,6 +213,68 @@ public class BloonController : MonoBehaviour
         newEnemyMovement.SetCurrentDistance(oldEnemyDistance - distanceFromCenter);
         newEnemyMovement.SetCurrentPosition(setPosition);
         newEnemyMovement.SetPointsIndex(oldEnemyMovement.GetPointsIndex());
+    }
+
+    // Destroy object hit by physical projectile (1 damage)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("GlueProjectile") && !collision.CompareTag("SpikeFactoryProjectile"))
+        {
+            if (IsCeramicBloon() || IsMoabClassBloon())
+            {
+                DestroyLayeredEnemy(collision, 1);
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // only for spike factory!
+        if (collision.CompareTag("SpikeFactoryProjectile"))
+        {
+            DestroyLayeredEnemy(collision, 1);
+        }
+    }
+
+    // Destroying enemies with shield logic
+    public void DestroyLayeredEnemy(Collider2D collision, int hitAmount)
+    {
+        // This is from physical projectile on scene
+        if (collision != null)
+        {
+            if (_layerHp > 1 && collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("SpikeFactoryProjectile"))
+            {
+                ChangeSprite(hitAmount);
+            }
+        }
+        // There is no projectile to destroy enemy (sniper monkey etc.)
+        else
+        {
+            if (_layerHp > 1)
+                ChangeSprite(hitAmount);
+        }
+    }
+
+    // Destroying enemies with shield logic
+    private void ChangeSprite(int hitAmount)
+    {
+        int previousHitCount = _hitCount;
+        _hitCount += hitAmount;
+
+        foreach (int criticalPoint in _criticalPoints)
+        {
+            if (previousHitCount < criticalPoint && _hitCount >= criticalPoint && criticalPoint <= _layerHp)
+            {
+                // for glued bloons
+                if (gameObject.GetComponent<BloonEffects>() != null && gameObject.GetComponent<BloonEffects>().HasGlueEffect() && _temporaryGlueSprites.Count != 0
+                    && _spriteIndex < _temporaryGlueSprites.Count)
+                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporaryGlueSprites[_spriteIndex];
+                // for standard bloons
+                else if(_spriteIndex < _temporarySprites.Count)
+                    transform.gameObject.GetComponent<SpriteRenderer>().sprite = _temporarySprites[_spriteIndex];
+                _spriteIndex++;
+            }
+        }
     }
 
     private void GlueEffectsDetails(GameObject newBloon)
@@ -376,5 +394,10 @@ public class BloonController : MonoBehaviour
     public int GetRbe()
     {
         return _rbe;
+    }
+
+    public int GetPopThrough()
+    {
+        return _popThrough;
     }
 }

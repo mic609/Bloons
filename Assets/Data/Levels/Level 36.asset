@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619be41b14b36a54c8bfbcbf6aa643f4, type: 3}
+  m_Name: Level 36
+  m_EditorClassIdentifier: 
+  levelNumber: 36
+  levelDescription: Besides having more layers, the different colored bloons also
+    move faster.
+  enemiesSpawnEvents:
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
+    timeBetweenSpawn: 0.3
+    spawnCount: 140
+    timeEndEvent: 2
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: 77e63503e6cd7ba439d629f104f8a9b0, type: 3}
+    timeBetweenSpawn: 0.1
+    spawnCount: 20
+    timeEndEvent: 0

@@ -100,13 +100,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
-  _maxDistance: 13
+  _maxDistance: 7
+  _cannotPopLead: 0
+  _pierce: 1
+  _damage: 1
   _explosionDiameter: 2.5
   _numberOfBloonsToPop: 6
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
   _bombSound: {fileID: 8300000, guid: 24f2503986049724a919ee5405a6dedf, type: 3}
+  _ceramicPop: {fileID: 0}
 --- !u!61 &8885035158114718252
 BoxCollider2D:
   m_ObjectHideFlags: 0

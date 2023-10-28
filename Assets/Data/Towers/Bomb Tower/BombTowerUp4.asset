@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
+  m_Name: BombTowerUp4
+  m_EditorClassIdentifier: 
+  upgradeNumber: 4
+  upgradeCost: 6150
+  upgradeDescription: Deals heavy damage
+  delay: 1
+  radius: 6
+  cannotPopLead: 0
+  upgradeSprite: {fileID: 21300000, guid: 3ccb2e59dcf533742bc01e2eb1a92bdf, type: 3}
+  projectileArea: 8
+  numberOfBloonsToPop: 18
+  damage: 5
+  pierce: 1
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

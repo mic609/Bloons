@@ -15,6 +15,10 @@ public class BloonEffects : MonoBehaviour
     private Sprite _standardSprite;
     private Sprite _lastSprite;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip _popSound;
+    [SerializeField] private AudioClip _ceramicPop;
+
     private bool _hasGlueEffect = false;
 
     private void Update()
@@ -73,29 +77,53 @@ public class BloonEffects : MonoBehaviour
 
     private void PopBloonsWithGlue()
     {
-        // Pop count for the tower here
-        var tower = gameObject.GetComponent<BloonTowerReference>().GetTower();
-        
-        if(tower != null)
-            tower.GetComponent<ManageTower>().BloonsPoppedUp(1);
+        if (_hasGlueEffect)
+        {
+            // Pop count for the tower here
+            var tower = gameObject.GetComponent<BloonTowerReference>().GetTower();
 
-        Destroy(gameObject);
+            if (tower != null)
+                tower.GetComponent<ManageTower>().BloonsPoppedUp(1);
+
+            Destroy(gameObject);
+
+            SoundManager.Instance.PlaySound(_popSound);
+        }
     }
 
     private IEnumerator PopShieldedBloonsWithGlue()
     {
-        // Works only for ceramic!!! (ceramic has 10 damage!)
-        for (int i = 0; i < 10; i++)
+        if (_hasGlueEffect)
         {
-            yield return new WaitForSeconds(_poppingSpeed);
-            gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, 1);
-        }
+            var tower = gameObject.GetComponent<BloonTowerReference>().GetTower();
 
-        var hitsLeft = gameObject.GetComponent<BloonController>().LayerDestroyed();
-        if (hitsLeft == 0)
-        {
-            Destroy(gameObject);
-            transform.GetComponent<ManageTower>().BloonsPoppedUp(1);
+            var iterator = _layersThrough;
+            if (_layersThrough == 3)
+                iterator = _layersThrough;
+            else
+                iterator = 10;
+
+            // Works only for ceramic!!! (ceramic has 10 damage!)
+            for (int i = 0; i < iterator; i++)
+            {
+                yield return new WaitForSeconds(_poppingSpeed);
+                if (!_hasGlueEffect)
+                    break;
+                gameObject.GetComponent<BloonController>().DestroyLayeredEnemy(null, 1);
+                SoundManager.Instance.PlaySound(_ceramicPop);
+            }
+
+            var hitsLeft = gameObject.GetComponent<BloonController>().LayerDestroyed();
+
+            if (hitsLeft >= 0)
+            {
+                if (_hasGlueEffect)
+                {
+                    tower.GetComponent<ManageTower>().BloonsPoppedUp(1);
+                    Destroy(gameObject);
+                    SoundManager.Instance.PlaySound(_popSound);
+                }
+            }
         }
     }
 

@@ -1,17 +1,18 @@
 // Sniper Monkey attack logic
 
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SniperMonkeyAttack : TowerAttack
 {
     [Header("Attack Details")]
-    //[SerializeField] private float _delay; // time between shooting
-    //private float _delayTimer;
-    
-    private GameObject _bloons; // bloons on the map
+    [SerializeField] protected int _damage; // how many bloons the tower can pop through
 
-    //private TowerRotation _towerRotation;
+    [Header("Lead damage")]
+    [SerializeField] private bool _cannotPopLead;
+
+    private GameObject _bloons; // bloons on the map
 
     protected override void Start()
     {
@@ -44,7 +45,11 @@ public class SniperMonkeyAttack : TowerAttack
 
                 // Attack with sound
                 _delayTimer = 0.0f;
-                SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(false));
+
+                var popAbility = false;
+                if (_cannotPopLead)
+                    popAbility = enemy.GetComponent<BloonController>().IsLeadBloon();
+                SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(popAbility));
 
                 var isMoabClassBloon = enemy.gameObject.GetComponent<BloonController>().IsMoabClassBloon();
                 var isCeramicBloon = enemy.gameObject.GetComponent<BloonController>().IsCeramicBloon();
@@ -87,12 +92,15 @@ public class SniperMonkeyAttack : TowerAttack
                 // Destroying bloons without shield
                 else
                 {
-                    // how much bloons the sniper popped
-                    transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
-                    
-                    // PopThrough is being set to destroy multiple layers of the bloons at once
-                    enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(_damage);
-                    Destroy(enemy.gameObject);
+                    if (!popAbility)
+                    {
+                        // how much bloons the sniper popped
+                        transform.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
+
+                        // PopThrough is being set to destroy multiple layers of the bloons at once
+                        enemy.gameObject.GetComponent<BloonController>().SetIsPopThrough(_damage);
+                        Destroy(enemy.gameObject);
+                    }
                 }
 
                 // Animation
@@ -117,5 +125,17 @@ public class SniperMonkeyAttack : TowerAttack
         fireSprite.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         fireSprite.gameObject.SetActive(false);
+    }
+
+    // Setters
+
+    public void SetCannotPopLead(bool cannotPopLead)
+    {
+        _cannotPopLead = cannotPopLead;
+    }
+
+    public override void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 }

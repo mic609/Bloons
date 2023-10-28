@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
   m_Name: BombTowerUp2
   m_EditorClassIdentifier: 
-  upgradeNumber: 1
-  upgradeCost: 400
-  upgradeDescription: Can pop +6 additional bloons
+  upgradeNumber: 2
+  upgradeCost: 750
+  upgradeDescription: Can pop +6 additional bloons, range increased
   delay: 2.5
-  radius: 3.5
-  projectileArea: 4
+  radius: 4
+  cannotPopLead: 0
+  upgradeSprite: {fileID: 21300000, guid: 2d3e09940571ae54da84ad1e3ed6587d, type: 3}
+  projectileArea: 3.5
   numberOfBloonsToPop: 12
+  damage: 1
+  pierce: 1
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   levelNumber: -201
   levelDescription: collapsed!
   enemiesSpawnEvents:
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 77e63503e6cd7ba439d629f104f8a9b0, type: 3}
-    timeBetweenSpawn: 0.2
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: e940013461fd9f948a9ea6847c7bb982, type: 3}
+    timeBetweenSpawn: 1
     spawnCount: 100
     timeEndEvent: 0

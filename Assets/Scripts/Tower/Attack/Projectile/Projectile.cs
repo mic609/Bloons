@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _maxDistance;
+    [SerializeField] protected bool _cannotPopLead;
+    [SerializeField] protected int _pierce; // how many bloons can one projectile pop
+    [SerializeField] protected int _damage;
 
     protected Transform _target;
     protected Vector3 _startingPosition;
@@ -21,6 +25,7 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = _startingPosition;
         _target = target;
+        _shootingDirection = _target.transform.position - transform.position;
     }
 
     public virtual void Attack(Transform target, Vector3 direction)
@@ -36,8 +41,7 @@ public class Projectile : MonoBehaviour
         {
             _shootingPosition = _target.position;
 
-            transform.position = Vector3.MoveTowards(transform.position, _shootingPosition, Time.deltaTime * _bulletSpeed);
-            _shootingDirection = _target.transform.position - transform.position;
+            transform.position += _shootingDirection * _bulletSpeed * Time.deltaTime;
 
             // rotation of the projectile
             var angle = Mathf.Atan2(_shootingDirection.y, _shootingDirection.x) * Mathf.Rad2Deg;
@@ -56,7 +60,7 @@ public class Projectile : MonoBehaviour
     }
 
     // Object has reached max distance or hit the target
-    protected void ProjectileReset()
+    protected virtual void ProjectileReset()
     {
         _currentDistance = 0f;
         transform.position = _startingPosition;
@@ -65,5 +69,11 @@ public class Projectile : MonoBehaviour
 
     public virtual void UpgradeBullet(UpgradeData _upgrade)
     {
+    }
+
+    // getters
+    public int GetPierce()
+    {
+        return _pierce;
     }
 }

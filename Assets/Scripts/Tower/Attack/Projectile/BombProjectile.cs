@@ -57,11 +57,49 @@ public class BombProjectile : Projectile
                     ifStatementReached = true;
                 }
 
+                var isMoabClassBloon = bloonToDestroy.GetComponent<BloonController>().IsMoabClassBloon();
+                var isCeramicBloon = bloonToDestroy.GetComponent<BloonController>().IsCeramicBloon();
+
+                var bloonsPopped = BloonsPoppedAmount(bloonToDestroy.transform);
+
+                if ((isMoabClassBloon || isCeramicBloon))
+                {
+                    // Break the bloon shield
+                    bloonToDestroy.GetComponent<BloonController>().DestroyLayeredEnemy(null, _damage);
+
+                    var hitsLeft = bloonToDestroy.GetComponent<BloonController>().LayerDestroyed();
+
+                    // This is complicated. The shield bloon (ceramic, moab) after being destroyed still can affect
+                    // weaker enemies (hitsLeft > 0), but it depends on the shield remaining health
+                    if (hitsLeft == 0)
+                    {
+                        Destroy(bloonToDestroy);
+                        transform.parent.parent.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
+                    }
+                    else if (hitsLeft > 0)
+                    {
+                        // there is +1 for some reason. We will understand why it needs to be like this
+
+                        if (!isMoabClassBloon)
+                        {
+                            transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
+                            bloonToDestroy.GetComponent<BloonController>().SetIsPopThrough(hitsLeft + 1);
+                            Destroy(bloonToDestroy);
+                        }
+                        else
+                        {
+                            bloonToDestroy.GetComponent<BloonController>().DestroyLayeredEnemy(null, _damage);
+                            Destroy(bloonToDestroy);
+                        }
+                    }
+
+                }
                 // The whole shield needs to be destroyed and the bloon cannot be immune to bombs
-                if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !enemy.GetComponent<BloonController>().IsBombImmune())
+                else if (bloonToDestroy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !bloonToDestroy.GetComponent<BloonController>().IsBombImmune())
                 {
                     Destroy(bloonToDestroy);
-                    transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(1);
+                    bloonToDestroy.GetComponent<BloonController>().SetIsPopThrough(_damage);
+                    transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
                 }
 
 
@@ -72,10 +110,20 @@ public class BombProjectile : Projectile
         }
     }
 
+    private int BloonsPoppedAmount(Transform enemy)
+    {
+        var bloonRbe = enemy.gameObject.GetComponent<BloonController>().GetRbe();
+        if (bloonRbe < _damage)
+            return bloonRbe;
+        else
+            return _damage;
+    }
+
     public override void UpgradeBullet(UpgradeData _upgrade)
     {
         _explosionDiameter = _upgrade.projectileArea;
         _numberOfBloonsToPop = _upgrade.numberOfBloonsToPop;
+        _damage = _upgrade.damage;
     }
 
     // Explosion area

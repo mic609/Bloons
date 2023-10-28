@@ -13,9 +13,22 @@ MonoBehaviour:
   m_Name: DartMonkeyUp2
   m_EditorClassIdentifier: 
   upgradeNumber: 2
-  upgradeCost: 400
-  upgradeDescription: Increased attack speed
+  upgradeCost: 950
+  upgradeDescription: Deals 3 damage, can pop 3 bloons at once
   delay: 1
-  radius: 4.5
+  radius: 3.3
+  cannotPopLead: 1
+  upgradeSprite: {fileID: 0}
   projectileArea: 0
   numberOfBloonsToPop: 0
+  damage: 3
+  pierce: 3
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

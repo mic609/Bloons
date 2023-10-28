@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _glueBloonSprite: {fileID: 21300000, guid: 5aa6089746b5de841ac46154b3152c3c, type: 3}
+  _popSound: {fileID: 8300000, guid: 69535b19fe10e0742bd90d58a28050dc, type: 3}
+  _ceramicPop: {fileID: 8300000, guid: fd65f634dbe4ac742a38260dde413929, type: 3}
 --- !u!114 &5523797257457610646
 MonoBehaviour:
   m_ObjectHideFlags: 0

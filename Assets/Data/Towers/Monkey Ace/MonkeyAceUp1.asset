@@ -13,16 +13,22 @@ MonoBehaviour:
   m_Name: MonkeyAceUp1
   m_EditorClassIdentifier: 
   upgradeNumber: 1
-  upgradeCost: 200
-  upgradeDescription: Shoots more darts
-  delay: 1.5
+  upgradeCost: 450
+  upgradeDescription: Speed increased
+  delay: 1
   radius: 0
+  cannotPopLead: 1
   upgradeSprite: {fileID: 0}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 1
+  pierce: 1
   movementSpeedDecrease: 0
   glueLastingEffect: 0
   layersAffected: 0
   poppingSpeed: 0
-  bulletsAmount: 16
+  bulletsAmount: 8
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

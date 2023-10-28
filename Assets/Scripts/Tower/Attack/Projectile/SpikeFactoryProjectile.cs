@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SpikeFactoryProjectile : Projectile
 {
-    [SerializeField] private int _pierce;
-
     [Header("Spike Alive Time")]
     [SerializeField] private float _timeAlive;
 
@@ -13,6 +11,7 @@ public class SpikeFactoryProjectile : Projectile
     [SerializeField] private List<Sprite> _sprites;
     private Sprite _initialSprite;
     private int _spriteIndex = 0;
+    private int _damageDone = 0;
 
     private bool _shouldMove = true;
 
@@ -87,21 +86,29 @@ public class SpikeFactoryProjectile : Projectile
         {
             // Destroy enemy
             var enemy = collision.gameObject;
-            var cannotPopLead = enemy.GetComponent<BloonController>().IsLeadBloon();
 
+            var popAbility = false;
+            if (_cannotPopLead)
+                popAbility = enemy.GetComponent<BloonController>().IsLeadBloon();
             // If the bloon is lead, play lead sound, otherwise play normal sound
-            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(cannotPopLead));
+            SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(popAbility));
 
             // Dart needs to destroy the whole shield and the bloon is not a lead bloon
-            if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !cannotPopLead)
+            if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !popAbility)
             {
                 Destroy(enemy);
 
                 // Add statistics for the tower
-                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(1);
+                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
             }
 
-            ChangeSprite();
+            if (_damageDone >= _damage)
+            {
+                ChangeSprite();
+                _damageDone = 0;
+            }
+            else
+                _damageDone++;
         }
     }
 
@@ -148,8 +155,10 @@ public class SpikeFactoryProjectile : Projectile
         }
     }
 
-    public override void UpgradeBullet(UpgradeData _upgrade)
+    public override void UpgradeBullet(UpgradeData upgrade)
     {
-        _timeAlive = _upgrade.timeAlive;
+        _timeAlive = upgrade.timeAlive;
+        _cannotPopLead = upgrade.cannotPopLead;
+        _damage = upgrade.damage;
     }
 }

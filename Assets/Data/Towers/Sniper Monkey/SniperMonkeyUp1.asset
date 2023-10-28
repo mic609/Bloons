@@ -13,10 +13,22 @@ MonoBehaviour:
   m_Name: SniperMonkeyUp1
   m_EditorClassIdentifier: 
   upgradeNumber: 1
-  upgradeCost: 200
+  upgradeCost: 450
   upgradeDescription: Can pop through 4 layers of bloons
   delay: 2
   radius: 0
+  cannotPopLead: 1
+  upgradeSprite: {fileID: 0}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 4
+  pierce: 0
+  movementSpeedDecrease: 0
+  glueLastingEffect: 0
+  layersAffected: 0
+  poppingSpeed: 0
+  bulletsAmount: 0
+  borderVectorA: {x: 0, y: 0, z: 0}
+  borderVectorB: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  timeAlive: 0

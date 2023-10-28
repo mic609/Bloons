@@ -147,5 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 8
-  _maxDistance: 13
-  _pierce: 0
+  _maxDistance: 7
+  _cannotPopLead: 1
+  _pierce: 1
+  _damage: 1

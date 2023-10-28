@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: DartlingGunnerUp1
   m_EditorClassIdentifier: 
   upgradeNumber: 1
-  upgradeCost: 200
+  upgradeCost: 600
   upgradeDescription: Increases accuracy of the Dartling Gun and rotates faster
   delay: 0.25
   radius: 0
+  cannotPopLead: 1
   upgradeSprite: {fileID: 0}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 1
+  pierce: 1
   movementSpeedDecrease: 0
   glueLastingEffect: 0
   layersAffected: 0
@@ -29,3 +31,4 @@ MonoBehaviour:
   borderVectorA: {x: -0.5, y: -4, z: 0}
   borderVectorB: {x: 0.5, y: -4, z: 0}
   rotationSpeed: 180
+  timeAlive: 0

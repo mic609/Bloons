@@ -1,6 +1,5 @@
 // Tower attack details
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,6 @@ public class TowerAttack : MonoBehaviour
 {
     [Header("Attack Details")]
     [SerializeField] protected float _delay;
-    [SerializeField] protected int _damage; // how many bloons the tower can pop through
 
     [Header("Projectile Details")]
     [SerializeField] private Transform _parent; // where the objects need to be instantiated
@@ -63,8 +61,7 @@ public class TowerAttack : MonoBehaviour
     {
         _delay = delay;
     }
-    public void SetDamage(int damage)
+    public virtual void SetDamage(int damage)
     {
-        _damage = damage;
     }
 }

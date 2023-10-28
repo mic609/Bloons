@@ -87,7 +87,7 @@ public class GlueProjectile : Projectile
         {
             currentProgress = bloon.GetComponent<EnemyMovement>().GetProgress();
 
-            if (currentProgress > biggestProgress && !bloon.GetComponent<BloonEffects>().HasGlueEffect())
+            if (currentProgress > biggestProgress && bloon.GetComponent<BloonEffects>()!= null && !bloon.GetComponent<BloonEffects>().HasGlueEffect())
             {
                 targetToReturn = bloon;
                 biggestProgress = currentProgress;

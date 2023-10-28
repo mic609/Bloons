@@ -14,7 +14,7 @@ public class BulletSet : MonoBehaviour
     private Transform _startingPosition;
 
     private float _currentDistance;
-    private List<GameObject> _bulletList = new List<GameObject>();
+    private readonly List<GameObject> _bulletList = new List<GameObject>();
 
     private void Start()
     {
@@ -44,16 +44,11 @@ public class BulletSet : MonoBehaviour
         foreach (var bullet in _bulletList)
         {
             var direction = bullet.transform.rotation * Vector3.up; // based on the angle
-            var move = (-1) * direction * _bulletSpeed * Time.deltaTime;
+            var move = (-1) * _bulletSpeed * Time.deltaTime * direction;
             bullet.transform.position += move;
         }
 
         _currentDistance += (_bulletSpeed * Time.deltaTime);
-    }
-
-    private IEnumerator WaitBeforeAttack()
-    {
-        yield return new WaitForSeconds(1.0f);
     }
 
     public void Attack()
@@ -77,7 +72,7 @@ public class BulletSet : MonoBehaviour
         foreach(var bullet in _bulletList)
         {
             bullet.transform.position = gameObject.transform.position;
-            bullet.gameObject.SetActive(true);
+            bullet.SetActive(true);
         }
         gameObject.SetActive(false);
     }
@@ -92,6 +87,9 @@ public class BulletSet : MonoBehaviour
         {
             _bulletList.Add(child.gameObject);
             child.gameObject.SetActive(true);
+            child.gameObject.GetComponent<AceProjectile>().SetCannotPopLead(upgrade.cannotPopLead);
+            child.gameObject.GetComponent<AceProjectile>().SetDamage(upgrade.damage);
+            child.gameObject.GetComponent<AceProjectile>().SetPierce(upgrade.pierce);
             _bulletCount++;
 
             if (_bulletCount == _bulletsAmount)

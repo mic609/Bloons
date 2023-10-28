@@ -9,6 +9,7 @@ TagManager:
   - GlueProjectile
   - Background
   - Path
+  - SpikeFactoryProjectile
   layers:
   - Default
   - TransparentFX
