@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 25
   m_EditorClassIdentifier: 
   levelNumber: 25
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 124 coins awarded. Beware zebra bloons. They contain one white
+    and one black bloon and are immune to bombs
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 38e7bea15bdaf134793215075dc587f5, type: 3}
     timeBetweenSpawn: 0.3

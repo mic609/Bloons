@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 34
   m_EditorClassIdentifier: 
   levelNumber: 34
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 133 coins awarded. Beware rainbow bloons. They contain two zebra
+    bloons
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 38e7bea15bdaf134793215075dc587f5, type: 3}
     timeBetweenSpawn: 0.3

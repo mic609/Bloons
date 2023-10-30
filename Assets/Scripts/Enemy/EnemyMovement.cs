@@ -2,6 +2,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private float _currentMovementSpeed; // this is a value that can change in certain situations
 
     // Level Object contains path points
-    [Header("Level")]
-    [SerializeField] private GameObject _levelObject;
+    private GameObject _levelObject;
     private Level _level;
 
     // Every path has points that bloons approach
@@ -23,7 +23,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        _level = _levelObject.GetComponent<Level>();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "MapFlower")
+            _level = GameObject.Find("Map").GetComponent<Level>();
+        else if(currentSceneName == "MapBeach")
+            _level = GameObject.Find("Map2").GetComponent<Level>();
 
         _currentPosition = transform.position; // position of the bloon
         gameObject.GetComponent<BloonController>().RotateMoabClassBloon(); // rotate moab bloon if neccesary (based on the initial movement direction)
@@ -40,7 +44,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (_pointsIndex < points.Length)
         {
-            MoveToPoint(points[_pointsIndex]); // move to the next point
+            MoveToPoint(points[_pointsIndex].transform); // move to the next point
 
             if (_currentPosition == points[_pointsIndex].transform.position)
             {
@@ -84,7 +88,7 @@ public class EnemyMovement : MonoBehaviour
         var points = _level.GetPoints();
         if (_pointsIndex < points.Length)
         {
-            var movementDirection = (_currentPosition - points[_pointsIndex].position).normalized;
+            var movementDirection = (_currentPosition - points[_pointsIndex].transform.position).normalized;
             return movementDirection;
         }
         else

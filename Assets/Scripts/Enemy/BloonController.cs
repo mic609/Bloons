@@ -1,6 +1,7 @@
 // Destroying bloons logic, other bloon details
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +51,7 @@ public class BloonController : MonoBehaviour
 
     private void Awake()
     {
+        StartCoroutine(WaitBeforeActiveComponent());
         _popThrough = -1;
     }
 
@@ -61,6 +63,12 @@ public class BloonController : MonoBehaviour
 
         _isDestroyed = false;
         _hitCount = 0;
+    }
+
+    private IEnumerator WaitBeforeActiveComponent()
+    {
+        yield return new WaitForSeconds(0.1f);
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
     }
 
     private void Update()
@@ -76,6 +84,9 @@ public class BloonController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (_popThrough == 0)
+            _popThrough = -1;
     }
 
     private void OnDestroy()
@@ -191,6 +202,7 @@ public class BloonController : MonoBehaviour
 
         // Instantiating new bloon
         var newBloon = Instantiate(_weakerEnemies[weakerEnemyIndex], setPosition, transform.rotation);
+        newBloon.GetComponent<CapsuleCollider2D>().enabled = false;
         newBloon.GetComponent<BloonController>().SetIsPopThrough(_popThrough);
 
         if (_popThrough > 0)
@@ -198,6 +210,9 @@ public class BloonController : MonoBehaviour
             // Don't show inside bloons while shooting pop through
             newBloon.GetComponent<SpriteRenderer>().enabled = false;
         }
+        else
+            newBloon.GetComponent<CapsuleCollider2D>().enabled = true;
+
         var newEnemyMovement = newBloon.GetComponent<EnemyMovement>();
 
         var oldEnemyMovement = gameObject.GetComponent<EnemyMovement>();
@@ -384,11 +399,6 @@ public class BloonController : MonoBehaviour
     public bool IsBombImmune()
     {
         return _isBombImmune;
-    }
-
-    public bool IsUnderAttack()
-    {
-        return _isDestroyed;
     }
 
     public int GetRbe()

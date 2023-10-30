@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SniperMonkeyUp2
   m_EditorClassIdentifier: 
   upgradeNumber: 2
-  upgradeCost: 600
+  upgradeCost: 700
   upgradeDescription: Shoots faster
   delay: 1
   radius: 0
   cannotPopLead: 1
-  upgradeSprite: {fileID: 0}
+  upgradeSprite: {fileID: 21300000, guid: 6c1e5f33d71fe41468a9c5eb0c624a36, type: 3}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 4

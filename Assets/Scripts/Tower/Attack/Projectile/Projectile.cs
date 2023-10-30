@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
         else
         {
             // If there is no enemy left to defeat, remain the direction
-            transform.position += transform.right * _bulletSpeed * Time.deltaTime;
+            transform.position += _shootingDirection * _bulletSpeed * Time.deltaTime;
         }
 
         if (_currentDistance >= _maxDistance)

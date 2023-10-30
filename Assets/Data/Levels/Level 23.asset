@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Level 23
   m_EditorClassIdentifier: 
   levelNumber: 23
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 122 coins awarded
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 88e44e133a5ded449b48052d6b6f7eff, type: 3}
     timeBetweenSpawn: 0.6

@@ -1,5 +1,6 @@
 // The script describes the dart behaviour
 
+using System.Collections;
 using UnityEngine;
 
 public class DartProjectile : Projectile
@@ -60,13 +61,22 @@ public class DartProjectile : Projectile
             else if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !popAbility)
             {
                 // Set popthrough for the initial spawned bloon
-                if (enemy.GetComponent<BloonController>().GetPopThrough() == -1)
+                if (enemy.GetComponent<BloonController>().GetPopThrough() == -1) {
                     enemy.GetComponent<BloonController>().SetIsPopThrough(_damage); // define the damage
+                }
 
                 if (enemy.GetComponent<BloonController>().GetPopThrough() != 0)
                 {
                     Destroy(enemy);
+
+                    if (gameObject.activeSelf)
+                    {
+                        StartCoroutine(WaitBeforeFurtherAttack());
+                        GetComponent<BoxCollider2D>().enabled = true;
+                    }
+
                     _bloonsPierced++;
+                    enemy.GetComponent<BloonController>().SetIsPopThrough(-1);
                     //Debug.Log("Destroyed enemy: " + enemy.name + ": " + enemy.GetComponent<BloonController>().GetPopThrough());
                 }
                 else
@@ -93,6 +103,12 @@ public class DartProjectile : Projectile
                 ProjectileReset();
             }
         }
+    }
+
+    private IEnumerator WaitBeforeFurtherAttack()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+        yield return null;
     }
 
     private int BloonsPoppedAmount(Transform enemy)

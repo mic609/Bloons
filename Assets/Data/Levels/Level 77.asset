@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Level 77
   m_EditorClassIdentifier: 
   levelNumber: 77
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 176 coins awarded. Third time's the charm
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 471376acce418af4ca73a7a2c31f2ad3, type: 3}
-    timeBetweenSpawn: 0.5
+    timeBetweenSpawn: 1.5
     spawnCount: 11
     timeEndEvent: 3
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 895e9e6ea191d3244a5d72aef0a5cfda, type: 3}
-    timeBetweenSpawn: 1
+    timeBetweenSpawn: 3
     spawnCount: 5
     timeEndEvent: 0

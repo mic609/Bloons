@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 39
   m_EditorClassIdentifier: 
   levelNumber: 39
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 138 coins awarded. Beware MOAB. It is a heavy blimp containg
+    4 ceramic bloons with a shield that requires 200 hits to pop
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 88e44e133a5ded449b48052d6b6f7eff, type: 3}
     timeBetweenSpawn: 0.3

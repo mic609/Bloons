@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -18,12 +19,15 @@ public class Level : MonoBehaviour
     private int _numberOfBloons; // current number of bloons on map
     private bool _levelIsFinished;
 
+    [Header("YouWonScreen")]
+    [SerializeField] private GameObject _youWonScreen;
+
     [Header("Level messages")]
     [SerializeField] private GameObject _messageField;
 
     // Points on the path
     [Header("Path")]
-    [SerializeField] private Transform[] _points;
+    [SerializeField] private GameObject[] _points;
     private static float _pathLength; // it is the global variable
 
     private void Awake()
@@ -79,6 +83,28 @@ public class Level : MonoBehaviour
         _messageField.GetComponent<MessageField>().ActivateMessage("LevelEnd");
         PlayerStats.Instance.CashAtTheEndOfTheLevel();
         _levelIsFinished = true;
+
+        switch (PlayerStats.Instance.GetLevelDifficulty().numberOfLevels)
+        {
+            case 40:
+                if (_currentLevelIndex >= 40)
+                {
+                    _youWonScreen.SetActive(true);
+                }
+                break;
+            case 60:
+                if (_currentLevelIndex >= 60)
+                {
+                    _youWonScreen.SetActive(true);
+                }
+                break;
+            case 80:
+                if (_currentLevelIndex >= 80)
+                {
+                    _youWonScreen.SetActive(true);
+                }
+                break;
+        }
     }
 
     private void CalculatePathLength()
@@ -88,13 +114,13 @@ public class Level : MonoBehaviour
         {
             if (firstCycle)
             {
-                _pathLength += Vector3.Distance(_whereToSpawn.position, _points[i].position);
+                _pathLength += Vector3.Distance(_whereToSpawn.position, _points[i].transform.position);
                 firstCycle = false;
                 i--;
             }
             else
             {
-                _pathLength += Vector3.Distance(_points[i].position, _points[i + 1].position);
+                _pathLength += Vector3.Distance(_points[i].transform.position, _points[i + 1].transform.position);
             }
         }
     }
@@ -132,7 +158,7 @@ public class Level : MonoBehaviour
         return _currentLevel;
     }
 
-    public Transform[] GetPoints()
+    public GameObject[] GetPoints()
     {
         return _points;
     }

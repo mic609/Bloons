@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 14
   m_EditorClassIdentifier: 
   levelNumber: 14
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 113 coins awarded. Beware pink bloons. They are also super fast
+    and contain yellow bloon
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
     timeBetweenSpawn: 0.6

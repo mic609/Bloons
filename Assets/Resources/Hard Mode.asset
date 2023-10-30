@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f60e1ccce9b68942a4128b651386612, type: 3}
+  m_Name: Hard Mode
+  m_EditorClassIdentifier: 
+  moneyAtTheBeginning: 650
+  numberOfLevels: 80
+  upgradeCost: 0.08
+  numberOfLifes: 100
+  bloonSpeedIncrease: 8.75
+  difficultyDescription: On hard mode tower and upgrade costs are increased by 8%,
+    you have 100 starting lives. Pass 80 rounds to achieve gold medal on this map

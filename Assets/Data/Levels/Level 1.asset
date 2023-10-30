@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   levelNumber: 1
-  levelDescription: Easy Peasy.
+  levelDescription: 100 coins awarded. Red bloon needs 1 projectile to be destroyed
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
     timeBetweenSpawn: 1.5

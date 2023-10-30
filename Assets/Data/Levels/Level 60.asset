@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Level 60
   m_EditorClassIdentifier: 
   levelNumber: 60
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 159 coins awarded.  Congratulations for beating medium mode!
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 895e9e6ea191d3244a5d72aef0a5cfda, type: 3}
     timeBetweenSpawn: 1

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6582bf67284bac84aac1eb44b791c491, type: 3}
   m_Name: MonkeyAceUp4
   m_EditorClassIdentifier: 
-  upgradeNumber: 3
-  upgradeCost: 11250
+  upgradeNumber: 4
+  upgradeCost: 41000
   upgradeDescription: Shoots even more darts with super speed!
   delay: 0.3
   radius: 0
   cannotPopLead: 0
-  upgradeSprite: {fileID: 0}
+  upgradeSprite: {fileID: 21300000, guid: cde880422ef43414290997918cc46d2c, type: 3}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 2

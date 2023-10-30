@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TowerRotation : MonoBehaviour
 {
-    private float _rotationSpeed = 5f;
-
     public void Rotate(Transform enemy)
     {
         var dir = enemy.transform.position - transform.position;

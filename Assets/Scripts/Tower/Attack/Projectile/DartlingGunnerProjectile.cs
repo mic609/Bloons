@@ -84,6 +84,7 @@ public class DartlingGunnerProjectile : Projectile
                 {
                     Destroy(enemy);
                     _bloonsPierced++;
+                    enemy.GetComponent<BloonController>().SetIsPopThrough(-1);
                     //Debug.Log("Destroyed enemy: " + enemy.name + ": " + enemy.GetComponent<BloonController>().GetPopThrough());
                 }
                 else

@@ -75,9 +75,10 @@ public class ManageTower : MonoBehaviour
             else
             {
                 var levelDifficulty = PlayerStats.Instance.GetLevelDifficulty();
-                _upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text =
-                    _upgrades[_upgradeIndex].upgradeDescription + " (" + _upgrades[_upgradeIndex].upgradeNumber + "): "
-                    + Mathf.RoundToInt(_upgrades[_upgradeIndex].upgradeCost + _upgrades[_upgradeIndex].upgradeCost * levelDifficulty.upgradeCost) + "$"; ;
+                _upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = " (" + _upgrades[_upgradeIndex].upgradeNumber + ") " +
+                    Mathf.RoundToInt(_upgrades[_upgradeIndex].upgradeCost +
+                    _upgrades[_upgradeIndex].upgradeCost * levelDifficulty.upgradeCost) + "$" + ":\n" +
+                    _upgrades[_upgradeIndex].upgradeDescription;
             }
             
             _sellText.text = "Sell for: " + _moneyToAdd.ToString();
@@ -156,7 +157,12 @@ public class ManageTower : MonoBehaviour
 
                 // upgrade tower data
                 towerToUpgrade.GetComponent<TowerAttack>().SetDelay(upgrade.delay);
-                //towerToUpgrade.GetComponentInChildren<SpriteRenderer>().sprite = upgrade.upgradeSprite;
+
+                if(towerToUpgrade.GetComponent<MonkeyAceAttack>() != null)
+                    towerToUpgrade.transform.Find("MonkeyAceSprite").GetComponent<SpriteRenderer>().sprite = upgrade.upgradeSprite;
+                else
+                    towerToUpgrade.GetComponentInChildren<SpriteRenderer>().sprite = upgrade.upgradeSprite;
+
                 if (towerToUpgrade.GetComponent<RangeCollider>() != null)
                     towerToUpgrade.GetComponent<RangeCollider>().SetRadius(upgrade.radius);
                 towerToUpgrade.GetComponent<TowerAttack>().SetDamage(upgrade.damage);
@@ -176,7 +182,7 @@ public class ManageTower : MonoBehaviour
                 {
                     upgrade = towerToUpgrade.GetComponent<ManageTower>()._upgrades[towerToUpgrade.GetComponent<ManageTower>()._upgradeIndex];
                     towerToUpgrade.GetComponent<ManageTower>()._upgradeButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text
-                        = upgrade.upgradeDescription + " (" + upgrade.upgradeNumber + "): " + Mathf.RoundToInt(upgrade.upgradeCost + upgrade.upgradeCost * levelDifficulty.upgradeCost) + "$";
+                        = " (" + upgrade.upgradeNumber + ") " + Mathf.RoundToInt(upgrade.upgradeCost + upgrade.upgradeCost * levelDifficulty.upgradeCost) + "$" + ":\n" + upgrade.upgradeDescription;
                 }
 
                 SoundManager.Instance.PlaySound(_upgradeTowerSound);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpikeFactoryProjectile : Projectile
 {
@@ -49,7 +50,7 @@ public class SpikeFactoryProjectile : Projectile
     {
         gameObject.SetActive(true);
         transform.position = _startingPosition;
-        _target = target;
+        //_target = target;
         _shootingDirection = direction;
     }
 
@@ -102,13 +103,13 @@ public class SpikeFactoryProjectile : Projectile
                 transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
             }
 
+            _damageDone++;
+
             if (_damageDone >= _damage)
             {
                 ChangeSprite();
                 _damageDone = 0;
             }
-            else
-                _damageDone++;
         }
     }
 
@@ -126,7 +127,14 @@ public class SpikeFactoryProjectile : Projectile
 
     protected override void Update()
     {
-        var level = GameObject.Find("Map").GetComponent<Level>();
+        Level level;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "MapFlower")
+            level = GameObject.Find("Map").GetComponent<Level>();
+        else if (currentSceneName == "MapBeach")
+            level = GameObject.Find("Map2").GetComponent<Level>();
+        else
+            level = GameObject.Find("Map").GetComponent<Level>();
 
         if (level.IsLevelFinished())
         {

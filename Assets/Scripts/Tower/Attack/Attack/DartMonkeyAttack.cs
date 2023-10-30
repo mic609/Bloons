@@ -22,7 +22,7 @@ public class DartMonkeyAttack : TowerAttack
                 _delayTimer = 0.0f;
 
                 // Animation
-                _animator.SetTrigger("Attack");
+                //_animator.SetTrigger("Attack");
             }
 
         }

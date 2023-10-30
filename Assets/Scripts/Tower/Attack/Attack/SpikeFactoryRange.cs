@@ -26,7 +26,6 @@ public class SpikeFactoryRange : RangeCollider
             // first target shoot
             if (_attackAllowed)
             {
-                //Debug.DrawLine(transform.position, transform.position + _rayDirection, Color.red, 2.0f);
                 _towerAttack.StartAttack(ChooseFirstTarget(), _rayDirection);
                 _attackAllowed = false;
             }

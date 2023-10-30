@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpikeFactoryAttack : TowerAttack
 {
@@ -8,7 +9,14 @@ public class SpikeFactoryAttack : TowerAttack
         _delayTimer += Time.deltaTime;
         if (_delayTimer >= _delay)
         {
-            var level = GameObject.Find("Map").GetComponent<Level>();
+            Level level;
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            if (currentSceneName == "MapFlower")
+                level = GameObject.Find("Map").GetComponent<Level>();
+            else if (currentSceneName == "MapBeach")
+                level = GameObject.Find("Map2").GetComponent<Level>();
+            else
+                level = GameObject.Find("Map").GetComponent<Level>();
 
             if (!level.IsLevelFinished())
             {

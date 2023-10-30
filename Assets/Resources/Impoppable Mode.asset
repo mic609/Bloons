@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f60e1ccce9b68942a4128b651386612, type: 3}
-  m_Name: Hard Mode
+  m_Name: Impoppable Mode
   m_EditorClassIdentifier: 
   moneyAtTheBeginning: 650
-  numberOfLevels: 85
-  upgradeCost: 0.08
-  numberOfLifes: 100
-  bloonSpeedIncrease: 8.75
-  difficultyDescription: On hard mode tower and upgrade costs are increased by 8%,
-    you have 100 starting lives, bloon speeds are increased by a flat 8.75. Pass
-    85 rounds to achieve gold medal on this map
+  numberOfLevels: 80
+  upgradeCost: 0.2
+  numberOfLifes: 1
+  bloonSpeedIncrease: 17.5
+  difficultyDescription: On impoppable mode, tower and upgrade costs are increased
+    by 20%, you have only 1 starting life. Pass 80 rounds to achieve platinum medal
+    on this map

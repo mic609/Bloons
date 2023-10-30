@@ -54,12 +54,12 @@ MonoBehaviour:
   _bloonHolder: {fileID: 0}
   _messageField: {fileID: 0}
   _points:
-  - {fileID: 5881182387736227846, guid: 0b0ad572eab2bff4cad5ec79180f3dfb, type: 3}
-  - {fileID: 7667275203731667417, guid: 7b9cbbbc1c2e38e43a60485efbcf7ec7, type: 3}
-  - {fileID: 6566688957604342799, guid: 20adf48190c71324b81ae1ad75bfceb9, type: 3}
-  - {fileID: 8238086350112004984, guid: 6ab107b57f445e74b949ddbecce3c1d6, type: 3}
-  - {fileID: 6921118280206369325, guid: 46b6d8034f917b14090f4cd64c702b89, type: 3}
-  - {fileID: 8379628942105539054, guid: 17a154617976f44449cac2706e8a7178, type: 3}
+  - {fileID: 5881182387736227847, guid: 0b0ad572eab2bff4cad5ec79180f3dfb, type: 3}
+  - {fileID: 7667275203731667418, guid: 7b9cbbbc1c2e38e43a60485efbcf7ec7, type: 3}
+  - {fileID: 6566688957604342798, guid: 20adf48190c71324b81ae1ad75bfceb9, type: 3}
+  - {fileID: 8238086350112004985, guid: 6ab107b57f445e74b949ddbecce3c1d6, type: 3}
+  - {fileID: 6921118280206369324, guid: 46b6d8034f917b14090f4cd64c702b89, type: 3}
+  - {fileID: 3821352979052507510, guid: 17a154617976f44449cac2706e8a7178, type: 3}
 --- !u!1 &4213543130449918926
 GameObject:
   m_ObjectHideFlags: 0

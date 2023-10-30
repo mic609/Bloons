@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: DartMonkeyUp4
   m_EditorClassIdentifier: 
   upgradeNumber: 4
-  upgradeCost: 9250
+  upgradeCost: 21000
   upgradeDescription: Hypersonic speed, deals huge damage
   delay: 0.1
   radius: 6
   cannotPopLead: 0
-  upgradeSprite: {fileID: 0}
+  upgradeSprite: {fileID: 21300000, guid: 7f6841f4cb538ab48979e19d0ccb6587, type: 3}
   projectileArea: 0
   numberOfBloonsToPop: 0
-  damage: 3
+  damage: 6
   pierce: 3
   movementSpeedDecrease: 0
   glueLastingEffect: 0

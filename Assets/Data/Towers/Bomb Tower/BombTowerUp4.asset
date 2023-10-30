@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombTowerUp4
   m_EditorClassIdentifier: 
   upgradeNumber: 4
-  upgradeCost: 6150
+  upgradeCost: 23000
   upgradeDescription: Deals heavy damage
   delay: 1
   radius: 6

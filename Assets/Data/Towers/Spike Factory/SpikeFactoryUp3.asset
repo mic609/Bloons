@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SpikeFactoryUp3
   m_EditorClassIdentifier: 
   upgradeNumber: 3
-  upgradeCost: 4350
+  upgradeCost: 1900
   upgradeDescription: Spikes are alive even longer and can deal more damage
   delay: 0.5
   radius: 3
   cannotPopLead: 0
-  upgradeSprite: {fileID: 0}
+  upgradeSprite: {fileID: 21300000, guid: 704517c4cd3586e4f9d0da34b7573b35, type: 3}
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 2

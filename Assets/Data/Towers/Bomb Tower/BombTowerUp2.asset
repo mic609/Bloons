@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombTowerUp2
   m_EditorClassIdentifier: 
   upgradeNumber: 2
-  upgradeCost: 750
+  upgradeCost: 650
   upgradeDescription: Can pop +6 additional bloons, range increased
   delay: 2.5
   radius: 4

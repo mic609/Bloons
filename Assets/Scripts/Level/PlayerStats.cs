@@ -70,7 +70,12 @@ public class PlayerStats : MonoBehaviour
         _lifesAmount = _standardStats.numberOfLifes;
         _moneyAmount = _standardStats.moneyAtTheBeginning;
         _levelNumber = 1;
-        _level = GameObject.Find("Map").GetComponent<Level>();
+
+        if(GameObject.Find("Map"))
+            _level = GameObject.Find("Map").GetComponent<Level>();
+        else if (GameObject.Find("Map2"))
+            _level = GameObject.Find("Map2").GetComponent<Level>();
+
         additionalCashPerLevel = 100;
 
         _levelText.text = _levelNumber.ToString();
@@ -124,8 +129,9 @@ public class PlayerStats : MonoBehaviour
                 difficultyMode = "Sandbox Mode";
                 break;
         }
-
-        var difficulty = AssetDatabase.LoadAssetAtPath("Assets/Data/Levels Difficulties/" + difficultyMode + ".asset", typeof(LevelDifficultyData)) as LevelDifficultyData;
+        //var difficulty = Resources.Load<LevelDifficultyData>("Assets/Data/Levels Difficulties/" + difficultyMode + ".asset");
+        var difficulty = Resources.Load<LevelDifficultyData>(difficultyMode);
+        //var difficulty = AssetDatabase.LoadAssetAtPath("Assets/Data/Levels Difficulties/" + difficultyMode + ".asset", typeof(LevelDifficultyData)) as LevelDifficultyData;
         if (difficulty != null)
         {
             _standardStats = difficulty;

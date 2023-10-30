@@ -11,6 +11,8 @@ public class ChooseMap : MonoBehaviour
     [SerializeField] private string _sceneName;
     private Transform _chooseDifficultyScreen;
     private ExitButton _exitButton;
+    private GameObject _map;
+    private int _click = 0;
 
     public void ClickOnMap()
     {
@@ -18,7 +20,22 @@ public class ChooseMap : MonoBehaviour
         _exitButton = FindObjectOfType<ExitButton>();
         _chooseDifficultyScreen = transform.Find("ChooseLevelDifficulty");
 
-        if(_exitButton != null)
+        if (gameObject.name == "MapBeach")
+        {
+            if(_click <= 0)
+                _map = GameObject.Find("MapFlowers");
+        }
+        else
+        {
+            if (_click <= 0)
+                _map = GameObject.Find("MapBeach");
+        }
+        _click++;
+
+        if (_map != null)
+            _map.SetActive(false);
+
+        if (_exitButton != null)
             _exitButton.gameObject.SetActive(false);
         
         _chooseDifficultyScreen.gameObject.SetActive(true);
@@ -56,6 +73,9 @@ public class ChooseMap : MonoBehaviour
     }
     public void Back()
     {
+        _map.gameObject.SetActive(true);
+        _click = 0;
+
         SoundManager.Instance.PlaySound(_buttonClick);
 
         if(_exitButton != null)
@@ -66,6 +86,8 @@ public class ChooseMap : MonoBehaviour
 
     public void LoadMap()
     {
+        _map.gameObject.SetActive(true);
+        _click = 0;
         SoundManager.Instance.PlaySound(_buttonClick);
         SceneManager.LoadScene(_sceneName);
     }

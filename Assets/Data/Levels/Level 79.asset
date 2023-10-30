@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Level 79
   m_EditorClassIdentifier: 
   levelNumber: 79
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 178 coins awarded. Beware ZOMG. It contains 4 BFB and requires
+    4000 hits to break its shield
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 895e9e6ea191d3244a5d72aef0a5cfda, type: 3}
-    timeBetweenSpawn: 1.2
+    timeBetweenSpawn: 2.5
     spawnCount: 2
     timeEndEvent: 0
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 787f0b377cb8ea54d9e8268061d8494d, type: 3}
@@ -25,7 +25,7 @@ MonoBehaviour:
     spawnCount: 250
     timeEndEvent: 0
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 895e9e6ea191d3244a5d72aef0a5cfda, type: 3}
-    timeBetweenSpawn: 1
+    timeBetweenSpawn: 3
     spawnCount: 2
     timeEndEvent: 0
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 787f0b377cb8ea54d9e8268061d8494d, type: 3}
@@ -33,6 +33,6 @@ MonoBehaviour:
     spawnCount: 250
     timeEndEvent: 0
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 895e9e6ea191d3244a5d72aef0a5cfda, type: 3}
-    timeBetweenSpawn: 0.8
+    timeBetweenSpawn: 2.5
     spawnCount: 2
     timeEndEvent: 0

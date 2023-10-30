@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 19
   m_EditorClassIdentifier: 
   levelNumber: 19
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 118 coins awarded. Beware black bloons. They are immune to bombs
+    and contain two pink bloons
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 77e63503e6cd7ba439d629f104f8a9b0, type: 3}
     timeBetweenSpawn: 0.4

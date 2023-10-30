@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombTowerUp1
   m_EditorClassIdentifier: 
   upgradeNumber: 1
-  upgradeCost: 560
+  upgradeCost: 460
   upgradeDescription: Bigger Bombs- projectile area is bigger, attack speed increased
   delay: 2.5
   radius: 3.5

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Level 5
   m_EditorClassIdentifier: 
   levelNumber: 5
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 104 coins awarded. Beware green bloons that contain blue bloon
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
     timeBetweenSpawn: 0.5

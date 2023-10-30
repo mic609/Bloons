@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   levelNumber: 2
-  levelDescription: Have fun unlocking and discovering what all the new tower upgrades
-    do.
+  levelDescription: 101 coins awarded. Beware blue bloons that contain one red bloon
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 711ef1b7b5c163e438f0551663415f91, type: 3}
     timeBetweenSpawn: 0.9

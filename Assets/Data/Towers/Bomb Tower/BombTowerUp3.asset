@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombTowerUp3
   m_EditorClassIdentifier: 
   upgradeNumber: 3
-  upgradeCost: 1450
+  upgradeCost: 2150
   upgradeDescription: Attack speed increased and bombs are even bigger and stronger!
   delay: 1.5
   radius: 4

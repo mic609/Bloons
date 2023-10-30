@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 37
   m_EditorClassIdentifier: 
   levelNumber: 37
-  levelDescription: Besides having more layers, the different colored bloons also
-    move faster.
+  levelDescription: 136 coins awarded. Beware ceramic bloons. They contain two rainbow
+    bloons. Additionally they have a shield that requires 10 hits to pop
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 88e44e133a5ded449b48052d6b6f7eff, type: 3}
     timeBetweenSpawn: 0.4
