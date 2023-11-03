@@ -68,10 +68,10 @@ public class BloonEffects : MonoBehaviour
                 var hitsLeft = gameObject.GetComponent<BloonController>().LayerDestroyed();
 
                 if (hitsLeft == 0)
-                    Invoke("PopBloonsWithGlue", _poppingSpeed);
+                    Invoke(nameof(PopBloonsWithGlue), _poppingSpeed);
             }
             else
-                Invoke("PopBloonsWithGlue", _poppingSpeed);
+                Invoke(nameof(PopBloonsWithGlue), _poppingSpeed);
         }
     }
 

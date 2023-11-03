@@ -196,6 +196,8 @@ public class ManageTower : MonoBehaviour
 
     public void BloonsPoppedUp(int bloonsAmount)
     {
+        // for every bloon popped the money amount increases
+        PlayerStats.Instance.AddMoneyForBloonPop();
         _bloonsPoppedInt += bloonsAmount;
     }
 

@@ -64,7 +64,9 @@ public class Projectile : MonoBehaviour
     {
         _currentDistance = 0f;
         transform.position = _startingPosition;
-        gameObject.SetActive(false);
+
+        if(gameObject.activeSelf)
+            gameObject.SetActive(false);
     }
 
     public virtual void UpgradeBullet(UpgradeData _upgrade)

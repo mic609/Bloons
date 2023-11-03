@@ -94,13 +94,18 @@ public class SpikeFactoryProjectile : Projectile
             // If the bloon is lead, play lead sound, otherwise play normal sound
             SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(popAbility));
 
+            var bloonsPopped = BloonsPoppedAmount(enemy.transform);
+
             // Dart needs to destroy the whole shield and the bloon is not a lead bloon
             if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !popAbility)
             {
-                Destroy(enemy);
-
-                // Add statistics for the tower
-                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(_damage);
+                if (enemy.GetComponent<BloonController>().GetPopThrough() <= -1)
+                {
+                    enemy.GetComponent<BloonController>().SetIsPopThrough(_damage); // define the damage
+                    
+                    // Add statistics for the tower
+                    transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
+                }
             }
 
             _damageDone++;
@@ -111,6 +116,15 @@ public class SpikeFactoryProjectile : Projectile
                 _damageDone = 0;
             }
         }
+    }
+
+    private int BloonsPoppedAmount(Transform enemy)
+    {
+        var bloonRbe = enemy.gameObject.GetComponent<BloonController>().GetRbe();
+        if (bloonRbe < _damage)
+            return bloonRbe;
+        else
+            return _damage;
     }
 
     private Vector2[] GetColliderPoints(BoxCollider2D boxCollider)

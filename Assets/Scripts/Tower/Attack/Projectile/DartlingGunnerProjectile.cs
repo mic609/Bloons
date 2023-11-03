@@ -77,21 +77,14 @@ public class DartlingGunnerProjectile : Projectile
             else if (enemy.GetComponent<BloonController>().LayerDestroyed() >= 0 && !popAbility)
             {
                 // Set popthrough for the initial spawned bloon
-                if (enemy.GetComponent<BloonController>().GetPopThrough() == -1)
-                    enemy.GetComponent<BloonController>().SetIsPopThrough(_damage); // define the damage
-
-                if (enemy.GetComponent<BloonController>().GetPopThrough() != 0)
+                if (enemy.GetComponent<BloonController>().GetPopThrough() <= -1)
                 {
-                    Destroy(enemy);
-                    _bloonsPierced++;
-                    enemy.GetComponent<BloonController>().SetIsPopThrough(-1);
-                    //Debug.Log("Destroyed enemy: " + enemy.name + ": " + enemy.GetComponent<BloonController>().GetPopThrough());
+                    enemy.GetComponent<BloonController>().SetIsPopThrough(_damage); // define the damage
+                    // Add statistics for the tower
+                    transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
                 }
-                else
-                    enemy.GetComponent<BloonController>().SetIsPopThrough(-1);
 
-                // Add statistics for the tower
-                transform.parent.parent.gameObject.GetComponent<ManageTower>().BloonsPoppedUp(bloonsPopped);
+                _bloonsPierced++;
             }
 
             if (popAbility)
@@ -102,8 +95,7 @@ public class DartlingGunnerProjectile : Projectile
             {
                 ProjectileReset();
             }
-            else if (_bloonsPierced >= _pierce && (enemy.GetComponent<BloonController>().GetPopThrough() == -1 || enemy.name == "Red Bloon(Clone)"
-                || _damage == enemy.GetComponent<BloonController>().GetRbe()))
+            else if (_bloonsPierced >= _pierce)
             {
                 // Make the Projectile disappear
                 ProjectileReset();

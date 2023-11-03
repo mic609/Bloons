@@ -46,7 +46,7 @@ public class BloonController : MonoBehaviour
     private static bool _isChangingScene = false;
 
     // Info from other towers
-    private int _popThrough; // If this variable is greater than zero bloon needs to be destroyed
+    [SerializeField] private int _popThrough; // If this variable is greater than zero bloon needs to be destroyed
     private bool _isDestroyed; // Is bloon being destroyed right now?
 
     private void Awake()
@@ -82,10 +82,11 @@ public class BloonController : MonoBehaviour
         // Destroy the bloon if the projectile has more than 1 point damage
         if (!_isDestroyed && _popThrough > 0)
         {
+            Debug.Log("Destroying");
             Destroy(gameObject);
         }
-
-        if (_popThrough == 0)
+        
+        if(_popThrough == 0)
             _popThrough = -1;
     }
 
@@ -108,9 +109,6 @@ public class BloonController : MonoBehaviour
                     _popThrough--;
                     SpawnWeakerLayer();
                 }
-
-                // for every bloon popped the money amount increases
-                PlayerStats.Instance.AddMoneyForBloonPop();
             }
         }
     }

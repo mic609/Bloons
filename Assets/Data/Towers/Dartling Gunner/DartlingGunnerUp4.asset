@@ -22,7 +22,7 @@ MonoBehaviour:
   projectileArea: 0
   numberOfBloonsToPop: 0
   damage: 10
-  pierce: 10
+  pierce: 3
   movementSpeedDecrease: 0
   glueLastingEffect: 0
   layersAffected: 0

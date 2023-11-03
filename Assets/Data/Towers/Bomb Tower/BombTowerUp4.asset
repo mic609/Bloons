@@ -20,7 +20,7 @@ MonoBehaviour:
   cannotPopLead: 0
   upgradeSprite: {fileID: 21300000, guid: 3ccb2e59dcf533742bc01e2eb1a92bdf, type: 3}
   projectileArea: 8
-  numberOfBloonsToPop: 18
+  numberOfBloonsToPop: 24
   damage: 5
   pierce: 1
   movementSpeedDecrease: 0

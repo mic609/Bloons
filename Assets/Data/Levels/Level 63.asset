@@ -20,7 +20,7 @@ MonoBehaviour:
     spawnCount: 5
     timeEndEvent: 1
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 58e2fa8b3f7ce28418b69ad0af7292e3, type: 3}
-    timeBetweenSpawn: 0.09
+    timeBetweenSpawn: 0.4
     spawnCount: 40
     timeEndEvent: 3
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 8a3e17f0f3a9d344b853e7606c0f7d9a, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
     spawnCount: 35
     timeEndEvent: 1
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 58e2fa8b3f7ce28418b69ad0af7292e3, type: 3}
-    timeBetweenSpawn: 0.09
+    timeBetweenSpawn: 0.4
     spawnCount: 40
     timeEndEvent: 3
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 8a3e17f0f3a9d344b853e7606c0f7d9a, type: 3}
@@ -36,6 +36,6 @@ MonoBehaviour:
     spawnCount: 35
     timeEndEvent: 1
   - enemyToSpawn: {fileID: 8229490488641719920, guid: 58e2fa8b3f7ce28418b69ad0af7292e3, type: 3}
-    timeBetweenSpawn: 0.09
+    timeBetweenSpawn: 0.4
     spawnCount: 42
     timeEndEvent: 0

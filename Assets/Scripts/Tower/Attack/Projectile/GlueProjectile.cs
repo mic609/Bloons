@@ -29,51 +29,55 @@ public class GlueProjectile : Projectile
 
             // Glue can affect lead
             // SoundManager.Instance.PlaySound(enemy.GetComponent<BloonController>().GetPopSound(false));
-
-            // Find all of the bloons in the explosion area
-            var colliders = Physics2D.OverlapCircleAll(gameObject.transform.position, _areaDiameter / 2, _layerMask);
-
-            // Add found objects to the list
-            var bloonsToBeGlued = new List<GameObject>();
-            foreach (var col in colliders)
-            {
-                bloonsToBeGlued.Add(col.gameObject);
-            }
-
-            //SoundManager.Instance.PlaySound(_bombSound);
-
-            var firstBloonToBeGlued = ChooseFirstTargetForArea(bloonsToBeGlued);
-            if(firstBloonToBeGlued != null && firstBloonToBeGlued.GetComponent<BloonEffects>() != null)
-            {
-                firstBloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
-                firstBloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
-            }
-
-            // Glue all of the bloons in the area
-            for (int i = 0; i < _numberOfBloonsToPop - 1; i++)
-            {
-                if (bloonsToBeGlued.Count == 0)
-                    break;
-
-                if(!(bloonsToBeGlued.Count <= 1))
-                {
-                    var index = Random.Range(0, bloonsToBeGlued.Count);
-                    var bloonToBeGlued = bloonsToBeGlued[index];
-
-                    while (bloonToBeGlued == firstBloonToBeGlued)
-                    {
-                        index = Random.Range(0, bloonsToBeGlued.Count);
-                        bloonToBeGlued = bloonsToBeGlued[index];
-                    }
-
-                    bloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
-                    bloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
-                    bloonsToBeGlued.RemoveAt(index);
-                }
-            }
-
-            ProjectileReset();
+            gameObject.SetActive(false);
         }
+    }
+
+    private void OnDisable()
+    {
+        // Find all of the bloons in the explosion area
+        var colliders = Physics2D.OverlapCircleAll(gameObject.transform.position, _areaDiameter / 2, _layerMask);
+
+        // Add found objects to the list
+        var bloonsToBeGlued = new List<GameObject>();
+        foreach (var col in colliders)
+        {
+            bloonsToBeGlued.Add(col.gameObject);
+        }
+
+        //SoundManager.Instance.PlaySound(_bombSound);
+
+        var firstBloonToBeGlued = ChooseFirstTargetForArea(bloonsToBeGlued);
+        if (firstBloonToBeGlued != null && firstBloonToBeGlued.GetComponent<BloonEffects>() != null)
+        {
+            firstBloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
+            firstBloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
+        }
+
+        // Glue all of the bloons in the area
+        for (int i = 0; i < _numberOfBloonsToPop - 1; i++)
+        {
+            if (bloonsToBeGlued.Count == 0)
+                break;
+
+            if (!(bloonsToBeGlued.Count <= 1))
+            {
+                var index = Random.Range(0, bloonsToBeGlued.Count);
+                var bloonToBeGlued = bloonsToBeGlued[index];
+
+                while (bloonToBeGlued == firstBloonToBeGlued)
+                {
+                    index = Random.Range(0, bloonsToBeGlued.Count);
+                    bloonToBeGlued = bloonsToBeGlued[index];
+                }
+
+                bloonToBeGlued.GetComponent<BloonTowerReference>().SetTowerThatAttacks(transform.parent.parent.GetComponent<ManageTower>());
+                bloonToBeGlued.GetComponent<BloonEffects>().SetGlueEffect(_movementSpeedDecrease, _glueLastingEffect, _layersThrough, _poppingSpeed);
+                bloonsToBeGlued.RemoveAt(index);
+            }
+        }
+
+        ProjectileReset();
     }
 
     private GameObject ChooseFirstTargetForArea(List<GameObject> bloonsToBeGlued)
@@ -81,7 +85,7 @@ public class GlueProjectile : Projectile
         var biggestProgress = 0f;
         var currentProgress = 0f;
 
-        var targetToReturn = new GameObject();
+        GameObject targetToReturn = null;
 
         foreach(var bloon in bloonsToBeGlued)
         {

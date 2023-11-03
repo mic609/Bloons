@@ -15,7 +15,7 @@ MonoBehaviour:
   levelNumber: 34
   levelDescription: 5 bloons
   enemiesSpawnEvents:
-  - enemyToSpawn: {fileID: 8229490488641719920, guid: 9da4d535f3dad6644a9b1cd446c14021, type: 3}
-    timeBetweenSpawn: 0.6
-    spawnCount: 5
+  - enemyToSpawn: {fileID: 8229490488641719920, guid: e940013461fd9f948a9ea6847c7bb982, type: 3}
+    timeBetweenSpawn: 0.05
+    spawnCount: 60
     timeEndEvent: 0
