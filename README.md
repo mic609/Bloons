@@ -27,3 +27,5 @@
 - 3️⃣ Click "GO" to start the round!
 
 - 4️⃣ Buy and upgrade towers to survive waves of enemies.
+
+Game is available online here: https://mic1939.itch.io/bloons-thesis-edition
